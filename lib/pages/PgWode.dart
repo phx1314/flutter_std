@@ -25,14 +25,16 @@ class PgWodeState extends BaseState<PgWode> {
   void initState() {
     super.initState();
 //    PaintingBinding.instance.imageCache
-    loadUrlNs(METHOD_GetMails, null);
+    loadUrl (METHOD_GetMails, null,
+        isShow: false);
   }
 
   @override
   void disMsg(int what, data) {
     switch (what) {
       case 0:
-        loadUrlNs(METHOD_GetMails, null);
+        loadUrl (METHOD_GetMails, null,
+            isShow: false);
         break;
     }
   }

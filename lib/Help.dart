@@ -100,10 +100,14 @@ const METHOD_OAHUIFU_READ = "oa/OaMailRead/del";
 const METHOD_OAMAIL = "oa/oamail/save";
 const METHOD_UPLOAD = "core/ProcessFile/Upload"; //上传文件
 const METHOD_DELETE = "core/ProcessFile/Delete"; //删除文件
-const METHOD_UPDATE = "https://www.pgyer.com/apiv2/app/check"; //删除文件
+const method_file_upload = "file/upload";
+const method_userchat_add = "userchat/add";
+const METHOD_UPDATE = "https://www.pgyer.com/apiv2/app/check";
 
 class Help {
   static var URL = "http://192.168.0.7";
+  static var URL_JAVA = "http://192.168.0.195:8001/api";
+  static var URL_JAVA_FILE = "http://192.168.0.195:8001/api/file/download/";
   static var BASEURL = "$URL/GoldPM91_std";
   static var ImageUrl = "$BASEURL/core/main/GetHeadUrl?gid=";
   static ModelUser mModelUser;
@@ -233,6 +237,10 @@ class Help {
                 },
               )
             ]));
+  }
+
+  static closeKeyBord(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
   }
 
   static Future<Null> showMyDialog(BuildContext context, Widget mWidget) {

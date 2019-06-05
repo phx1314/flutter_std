@@ -51,7 +51,7 @@ class PgNewsSonState extends BaseState<PgNewsSon> {
   @override
   void initState() {
     super.initState();
-    loadUrlNs(METHOD_GetImageNews, null);
+    loadUrl(METHOD_GetImageNews, null, isShow: false);
     mPullListView = PullListView(
       methodName: widget.methodName,
       wantKeepAlive: false,
@@ -78,6 +78,7 @@ class PgNewsSonState extends BaseState<PgNewsSon> {
         data.add(CachedNetworkImage(
           imageUrl:
               "https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/whfpf%3D268%2C152%2C50/sign=1e121b741e3853438c9ad461f52e8248/8601a18b87d6277fb517da2026381f30e924fca5.jpg",
+          cacheManager: Help.mImageCacheManager,
           fit: BoxFit.fill,
         ));
       });

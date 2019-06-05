@@ -66,7 +66,8 @@ class PgHomeState extends BaseState<PgHome> {
         Help.sendMsg('PgPubView,ItemDialogSub', 889, visible);
       },
     );
-    loadUrlNs(METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey});
+    loadUrl (METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey},
+        isShow: false );
   }
 
   @override
@@ -102,7 +103,8 @@ class PgHomeState extends BaseState<PgHome> {
   @override
   void initState() {
     super.initState();
-    loadUrlNs(METHOD_GetWork, null);
+    loadUrl (METHOD_GetWork, null,
+        isShow: false );
     Help.addEventHandler(context, JPush());
   }
 

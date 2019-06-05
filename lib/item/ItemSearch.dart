@@ -43,7 +43,7 @@ class ItemSearchState extends BaseState<ItemSearch> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  widget.item.value == null ? '' : widget.item.value,
+                  widget.item.value ??  ''  ,
                   textAlign: TextAlign.end,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

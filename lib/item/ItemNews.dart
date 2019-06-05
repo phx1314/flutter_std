@@ -60,7 +60,7 @@ class ItemNews extends StatelessWidget {
 //                      image: DecorationImage(
 //                          image: ExactAssetImage("images/default_avatar.png"),fit: BoxFit.fill)
 //                  ),
-                child: CachedNetworkImage(imageUrl:"https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202",
+                child: CachedNetworkImage(imageUrl:"https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202", cacheManager: Help.mImageCacheManager,
 //                      Config.image_star + item.NewsImage,
                     width: ScreenUtil.getScaleW(context,165),
                     height: double.infinity,

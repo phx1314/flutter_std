@@ -76,7 +76,7 @@ class ItemXmxxdjState extends BaseState<ItemXmxxdj> {
 //              _changeOpacity(bool);
             },
             children:
-                widget.item.mWidgets_son == null ? <Widget>[] : widget.item.mWidgets_son),
+                widget.item.mWidgets_son ??<Widget>[] ),
       ],
     );
   }

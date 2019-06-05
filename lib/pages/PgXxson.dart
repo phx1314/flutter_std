@@ -25,9 +25,12 @@ class PgXxsonState extends BaseState<PgXxson>
 
   @override
   void loadData() {
-    loadUrlNs(METHOD_OANOTICE, null);
-    loadUrlNs(METHOD_GetMessages, null);
-    loadUrlNs(METHOD_GETLIST, {"status": "0"});
+    loadUrl (METHOD_OANOTICE, null,
+        isShow: false);
+    loadUrl (METHOD_GetMessages, null,
+        isShow: false);
+    loadUrl (METHOD_GETLIST, {"status": "0"},
+        isShow: false);
   }
 
   @override

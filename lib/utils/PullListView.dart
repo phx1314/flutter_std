@@ -126,8 +126,9 @@ class PullListViewState extends BaseState<PullListView>
     widget.isLoading = true;
     if (isShow) reLoad();
     widget.biaoShi != null
-        ? loadNs(widget.methodName, widget.biaoShi, widget.other)
-        : loadUrlNs(widget.methodName, widget.other);
+        ? loadUrl(widget.methodName, widget.other,
+            isShow: false, biaoshi: widget.biaoShi)
+        : loadUrl(widget.methodName, widget.other, isShow: false);
   }
 
   Future<Null> _onHeaderRefresh() async {
@@ -141,8 +142,13 @@ class PullListViewState extends BaseState<PullListView>
     await Future.delayed(Duration(seconds: 1), () {
       print("加载更多");
       widget.biaoShi != null
-          ? loadNs(widget.methodName, widget.biaoShi, widget.other)
-          : loadUrlNs(widget.methodName, widget.other);
+          ? loadUrl(
+              widget.methodName,
+              widget.other,
+              isShow: false,
+              biaoshi: widget.biaoShi,
+            )
+          : loadUrl(widget.methodName, widget.other, isShow: false);
       widget.isLoading = true;
     });
   }

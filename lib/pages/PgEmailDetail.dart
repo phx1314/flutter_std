@@ -40,13 +40,14 @@ class PgEmailDetailState extends BaseState<PgEmailDetail> {
   void loadData() {
     loadUrl(METHOD_OAMAILDETAIL,
         {"Id": widget.id, "ReceiveFlag": widget.type == 1 ? "1" : "0"});
-    loadNs(
+    loadUrl(
         METHOD_UpdateReadByIds +
             widget.id +
             "_" +
             Help.mModelUser.UserInfo.EmpID.toString(),
-        METHOD_UpdateReadByIds,
-        null);
+        null,
+        isShow: false,
+        biaoshi: METHOD_UpdateReadByIds);
   }
 
   void deleteOmail(String id, String ischedi) {
@@ -119,10 +120,12 @@ class PgEmailDetailState extends BaseState<PgEmailDetail> {
                   } else if (v == '彻底删除') {
                     deleteOmail(widget.id, "true");
                   } else if (v == '恢复') {
-                    loadUrlNs(METHOD_OAHUIFU_READ,
-                        {"id": widget.id, "IsResum": "true"});
-                    loadUrlNs(
-                        METHOD_OAHUIFU, {"id": widget.id, "IsResum": "true"});
+                    loadUrl(METHOD_OAHUIFU_READ,
+                        {"id": widget.id, "IsResum": "true"},
+                        isShow: false);
+                    loadUrl(
+                        METHOD_OAHUIFU, {"id": widget.id, "IsResum": "true"},
+                        isShow: false);
                   }
                 },
                 left: 1,

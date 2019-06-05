@@ -132,7 +132,7 @@ class ItemGzjdState extends BaseState<ItemGzjd> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        widget.item.ExeNote == null ? '' : widget.item.ExeNote,
+                        widget.item.ExeNote?? ''  ,
                         style: Style.text_style_13_gray,
                       ),
                     ),

@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_luban/flutter_luban.dart';
 import 'package:flutter_std/Help.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class TakePhoto extends StatefulWidget {
   MethodCallBack mMethodCallBack;
@@ -42,7 +44,8 @@ class TakePhotoState extends BaseState<TakePhoto> {
                         child: InkWell(
                           onTap: _takePhoto,
                           child: Container(
-                            padding: EdgeInsets.all(ScreenUtil.getScaleW(context,15)),
+                            padding: EdgeInsets.all(
+                                ScreenUtil.getScaleW(context, 15)),
                             width: double.infinity,
                             child: Text(
                               '拍照',
@@ -59,7 +62,8 @@ class TakePhotoState extends BaseState<TakePhoto> {
                         child: InkWell(
                           onTap: _openGallery,
                           child: Container(
-                            padding: EdgeInsets.all(ScreenUtil.getScaleW(context,15)),
+                            padding: EdgeInsets.all(
+                                ScreenUtil.getScaleW(context, 15)),
                             width: double.infinity,
                             child: Text(
                               '从手机相册选择',
@@ -70,14 +74,15 @@ class TakePhotoState extends BaseState<TakePhoto> {
                         )),
                     Container(
                       color: Color(0x66000000),
-                      height: ScreenUtil.getScaleW(context,15),
+                      height: ScreenUtil.getScaleW(context, 15),
                     ),
                     Material(
                       color: Colors.white,
                       child: InkWell(
                         onTap: () => finish(),
                         child: Container(
-                          padding: EdgeInsets.all(ScreenUtil.getScaleW(context,15)),
+                          padding:
+                              EdgeInsets.all(ScreenUtil.getScaleW(context, 15)),
                           width: double.infinity,
                           child: Text(
                             '取消',
@@ -104,15 +109,28 @@ class TakePhotoState extends BaseState<TakePhoto> {
 
 /*拍照*/
   _takePhoto() async {
-    File image = await ImagePicker.pickImage(source: ImageSource.camera,maxWidth:400,maxHeight:400);
-    widget.mMethodCallBack(image);
-    finish();
+    File imageFile = await ImagePicker.pickImage(
+        source: ImageSource.camera, maxWidth: 600, maxHeight: 800);
+    _size2Small(imageFile);
   }
 
   /*相册*/
   _openGallery() async {
-    File image = await ImagePicker.pickImage(source: ImageSource.gallery,maxWidth:400,maxHeight:400);
-    widget.mMethodCallBack(image);
+    File imageFile = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxWidth: 600, maxHeight: 800);
+    _size2Small(imageFile);
+  }
+
+  _size2Small(imageFile) async {
+    Help.showLoadingDialog(context);
+    var directory = await getTemporaryDirectory();
+    String path = await Luban.compressImage(CompressObject(
+        imageFile: imageFile,
+        path: directory.path,
+        mode: CompressMode.LARGE2SMALL,
+        step: 10));
     finish();
+    finish();
+    widget.mMethodCallBack(new File(path));
   }
 }

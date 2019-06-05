@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
@@ -23,13 +24,9 @@ class HttpManager {
   ///[ params] 请求参数
   ///[ header] 外加头
   ///[ option] 配置
-  static void netFetch(
-      BuildContext context,
-      url,
-      params,
+  static void netFetch(BuildContext context, url, params,
       HttpResponseListener mHttpResponseListener,
-      bool isShow,
-      methodName) async {
+      {hasFile, isShow, methodName}) async {
     try {
       var connectivityResult = await (new Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.none) {
@@ -40,16 +37,16 @@ class HttpManager {
       }
 
       Dio dio = new Dio();
-      if (isShow&&context!=null) Help.showLoadingDialog(context);
+      if (isShow && context != null) Help.showLoadingDialog(context);
       Response response = await dio.post(
         url,
-        data: FormData.from(params == null ? {} : params),
+        data: hasFile ? FormData.from(params ?? {}) : params ?? {},
         options:
             Options(headers: {"cookie": Help.cookie}, connectTimeout: 5000),
       );
       print(
           '请求url: $url请求参数:${params != null ? params.toString() : ''}返回参数:${response != null ? response.toString() : ''}');
-      if (isShow&&context!=null) Navigator.pop(context);
+      if (isShow && context != null) Navigator.pop(context);
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (!(response.data is Map)) {
           response.data = json.decode(response.toString());
@@ -77,7 +74,7 @@ class HttpManager {
         Fluttertoast.showToast(msg: "请求失败");
       }
     } on DioError catch (e) {
-      if (isShow&&context!=null) Navigator.pop(context);
+      if (isShow && context != null) Navigator.pop(context);
       Response errorResponse;
       if (e.response != null) {
         errorResponse = e.response;
@@ -89,7 +86,7 @@ class HttpManager {
       }
       if (DEBUG) {
         print('请求异常: ' + e.toString());
-        print('请求异常url: $url请求参数:${params != null ? params.toString() : ''}'    );
+        print('请求异常url: $url请求参数:${params != null ? params.toString() : ''}');
       }
       mHttpResponseListener.onFailure(
           url,
@@ -113,7 +110,7 @@ class HttpManager {
       }
       print('请求url: ' + url);
       Dio dio = new Dio();
-      if (isShow&&context!=null) Help.showLoadingDialog(context);
+      if (isShow && context != null) Help.showLoadingDialog(context);
       Response response = await dio.download(
         url,
         savePath,
@@ -124,7 +121,7 @@ class HttpManager {
       if (response != null) {
         print('返回参数: ' + response.toString());
       }
-      if (isShow&&context!=null) Navigator.pop(context);
+      if (isShow && context != null) Navigator.pop(context);
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (!(response.data is Map) && response is String) {
           response.data = json.decode(response.toString());
@@ -147,7 +144,7 @@ class HttpManager {
         Fluttertoast.showToast(msg: "请求失败");
       }
     } on DioError catch (e) {
-      if (isShow&&context!=null) Navigator.pop(context);
+      if (isShow && context != null) Navigator.pop(context);
       Response errorResponse;
       if (e.response != null) {
         errorResponse = e.response;

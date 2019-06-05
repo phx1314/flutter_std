@@ -47,22 +47,9 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
     return null;
   }
 
-  loadUrl(String methodName, Map<String, dynamic> other) async {
-    await HttpManager.netFetch(
-        context, methodName, other, this, true, methodName);
-  }
-
-  loadUrlNs(String methodName, Map<String, dynamic> other) async {
-    await HttpManager.netFetch(
-        context, methodName, other, this, false, methodName);
-  }
-
-  load(String methodName, String biaoshi, Map<String, dynamic> other) async {
-    await HttpManager.netFetch(context, methodName, other, this, true, biaoshi);
-  }
-
-  loadNs(String methodName, String biaoshi, Map<String, dynamic> other) async {
-    await HttpManager.netFetch(
-        context, methodName, other, this, false, biaoshi);
+  loadUrl(String url, Map<String, dynamic> other,
+      {hasFile = false, isShow = true, biaoshi}) async {
+    await HttpManager.netFetch(context, url, other, this,
+        hasFile: hasFile, isShow: isShow, methodName: biaoshi ?? url);
   }
 }

@@ -47,6 +47,7 @@ class PgPubViewState extends BaseState<PgPubView> {
   ModelFjList mModelFjList;
   Map<String, dynamic> map_json;
   bool isFinish = false;
+
   @override
   void disMsg(int what, data) {
     switch (what) {
@@ -449,7 +450,6 @@ class PgPubViewState extends BaseState<PgPubView> {
         style: Style.text_style_13_white,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-
       ),
     );
   }
@@ -479,8 +479,9 @@ class PgPubViewState extends BaseState<PgPubView> {
           widget.item.mModelMenuConfig.uploaders.length > 0) {
         widget.item.refTable_file =
             widget.item.mModelMenuConfig.uploaders[0].refTable;
-        loadUrlNs(METHOD_GETATTACHFILES,
-            {"refID": widget.item.Id, "refTable": widget.item.refTable_file});
+        loadUrl (METHOD_GETATTACHFILES,
+            {"refID": widget.item.Id, "refTable": widget.item.refTable_file},
+            isShow: false);
       }
     } catch (e) {
       print(e);
@@ -500,13 +501,17 @@ class PgPubViewState extends BaseState<PgPubView> {
           if (widget.item.mModelMenuConfig.flow.isShowSave) {
             addButton(mRaisedButton_zc);
           }
-          loadNs(METHOD_FLOWWIDGET, "getApi", {
-            "_refID": widget.item.Id.toString(),
-            "_refTable": widget.item.FlowRefTable,
-            "_flowNodeID": 0,
-            "_action": "load",
-            "_flowMultiSignID": 0
-          });
+          loadUrl(
+              METHOD_FLOWWIDGET,
+              {
+                "_refID": widget.item.Id.toString(),
+                "_refTable": widget.item.FlowRefTable,
+                "_flowNodeID": 0,
+                "_action": "load",
+                "_flowMultiSignID": 0
+              },
+              isShow: false,
+              biaoshi: "getApi");
         } else {
           addButton(mRaisedButton_bc);
         }

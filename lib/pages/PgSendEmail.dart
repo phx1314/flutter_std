@@ -80,8 +80,9 @@ class PgSendEmailState extends BaseState<PgSendEmail> {
       loadUrl(METHOD_OAMAILDETAIL, {"Id": widget.id, "ReceiveFlag": "0"});
     } else if (widget.id != null) {
       if (widget.type == 3) {
-        loadUrlNs(METHOD_GETATTACHFILES,
-            {"refID": widget.id, "refTable": refTable_OaMail});
+        loadUrl (METHOD_GETATTACHFILES,
+            {"refID": widget.id, "refTable": refTable_OaMail},
+            isShow: false);
       }
       loadUrl(METHOD_OAMAILDETAIL,
           {"Id": widget.id, "ReceiveFlag": "0", "type": "1"});

@@ -51,13 +51,13 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
         "name": file.path.split('/').last,
         "chunk": "0",
         "chunks": "1",
-        "refID": widget.id == null ? '0' : widget.id,
+        "refID": widget.id ?? '0'  ,
         "refTable": widget.refTable,
         "fileID": "UploadFile1",
         "parentID": "0",
         "mode": "0",
         "lastModifiedTime": Help.getCurrentTime(type: 1)
-      });
+      },hasFile: true);
     }
   }
 

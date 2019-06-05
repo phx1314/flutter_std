@@ -90,8 +90,8 @@ class PgGywmState extends BaseState<PgGywm> {
             ),
             InkWell(
               onTap: () {
-                loadUrlNs(
-                    METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey});
+                loadUrl(METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey},
+                    isShow: false);
               },
               child: Container(
                 height: ScreenUtil.getScaleH(context, 45),
@@ -129,7 +129,7 @@ class PgGywmState extends BaseState<PgGywm> {
                       style: Style.text_style_16_black,
                     )),
                     Text(
-                      udid == null ? '' : udid,
+                      udid ?? '',
                       style: Style.text_style_13_gray,
                     ),
                     Icon(Icons.chevron_right, color: Colors.grey)

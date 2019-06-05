@@ -47,8 +47,8 @@ class ItemEmailState extends BaseState<ItemEmail> {
             children: <Widget>[
               Container(
                 alignment: Alignment.center,
-                height: ScreenUtil.getScaleW(context,60),
-                width: ScreenUtil.getScaleW(context,60),
+                height: ScreenUtil.getScaleW(context, 60),
+                width: ScreenUtil.getScaleW(context, 60),
                 decoration: new BoxDecoration(
                   shape: BoxShape.circle,
                   border: new Border.all(color: Color(0xFFD6D6D6), width: 1),
@@ -72,7 +72,7 @@ class ItemEmailState extends BaseState<ItemEmail> {
                             child: Icon(
                               Icons.lens,
                               color: Colors.blue,
-                              size: ScreenUtil.getScaleW(context,10),
+                              size: ScreenUtil.getScaleW(context, 10),
                             ),
                           ),
                           visible: !widget.item.MailIsRead,
@@ -116,13 +116,14 @@ class ItemEmailState extends BaseState<ItemEmail> {
             color: Colors.green,
             icon: Icons.drafts,
             onTap: () {
-              loadNs(
+              loadUrl(
                   METHOD_UpdateReadByIds +
                       widget.item.Id.toString() +
                       "_" +
                       Help.mModelUser.UserInfo.EmpID.toString(),
-                  METHOD_UpdateReadByIds,
-                  null);
+                  null,
+                  isShow: false,
+                  biaoshi: METHOD_UpdateReadByIds);
             },
           ),
           new IconSlideAction(
