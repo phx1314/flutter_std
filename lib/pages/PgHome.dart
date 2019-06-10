@@ -105,7 +105,6 @@ class PgHomeState extends BaseState<PgHome> {
   void initState() {
     super.initState();
     loadUrl(METHOD_GetWork, null, isShow: false);
-    Help.addEventHandler(context, JPush());
   }
 
   @override

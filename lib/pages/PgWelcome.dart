@@ -38,14 +38,14 @@ class _PgWelcomeState extends BaseState<PgWelcome> {
   @override
   void initState() {
     super.initState();
+    Help.addEventHandler(context, JPush());
+    jPush.applyPushAuthority(
+        new NotificationSettingsIOS(sound: true, alert: true, badge: true));
     jPush.setup(
         appKey: "6a30d2dbe744a2281cb285ce",
         channel: "developer-default",
         debug: true,
         production: false);
-//    Timer timer = new Timer(new Duration(seconds: 10), () {
-//
-//    });
     new Future.delayed(const Duration(seconds: 2), () {
       Help.init().then((res) {
         if (Help.ISFIRST == null) {
@@ -65,19 +65,21 @@ class _PgWelcomeState extends BaseState<PgWelcome> {
   }
 
   setPushTag(JPush mJPush) {
-//    Help.pushReplacementNamed(context, PgHome.sName);
-    mJPush
-        .setAlias(
-            JPush_Alias_BeginWith + Help.mModelUser.UserInfo.EmpID.toString())
-        .then((v) {
-      print(v.toString());
-      List<String> tags = List<String>();
-      tags.add(JPush_Alias_BeginWith);
-      mJPush.setTags(tags).then((v) {
+//    mJPush.getRegistrationID().then((rid) {
+//      Help.pushReplacementNamed(context, PgHome.sName);
+      mJPush
+          .setAlias(
+              JPush_Alias_BeginWith + Help.mModelUser.UserInfo.EmpID.toString())
+          .then((v) {
         print(v.toString());
-        Help.pushReplacementNamed(context, PgHome.sName);
+        List<String> tags = List<String>();
+        tags.add(JPush_Alias_BeginWith);
+        mJPush.setTags(tags).then((v) {
+          print(v.toString());
+          Help.pushReplacementNamed(context, PgHome.sName);
+        });
       });
-    });
+//    });
   }
 
   @override

@@ -57,8 +57,8 @@ dev_dependencies:
       git: https://github.com/LiuC520/flutter_bottom_tab_bar.git
   flutter_webview_plugin:
       git: https://github.com/phx1314/flutter_webview_plugin-0.3.5.git
-  amap_base:
-      git: https://github.com/phx1314/ama_plugin.git
+#  amap_base:
+#      git: https://github.com/phx1314/ama_plugin.git
 
 flutter:
 

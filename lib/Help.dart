@@ -207,7 +207,7 @@ class Help {
         return map[match.group(0).substring(2, match.group(0).length - 1)]
             .toString();
       });
-//      RegExp mRegExp = new RegExp("#\\{([^}]*)\\}");
+//      RegExp megExp = new RegExp("#\\{([^}]*)\\}");
 //      Iterable<Match> mmRegExps = mRegExp.allMatches(data);
 //      for (Match m in mmRegExps) {
 //        String match = m.group(0);
