@@ -1,4 +1,4 @@
-import 'package:flutter_std/model/ModelMenuConfig.dart';
+import 'ModelMenuConfig.dart';
 
 class ModelWork {
   List<ModelWorkBean> rows;
@@ -86,3 +86,4 @@ class ModelWorkBean {
     return data;
   }
 }
+

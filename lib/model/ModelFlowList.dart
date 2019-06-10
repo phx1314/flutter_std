@@ -51,24 +51,25 @@ class RowsListBean {
   double ConBalanceFee;
   double SumConFee;
   double NoFee;
-  int rowNumber;
+  var rowNumber;
   var Id;
-  int Keyid;
-  int FatherID;
-  int ConFulfilType;
-  int FlowIDD;
-  int FlowID;
-  int FlowStatusID;
-  int FlowNodeOrder;
-  int FlowNodeTypeID;
-  int FlowMultiSignStatus;
-  int CreateEmpId;
-  int CreatorEmpId;
+  var Keyid;
+  var FatherID;
+  var ConFulfilType;
+  var FlowIDD;
+  var FlowID;
+  var FlowStatusID;
+  var FlowNodeOrder;
+  var FlowNodeTypeID;
+  var FlowMultiSignStatus;
+  var CreateEmpId;
+  var CreatorEmpId;
   bool isExpand;
   String FlowRefTable;
   List<RowsListBean> rows;
   bool IsNew;
-  List<Widget> mWidgets_son  ;
+  List<Widget> mWidgets_son;
+
   int FlowNodeID;
 
   int FlowMultiSignID;
@@ -141,7 +142,7 @@ class RowsListBean {
     this.NoFee = json['NoFee'];
     this.rowNumber = json['row_number'];
     this.Id ??= json['Id'];
-//    this.Id ??= json[''];
+    this.Id ??= json['FlowID'];
     this.Keyid = json['Keyid'];
     this.FatherID = json['FatherID'];
     this.ConFulfilType = json['ConFulfilType'];

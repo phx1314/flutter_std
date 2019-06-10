@@ -125,7 +125,7 @@ class ChatScreenState extends BaseState<ChatScreen> {
                                               method_file_upload,
                                           {
                                             "file": UploadFileInfo(file, 'img'),
-                                          },hasFile: true);
+                                          },isFormData: true);
                                     }
                                   }));
                                 }),

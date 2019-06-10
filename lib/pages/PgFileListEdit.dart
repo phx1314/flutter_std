@@ -57,7 +57,7 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
         "parentID": "0",
         "mode": "0",
         "lastModifiedTime": Help.getCurrentTime(type: 1)
-      },hasFile: true);
+      },isFormData: true);
     }
   }
 

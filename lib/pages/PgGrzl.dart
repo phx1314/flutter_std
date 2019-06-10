@@ -255,7 +255,7 @@ class PgGrzlState extends BaseState<PgGrzl> {
       Help.showMyDialog(context, TakePhoto((img) {
         if (img != null) {
           print(Help.getRollupSize(img.lengthSync()));
-          loadUrl(METHOD_ChangeAvatar1, {"file": UploadFileInfo(img, 'img')},hasFile: true);
+          loadUrl(METHOD_ChangeAvatar1, {"file": UploadFileInfo(img, 'img')},isFormData: true);
         }
       }));
     }

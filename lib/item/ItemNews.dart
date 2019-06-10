@@ -6,15 +6,17 @@ import 'package:flutter_std/pages/PgWebDetail.dart';
 
 class ItemNews extends StatelessWidget {
   var item;
+
   @override
   Widget build(BuildContext context) {
-    return  InkWell(
-      onTap: (){
-        Help.goWhere(context, PgWebDetail( item.Id,"OaNew","oa/oanewmobile/Query"));
+    return InkWell(
+      onTap: () {
+        Help.goWhere(
+            context, PgWebDetail(item.Id, "OaNew", "oa/oanewmobile/Query"));
       },
       child: Container(
-        padding: EdgeInsets.all( ScreenUtil.getScaleW(context,7)),
-        height: ScreenUtil.getScaleW(context,80),
+        padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 7)),
+        height: ScreenUtil.getScaleW(context, 80),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -54,17 +56,25 @@ class ItemNews extends StatelessWidget {
                 )
               ],
             )),
-            Visibility(child: Container(
-                padding: EdgeInsets.only(left: ScreenUtil.getScaleW(context,7)),
+            Visibility(
+              child: Container(
+                  padding:
+                      EdgeInsets.only(left: ScreenUtil.getScaleW(context, 7)),
 //                  decoration: BoxDecoration(
 //                      image: DecorationImage(
 //                          image: ExactAssetImage("images/default_avatar.png"),fit: BoxFit.fill)
 //                  ),
-                child: CachedNetworkImage(imageUrl:"https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202", cacheManager: Help.mImageCacheManager,
+                  child: item.NewsImage == null
+                      ? Container()
+                      : CachedNetworkImage(
+                          imageUrl: Help.IMAGE_STAR + item.NewsImage,
+                          cacheManager: Help.mImageCacheManager,
 //                      Config.image_star + item.NewsImage,
-                    width: ScreenUtil.getScaleW(context,165),
-                    height: double.infinity,
-                    fit: BoxFit.cover)),visible:item.NewsImage.toString().isNotEmpty ,)
+                          width: ScreenUtil.getScaleW(context, 165),
+                          height: double.infinity,
+                          fit: BoxFit.cover)),
+              visible: item.NewsImage != null,
+            )
           ],
         ),
       ),

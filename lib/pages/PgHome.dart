@@ -66,8 +66,8 @@ class PgHomeState extends BaseState<PgHome> {
         Help.sendMsg('PgPubView,ItemDialogSub', 889, visible);
       },
     );
-    loadUrl (METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey},
-        isShow: false );
+    loadUrl(METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey},
+        isShow: false, isFormData: true);
   }
 
   @override
@@ -80,7 +80,8 @@ class PgHomeState extends BaseState<PgHome> {
     } else if (methodName == METHOD_UPDATE) {
       ModelVersion mModelVersion = ModelVersion.fromJson(res.data);
       PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-        if (packageInfo.version != mModelVersion.data.buildVersion) {
+        if (int.parse(packageInfo.buildNumber) <
+            int.parse(mModelVersion.data.buildVersionNo)) {
           Help.showAlertDialog(context, '发现新版本，是否更新', () {
             launch(mModelVersion.data.buildShortcutUrl);
           });
@@ -103,8 +104,7 @@ class PgHomeState extends BaseState<PgHome> {
   @override
   void initState() {
     super.initState();
-    loadUrl (METHOD_GetWork, null,
-        isShow: false );
+    loadUrl(METHOD_GetWork, null, isShow: false);
     Help.addEventHandler(context, JPush());
   }
 

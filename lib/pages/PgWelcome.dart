@@ -39,7 +39,7 @@ class _PgWelcomeState extends BaseState<PgWelcome> {
   void initState() {
     super.initState();
     jPush.setup(
-        appKey: "df615cf02ae95c08b6fd10e7",
+        appKey: "6a30d2dbe744a2281cb285ce",
         channel: "developer-default",
         debug: true,
         production: false);
@@ -65,20 +65,19 @@ class _PgWelcomeState extends BaseState<PgWelcome> {
   }
 
   setPushTag(JPush mJPush) {
-    Help.pushReplacementNamed(context, PgHome.sName);
-//    mJPush
-//        .setAlias(
-//            JPush_Alias_BeginWith + Help.mModelUser.UserInfo.EmpID.toString())
-//        .then((v) {
-//      print(v.toString());
-//      List<String> tags = List<String>();
-//      tags.add(JPush_Alias_BeginWith);
-//      mJPush.setTags(tags).then((v) {
-//        print(v.toString());
-////        Help.goWhere(context, PgWork());
-//        Help.pushReplacementNamed(context, PgHome.sName);
-//      });
-//    });
+//    Help.pushReplacementNamed(context, PgHome.sName);
+    mJPush
+        .setAlias(
+            JPush_Alias_BeginWith + Help.mModelUser.UserInfo.EmpID.toString())
+        .then((v) {
+      print(v.toString());
+      List<String> tags = List<String>();
+      tags.add(JPush_Alias_BeginWith);
+      mJPush.setTags(tags).then((v) {
+        print(v.toString());
+        Help.pushReplacementNamed(context, PgHome.sName);
+      });
+    });
   }
 
   @override

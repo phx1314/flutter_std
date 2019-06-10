@@ -1,4 +1,4 @@
-import 'package:flutter_std/model/ModelDx.dart';
+import 'ModelDx.dart';
 
 class ModelMenuConfig {
   FlowBean flow;
@@ -13,13 +13,13 @@ class ModelMenuConfig {
     this.grid = GridBean.fromJson(json['grid']);
     this.search = (json['search'] as List) != null
         ? (json['search'] as List)
-        .map((i) => SearchListBean.fromJson(i))
-        .toList()
+            .map((i) => SearchListBean.fromJson(i))
+            .toList()
         : null;
     this.uploaders = (json['uploaders'] as List) != null
         ? (json['uploaders'] as List)
-        .map((i) => UploadersListBean.fromJson(i))
-        .toList()
+            .map((i) => UploadersListBean.fromJson(i))
+            .toList()
         : null;
   }
 
@@ -63,29 +63,32 @@ class GridBean {
   String addUrl;
   String editUrl;
   String delUrl;
+  String saveUrl;
   String listPage;
   int rows;
   List<String> url;
   List queryParams;
 
-  GridBean({this.addUrl,
-    this.editUrl,
-    this.delUrl,
-    this.listPage,
-    this.rows,
-    this.queryParams,
-    this.url});
+  GridBean(
+      {this.addUrl,
+      this.editUrl,
+      this.delUrl,
+      this.saveUrl,
+      this.listPage,
+      this.rows,
+      this.queryParams,
+      this.url});
 
   GridBean.fromJson(Map<String, dynamic> json) {
     this.addUrl = json['addUrl'];
     this.editUrl = json['editUrl'];
     this.delUrl = json['delUrl'];
+    this.saveUrl = json['saveUrl'];
     this.listPage = json['listPage'];
     this.rows = json['rows'];
     this.queryParams = (json['queryParams'] as List) != null
         ? (json['queryParams'] as List)
         : null;
-
     List<dynamic> urlList = json['url'];
     this.url = new List();
     this.url.addAll(urlList.map((o) => o.toString()));
@@ -96,6 +99,7 @@ class GridBean {
     data['addUrl'] = this.addUrl;
     data['editUrl'] = this.editUrl;
     data['delUrl'] = this.delUrl;
+    data['saveUrl'] = this.saveUrl;
     data['listPage'] = this.listPage;
     data['rows'] = this.rows;
     data['queryParams'] = this.queryParams != null
@@ -118,7 +122,7 @@ class SearchListBean {
   List<ModelDx> mModelDxs;
 
   SearchListBean(
-      {this.type, this.baseorder, this.text, this.multiselect, this.sqlstring, this.value = ''});
+      {this.type, this.baseorder, this.text, this.multiselect, this.sqlstring});
 
   SearchListBean.fromJson(Map<String, dynamic> json) {
     this.type = json['type'];

@@ -120,6 +120,9 @@ class PullListViewState extends BaseState<PullListView>
 
   refreash({bool isShow = true}) {
     if (widget.other == null || widget.other.length <= 0) return;
+    if (!widget.other.containsKey(widget.page))
+      widget.other
+          .addAll({widget.page: 1, widget.rows: widget.rows_v});
     widget.page_v = 1;
     widget.other[widget.page] = widget.page_v;
     widget.data.clear();

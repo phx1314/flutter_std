@@ -21,9 +21,8 @@ class ItemWorkSon extends StatelessWidget {
         _onTap(context);
       },
       child: Container(
-        padding: EdgeInsets.only(
-            top: ScreenUtil.getScaleW(context,10), bottom: ScreenUtil.getScaleW(context,10)),
-        width: ScreenUtil.getScaleW(context,85),
+        padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),
+        width: ScreenUtil.getScaleW(context, 85),
         child: Column(
           children: <Widget>[
             Container(
@@ -32,15 +31,15 @@ class ItemWorkSon extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                       color: Colors.grey,
-                      offset: Offset(
-                          ScreenUtil.getScaleW(context,2), ScreenUtil.getScaleW(context,2)),
-                      blurRadius: ScreenUtil.getScaleW(context,5),
-                      spreadRadius: ScreenUtil.getScaleW(context,1)),
+                      offset: Offset(ScreenUtil.getScaleW(context, 2),
+                          ScreenUtil.getScaleW(context, 2)),
+                      blurRadius: ScreenUtil.getScaleW(context, 5),
+                      spreadRadius: ScreenUtil.getScaleW(context, 1)),
                 ],
                 shape: BoxShape.circle,
               ),
               child: CircleAvatar(
-                radius: ScreenUtil.getScaleW(context,30),
+                radius: ScreenUtil.getScaleW(context, 30),
                 backgroundColor: FontString.data[item.iconCls
                             .split(" ")[1]
                             .replaceAll("-", "_")
@@ -58,16 +57,18 @@ class ItemWorkSon extends StatelessWidget {
                       FontString.data[
                           item.iconCls.split(" ")[1].replaceAll("-", "_")],
                       fontFamily: FontString.fontFamily),
-                  size: ScreenUtil.getScaleW(context,27),
+                  size: ScreenUtil.getScaleW(context, 27),
                   color: Colors.white,
                 ),
               ),
             ),
             Container(
-              height: ScreenUtil.getScaleW(context,7),
+              height: ScreenUtil.getScaleW(context, 7),
             ),
             Text(
               item.text,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: Style.text_style_13_gray,
             )
           ],
@@ -137,19 +138,19 @@ class ItemWorkSon extends StatelessWidget {
         builder: (_) => AlertDialog(
               title: Text(item.text),
               titleTextStyle: Style.text_style_16_black,
-              titlePadding: EdgeInsets.all(ScreenUtil.getScaleW(context,17)),
-              contentPadding: EdgeInsets.all(ScreenUtil.getScaleW(context,2)),
+              titlePadding: EdgeInsets.all(ScreenUtil.getScaleW(context, 17)),
+              contentPadding: EdgeInsets.all(ScreenUtil.getScaleW(context, 2)),
               content: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,
-                height: ScreenUtil.getScaleW(context,300),
+                height: ScreenUtil.getScaleW(context, 300),
                 child: Container(
                   child: ListView(
                     children: <Widget>[
-                      Divider(height: ScreenUtil.getScaleW(context,1)),
+                      Divider(height: ScreenUtil.getScaleW(context, 1)),
                       Wrap(
-                        spacing: ScreenUtil.getScaleW(context,4),
+                        spacing: ScreenUtil.getScaleW(context, 4),
                         // gap between adjacent chips
-                        runSpacing: ScreenUtil.getScaleW(context,2),
+                        runSpacing: ScreenUtil.getScaleW(context, 2),
                         // gap between lines
                         children: mWidgets,
                       )
@@ -159,7 +160,7 @@ class ItemWorkSon extends StatelessWidget {
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                    Radius.circular(ScreenUtil.getScaleW(context,12))),
+                    Radius.circular(ScreenUtil.getScaleW(context, 12))),
               ),
             ));
   }

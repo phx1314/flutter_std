@@ -51,7 +51,7 @@ class PgNewsSonState extends BaseState<PgNewsSon> {
   @override
   void initState() {
     super.initState();
-    loadUrl(METHOD_GetImageNews, null, isShow: false);
+//    loadUrl(METHOD_GetImageNews, null, isShow: false);
     mPullListView = PullListView(
       methodName: widget.methodName,
       wantKeepAlive: false,

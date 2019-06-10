@@ -26,7 +26,7 @@ class HttpManager {
   ///[ option] 配置
   static void netFetch(BuildContext context, url, params,
       HttpResponseListener mHttpResponseListener,
-      {hasFile, isShow, methodName}) async {
+      {isFormData, isShow, methodName}) async {
     try {
       var connectivityResult = await (new Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.none) {
@@ -40,7 +40,7 @@ class HttpManager {
       if (isShow && context != null) Help.showLoadingDialog(context);
       Response response = await dio.post(
         url,
-        data: hasFile ? FormData.from(params ?? {}) : params ?? {},
+        data: isFormData ? FormData.from(params ?? {}) : params ?? {},
         options:
             Options(headers: {"cookie": Help.cookie}, connectTimeout: 5000),
       );
@@ -85,7 +85,7 @@ class HttpManager {
         errorResponse.statusCode = Code.NETWORK_TIMEOUT;
       }
       if (DEBUG) {
-        print('请求异常: ' + e.toString());
+        print('请求异常: $url' + e.toString());
         print('请求异常url: $url请求参数:${params != null ? params.toString() : ''}');
       }
       mHttpResponseListener.onFailure(
