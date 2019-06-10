@@ -26,7 +26,7 @@ typedef MethodPop = void Function(String v);
 typedef MethodAlert = void Function();
 
 const JPush_Alias_BeginWith = "2015001GoldPM9_Default_EmpID_";
-//const JPush_Alias_BeginWith = "jqpm_EmpID_";
+//const JPush_Alias_BeginWith = "jqpm_EmpID_"jqpm_EmpID_;
 const PAGE_SIZE = 20;
 const DEBUG = true;
 const USE_NATIVE_WEBVIEW = true;
