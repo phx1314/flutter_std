@@ -26,6 +26,7 @@ import 'PgWebView.dart';
 
 class PgHome extends StatefulWidget {
   static final String sName = "PgHome";
+
 //  https://github.com/GanZhiXiong/GZXTaoBaoAppFlutter
   @override
   State<StatefulWidget> createState() {
@@ -80,8 +81,7 @@ class PgHomeState extends BaseState<PgHome> {
     } else if (methodName == METHOD_UPDATE) {
       ModelVersion mModelVersion = ModelVersion.fromJson(res.data);
       PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-        if (int.parse(packageInfo.buildNumber) <
-            int.parse(mModelVersion.data.buildVersionNo)) {
+        if (packageInfo.version != mModelVersion.data.buildVersion) {
           Help.showAlertDialog(context, '发现新版本，是否更新', () {
             launch(mModelVersion.data.buildShortcutUrl);
           });

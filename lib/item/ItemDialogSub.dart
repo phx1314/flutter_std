@@ -38,6 +38,7 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -184,8 +185,8 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
                       ),
                       Container(
                         width: 1,
-                        height:30,
-                        color:Color(GSYColors.f2f2f2),
+                        height: 30,
+                        color: Color(GSYColors.f2f2f2),
                       ),
                       Expanded(
                         child: InkWell(
@@ -279,7 +280,6 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
     s_ry = value;
     reLoad();
   }
-
 
   @override
   void loadData() {

@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:crypto/crypto.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_std/Help.dart';
 import 'package:flutter_std/item/ItemDialogSub.dart';
@@ -101,16 +102,17 @@ class PgPubViewState extends BaseState<PgPubView> {
         loadUrl(METHOD_FLOWWIDGET, map_json);
         break;
       case 889:
-        flutterWebViewPlugin.resize(Rect.fromLTRB(
-            0,
-            MediaQueryData.fromWindow(window).padding.top +
-                AppBar().preferredSize.height,
-            MediaQuery.of(context).size.width,
-            data
-                ? MediaQuery.of(context).size.height -
-                    ScreenUtil.getScaleW(context, 270)
-                : MediaQuery.of(context).size.height -
-                    ScreenUtil.getScaleW(context, 50)));
+        if (defaultTargetPlatform == TargetPlatform.android)
+          flutterWebViewPlugin.resize(Rect.fromLTRB(
+              0,
+              MediaQueryData.fromWindow(window).padding.top +
+                  AppBar().preferredSize.height,
+              MediaQuery.of(context).size.width,
+              data
+                  ? MediaQuery.of(context).size.height -
+                      ScreenUtil.getScaleW(context, 270)
+                  : MediaQuery.of(context).size.height -
+                      ScreenUtil.getScaleW(context, 50)));
         break;
     }
   }
@@ -129,12 +131,12 @@ class PgPubViewState extends BaseState<PgPubView> {
       clearCache: true,
       clearCookies: true,
       url: widget.item.Id != 0
-          ? "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.editUrl[0]}&a=${Help.mModelUser.name}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}"
+          ? "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.editUrl[0]}&a=${Uri.encodeComponent(Help.mModelUser.name)}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}"
           : "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.addUrl[0]}" +
               (widget.item.mModelMenuConfig.grid.addUrl[0].contains('?')
                   ? '&a='
                   : '?a=') +
-              "${Help.mModelUser.name}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}",
+              "${Uri.encodeComponent(Help.mModelUser.name)}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}",
       //      url:"http://192.168.0.7/GoldPM9_hncsxy/oa/OaCarmobile/add?a=%E9%99%88%E9%9C%B2&p=1A1DC91C907325C69271DDF0C944BC72",
       initialChild: Container(
         color: Colors.white,
