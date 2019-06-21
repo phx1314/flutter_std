@@ -3,36 +3,35 @@ import 'ModelDx.dart';
 class ModelMenuConfig {
   FlowBean flow;
   GridBean grid;
-  List<SearchListBean> search;
+  List<List<SearchListBean>> search;
   List<UploadersListBean> uploaders;
 
-  ModelMenuConfig({this.flow, this.grid, this.search, this.uploaders});
+  ModelMenuConfig({this.flow, this.grid, this.uploaders, this.search});
 
   ModelMenuConfig.fromJson(Map<String, dynamic> json) {
     this.flow = FlowBean.fromJson(json['flow']);
     this.grid = GridBean.fromJson(json['grid']);
-    this.search = (json['search'] as List) != null
-        ? (json['search'] as List)
-            .map((i) => SearchListBean.fromJson(i))
-            .toList()
-        : null;
     this.uploaders = (json['uploaders'] as List) != null
         ? (json['uploaders'] as List)
             .map((i) => UploadersListBean.fromJson(i))
             .toList()
         : null;
+
+    List<dynamic> searchList = json['search'];
+    this.search = new List();
+    this.search.addAll(searchList.map((o) => (o as List) != null
+        ? (o as List).map((i) => SearchListBean.fromJson(i)).toList()
+        : null));
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['flow'] = this.flow.toJson();
     data['grid'] = this.grid.toJson();
-    data['search'] = this.search != null
-        ? this.search.map((i) => i.toJson()).toList()
-        : null;
     data['uploaders'] = this.uploaders != null
         ? this.uploaders.map((i) => i.toJson()).toList()
         : null;
+    data['search'] = this.search;
     return data;
   }
 }
@@ -60,35 +59,41 @@ class FlowBean {
 }
 
 class GridBean {
-  String addUrl;
-  String editUrl;
-  String delUrl;
-  String saveUrl;
   String listPage;
   int rows;
+  List<String> addUrl;
+  var delUrl;
+  List<String> editUrl;
   List<String> url;
   List queryParams;
 
   GridBean(
-      {this.addUrl,
-      this.editUrl,
-      this.delUrl,
-      this.saveUrl,
-      this.listPage,
+      {this.listPage,
       this.rows,
       this.queryParams,
+      this.addUrl,
+      this.delUrl,
+      this.editUrl,
       this.url});
 
   GridBean.fromJson(Map<String, dynamic> json) {
-    this.addUrl = json['addUrl'];
-    this.editUrl = json['editUrl'];
-    this.delUrl = json['delUrl'];
-    this.saveUrl = json['saveUrl'];
     this.listPage = json['listPage'];
     this.rows = json['rows'];
     this.queryParams = (json['queryParams'] as List) != null
         ? (json['queryParams'] as List)
         : null;
+
+    List<dynamic> addUrlList = json['addUrl'];
+    this.addUrl = new List();
+    this.addUrl.addAll(addUrlList.map((o) => o.toString()));
+    this.delUrl = json['delUrl'] is List
+        ? (json['delUrl'] as List) != null ? (json['delUrl'] as List) : null
+        : json['delUrl'];
+
+    List<dynamic> editUrlList = json['editUrl'];
+    this.editUrl = new List();
+    this.editUrl.addAll(editUrlList.map((o) => o.toString()));
+
     List<dynamic> urlList = json['url'];
     this.url = new List();
     this.url.addAll(urlList.map((o) => o.toString()));
@@ -96,16 +101,34 @@ class GridBean {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['addUrl'] = this.addUrl;
-    data['editUrl'] = this.editUrl;
-    data['delUrl'] = this.delUrl;
-    data['saveUrl'] = this.saveUrl;
     data['listPage'] = this.listPage;
     data['rows'] = this.rows;
     data['queryParams'] = this.queryParams != null
         ? this.queryParams.map((i) => i.toJson()).toList()
         : null;
+    data['addUrl'] = this.addUrl;
+    data['delUrl'] = this.delUrl;
+    data['editUrl'] = this.editUrl;
     data['url'] = this.url;
+    return data;
+  }
+}
+
+class UploadersListBean {
+  String uploaderName;
+  String refTable;
+
+  UploadersListBean({this.uploaderName, this.refTable});
+
+  UploadersListBean.fromJson(Map<String, dynamic> json) {
+    this.uploaderName = json['uploaderName'];
+    this.refTable = json['refTable'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['uploaderName'] = this.uploaderName;
+    data['refTable'] = this.refTable;
     return data;
   }
 }
@@ -139,25 +162,6 @@ class SearchListBean {
     data['text'] = this.text;
     data['multiselect'] = this.multiselect;
     data['sqlstring'] = this.sqlstring;
-    return data;
-  }
-}
-
-class UploadersListBean {
-  String uploaderName;
-  String refTable;
-
-  UploadersListBean({this.uploaderName, this.refTable});
-
-  UploadersListBean.fromJson(Map<String, dynamic> json) {
-    this.uploaderName = json['uploaderName'];
-    this.refTable = json['refTable'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uploaderName'] = this.uploaderName;
-    data['refTable'] = this.refTable;
     return data;
   }
 }

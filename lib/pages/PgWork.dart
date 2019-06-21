@@ -61,14 +61,4 @@ class PgWorkState extends BaseState<PgWork> {
       body: mPullListView,
     );
   }
-
-  @override
-  List onPullListViewSuccess(String methodName, res) {
-    ModelWork mModelWork = ModelWork.fromJson(res.data);
-    List data = new List();
-    mModelWork.rows.forEach((f) {
-      data.add(ItemWork(f));
-    });
-    return data;
-  }
 }

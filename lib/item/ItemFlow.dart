@@ -21,7 +21,7 @@ class ItemFlow extends StatelessWidget {
       List responseJson = json.decode(item.FlowSummary);
       responseJson.forEach((f) {
         mWidgets.add(Padding(
-          padding: EdgeInsets.only(top: ScreenUtil.getScaleW(context,5)),
+          padding: EdgeInsets.only(top: ScreenUtil.getScaleW(context, 5)),
           child: Text(
             '${f['Key']}  :  ${f['Value']}',
             style: Style.text_style_13_gray,
@@ -29,19 +29,21 @@ class ItemFlow extends StatelessWidget {
           ),
         ));
       });
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
 
 //    List<ModelSummary> data =
 //        responseJson.map((m) => new ModelSummary.fromJson(m)).toList();
 
     return Container(
-      padding: EdgeInsets.all(ScreenUtil.getScaleW(context,12)),
+      padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           CircleAvatar(
-            radius: ScreenUtil.getScaleW(context,27),
+            radius: ScreenUtil.getScaleW(context, 27),
             backgroundColor: Colors.transparent,
             backgroundImage: AssetImage("static/images/morentouxiang_n.png"),
           ),
@@ -52,34 +54,35 @@ class ItemFlow extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(
-                      left: ScreenUtil.getScaleW(context,12),
-                      top: ScreenUtil.getScaleW(context,5)),
+                      left: ScreenUtil.getScaleW(context, 12),
+                      top: ScreenUtil.getScaleW(context, 5)),
                   child: Text(
                     item.CreatorEmpName,
                     style: Style.text_style_13_gray,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(ScreenUtil.getScaleW(context,12)),
+                  margin: EdgeInsets.all(ScreenUtil.getScaleW(context, 12)),
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(236, 236, 236, 1),
                     boxShadow: [
                       BoxShadow(
                           color: Colors.grey,
-                          offset: Offset(ScreenUtil.getScaleW(context,3),
-                              ScreenUtil.getScaleW(context,3)),
-                          blurRadius: ScreenUtil.getScaleW(context,10),
-                          spreadRadius: ScreenUtil.getScaleW(context,2)),
+                          offset: Offset(ScreenUtil.getScaleW(context, 3),
+                              ScreenUtil.getScaleW(context, 3)),
+                          blurRadius: ScreenUtil.getScaleW(context, 10),
+                          spreadRadius: ScreenUtil.getScaleW(context, 2)),
                     ],
                     borderRadius: BorderRadius.all(
-                        Radius.circular(ScreenUtil.getScaleW(context,4))),
+                        Radius.circular(ScreenUtil.getScaleW(context, 4))),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.all(ScreenUtil.getScaleW(context,10)),
+                        padding:
+                            EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,18 +103,22 @@ class ItemFlow extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(250, 250, 250, 1),
                           borderRadius: BorderRadius.only(
-                              bottomLeft:
-                                  Radius.circular(ScreenUtil.getScaleW(context,4)),
-                              bottomRight:
-                                  Radius.circular(ScreenUtil.getScaleW(context,4))),
+                              bottomLeft: Radius.circular(
+                                  ScreenUtil.getScaleW(context, 4)),
+                              bottomRight: Radius.circular(
+                                  ScreenUtil.getScaleW(context, 4))),
                         ),
-                        height: ScreenUtil.getScaleW(context,40),
+                        height: ScreenUtil.getScaleW(context, 40),
                         child: Row(
                           children: <Widget>[
                             Expanded(
                                 child: InkWell(
                               onTap: () {
-                                Help.goWhere(context, PgGzjd(item.FlowID==null?'0':item.FlowID.toString()));
+                                Help.goWhere(
+                                    context,
+                                    PgGzjd(item.FlowID == null
+                                        ? '0'
+                                        : item.FlowID.toString()));
                               },
                               child: Center(
                                 child: Text(
@@ -135,7 +142,9 @@ class ItemFlow extends StatelessWidget {
                                 },
                                 child: Center(
                                     child: Text(
-                                  '审批结束',
+                                  item.FlowStatusName ?? "查看详情",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: Colors.blue,
                                     fontSize: 16,

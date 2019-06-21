@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_std/item/ItemFile.dart';
 import 'package:flutter_std/model/ModelFjList.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/TakePhoto.dart';
-
 import 'PgMap.dart';
 import 'PgSound.dart';
 
@@ -16,7 +16,7 @@ class PgFileListEdit extends StatefulWidget {
   String id;
   String refTable;
   String form;
-  List<RowsListBean> mModelWenjianUploads = new List();
+  List mModelWenjianUploads = new List();
 
   PgFileListEdit(this.id, this.refTable, this.form, this.mModelWenjianUploads);
 
@@ -27,14 +27,16 @@ class PgFileListEdit extends StatefulWidget {
 class PgFileListEditState extends BaseState<PgFileListEdit> {
   List<Widget> mWidgets = new List();
   File file;
+  List<DataBean> data = new List();
 
   @override
   void disMsg(int what, data) {
     switch (what) {
       case 0:
-        RowsListBean mRowsListBean = data;
+        DataBean mRowsListBean = data;
         loadUrl(METHOD_DELETE, {"idSet": mRowsListBean.ID, "mode": "0"});
         widget.mModelWenjianUploads.remove(mRowsListBean);
+        reFreashData();
         reLoad();
         break;
       case 1:
@@ -46,23 +48,36 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
 
   void upLoadFile() {
     if (file != null) {
-      loadUrl(METHOD_UPLOAD, {
-        "file": UploadFileInfo(file, 'img'),
-        "name": file.path.split('/').last,
-        "chunk": "0",
-        "chunks": "1",
-        "refID": widget.id ?? '0'  ,
-        "refTable": widget.refTable,
-        "fileID": "UploadFile1",
-        "parentID": "0",
-        "mode": "0",
-        "lastModifiedTime": Help.getCurrentTime(type: 1)
-      },isFormData: true);
+      loadUrl(
+          METHOD_UPLOAD,
+          {
+            "file": UploadFileInfo(file, 'img'),
+            "name": file.path.split('/').last,
+            "chunk": "0",
+            "chunks": "1",
+            "refID": widget.id ?? '0',
+            "refTable": widget.refTable,
+            "fileID": "UploadFile1",
+            "parentID": "0",
+            "mode": "0",
+            "lastModifiedTime": Help.getCurrentTime(type: 1)
+          },
+          isFormData: true);
     }
+  }
+
+  reFreashData() {
+    data.clear();
+    widget.mModelWenjianUploads.forEach((f) {
+      if (f.RefTable == widget.refTable || f.RefTable == null) {
+        data.add(f);
+      }
+    });
   }
 
   @override
   void initView() {
+    reFreashData();
     FILE_DATA.forEach((f) {
       if (f == '视频文件') {
         mWidgets.add(Row(
@@ -124,10 +139,13 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
     });
   }
 
+
   @override
   void onSuccess(String methodName, res) async {
     if (methodName == METHOD_UPLOAD) {
-      RowsListBean mModelWenjianUpload = RowsListBean.fromJson(res.data);
+      DataBean mModelWenjianUpload = DataBean.fromJson(res.data);
+//      mModelWenjianUpload.Name =  encode(mModelWenjianUpload.Name);
+
       if (mModelWenjianUpload.Name != null) {
         mModelWenjianUpload.IDD = mModelWenjianUpload.Name;
       } else {
@@ -140,6 +158,7 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
       int length = await file.length();
       mModelWenjianUpload.Size = length;
       widget.mModelWenjianUploads.add(mModelWenjianUpload);
+      reFreashData();
       reLoad();
       Help.Toast(context, "文件上传成功");
     } else if (methodName == METHOD_DELETE) {
@@ -184,11 +203,11 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
             ),
           ]),
       body: ListView.separated(
-        itemCount: widget.mModelWenjianUploads.length,
+        itemCount: data.length,
         itemBuilder: (context, index) => InkWell(
               onTap: () {},
               child: new ItemFile(
-                widget.mModelWenjianUploads[index],
+                data[index],
                 widget.refTable,
                 enabled: true,
               ),

@@ -10,11 +10,11 @@ import 'package:flutter_std/item/ItemDialogSub.dart';
 import 'package:flutter_std/model/ModelFjList.dart';
 import 'package:flutter_std/model/ModelFlowList.dart';
 import 'package:flutter_std/model/ModelJDInfo.dart';
+import 'package:flutter_std/model/ModelUploadFile.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 import 'PgFileList.dart';
 import 'PgFileListEdit.dart';
@@ -22,7 +22,7 @@ import 'PgGzjd.dart';
 
 //  https://github.com/tiagojencmartins/unicornspeeddial
 class PgPubView extends StatefulWidget {
-  var item;
+  RowsListBean item;
   String statusID;
 
   PgPubView(this.item, this.statusID);
@@ -44,9 +44,11 @@ class PgPubViewState extends BaseState<PgPubView> {
   RaisedButton mRaisedButton_hr;
   List<Widget> children = List();
   ModelJDInfo mModelJDInfo;
-  ModelFjList mModelFjList;
   Map<String, dynamic> map_json;
   bool isFinish = false;
+  ModelUploadFile mModelUpload;
+  List<String> mRefTables = List();
+  List<DataBean> mModelWenjianUploads = new List();
 
   @override
   void disMsg(int what, data) {
@@ -54,26 +56,47 @@ class PgPubViewState extends BaseState<PgPubView> {
       case 300:
         Map<String, dynamic> map = data;
         map['_processor'] = widget.item.mModelMenuConfig.flow.processor;
-//        if (widget.item.FlowRefTable.equals(refTable_CarUse) && (mRowsBean._action.equals("load_next") || mRowsBean._action.equals("save"))) {//用车
-//          mModelAddPub.hFormType = "SetCar";
-//        }
-        if (mModelFjList.rows.length > 0) {
-          String uploadFile = "";
-          uploadFile += "&lt;Root&gt;&lt;Files RefTable=\"" +
-              widget.item.refTable_file +
-              "\"&gt;&lt;";
-          mModelFjList.rows.forEach((mRowsBean) {
-            uploadFile += "File FileName=\"" +
-                mRowsBean.Name +
-                "\" LastModifiedTime=\"" +
-                Help.getCurrentTime(type: 1) +
-                "\"&gt;" +
-                mRowsBean.IDD +
-                "&lt;/File&gt;&lt;";
+
+        if (mModelWenjianUploads.length > 0) {
+          String uploadFile = "&lt;Root&gt;";
+          mRefTables.forEach((reftable) {
+            uploadFile += "&lt;Files RefTable=\"" + reftable + "\"&gt;";
+            mModelWenjianUploads.forEach((mRowsBean) {
+              if (mRowsBean.RefTable == reftable &&
+                  mRowsBean.IDD != null &&
+                  mRowsBean.IDD != "") {
+                uploadFile += "&lt;File FileName=\"" +
+                    mRowsBean.Name +
+                    "\" LastModifiedTime=\"" +
+                    Help.getCurrentTime(type: 1) +
+                    "\"&gt;" +
+                    mRowsBean.IDD +
+                    "&lt;/File&gt;";
+              }
+            });
+            uploadFile += "&lt;/Files&gt;";
+            uploadFile += "&lt;/Root&gt;";
+            map["\$uplohad\$_cache_y12\$t1m"] = uploadFile;
           });
-          uploadFile += "/Files&gt;&lt;/Root&gt;";
-          map["\$uplohad\$_cache_y12\$t1m"] = uploadFile;
         }
+
+//        if (mModelFjList.rows.length > 0) {
+//          String uploadFile = "";
+//          uploadFile += "&lt;Root&gt;&lt;Files RefTable=\"" +
+//              widget.item.refTable_file +
+//              "\"&gt;&lt;";
+//          mModelFjList.rows.forEach((mRowsBean) {
+//            uploadFile += "File FileName=\"" +
+//                mRowsBean.Name +
+//                "\" LastModifiedTime=\"" +
+//                Help.getCurrentTime(type: 1) +
+//                "\"&gt;" +
+//                mRowsBean.IDD +
+//                "&lt;/File&gt;&lt;";
+//          });
+//          uploadFile += "/Files&gt;&lt;/Root&gt;";
+//          map["\$uplohad\$_cache_y12\$t1m"] = uploadFile;
+//        }
         map_json.addAll(map);
         loadUrl(METHOD_FLOWWIDGET, map_json);
         break;
@@ -87,8 +110,7 @@ class PgPubViewState extends BaseState<PgPubView> {
                 ? MediaQuery.of(context).size.height -
                     ScreenUtil.getScaleW(context, 270)
                 : MediaQuery.of(context).size.height -
-                    ScreenUtil.getScaleW(
-                        context, mModelFjList != null ? 100 : 70)));
+                    ScreenUtil.getScaleW(context, 50)));
         break;
     }
   }
@@ -107,8 +129,12 @@ class PgPubViewState extends BaseState<PgPubView> {
       clearCache: true,
       clearCookies: true,
       url: widget.item.Id != 0
-          ? "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.editUrl}&a=${Help.mModelUser.name}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}"
-          : "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.addUrl}?a=${Help.mModelUser.name}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}",
+          ? "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.editUrl[0]}&a=${Help.mModelUser.name}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}"
+          : "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.addUrl[0]}" +
+              (widget.item.mModelMenuConfig.grid.addUrl[0].contains('?')
+                  ? '&a='
+                  : '?a=') +
+              "${Help.mModelUser.name}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}",
       //      url:"http://192.168.0.7/GoldPM9_hncsxy/oa/OaCarmobile/add?a=%E9%99%88%E9%9C%B2&p=1A1DC91C907325C69271DDF0C944BC72",
       initialChild: Container(
         color: Colors.white,
@@ -130,56 +156,6 @@ class PgPubViewState extends BaseState<PgPubView> {
                 return Container(
                   child: Column(
                     children: <Widget>[
-                      Divider(
-                        height: 1,
-                      ),
-                      Visibility(
-                        child: InkWell(
-                          onTap: () {
-                            if ((mModelJDInfo != null &&
-                                    mModelJDInfo.StepOrder == 1) ||
-                                widget.item.Id == 0) {
-                              Help.goWhere(
-                                  context,
-                                  PgFileListEdit(
-                                      widget.item.Id.toString(),
-                                      widget.item.refTable_file,
-                                      widget.toString(),
-                                      mModelFjList.rows));
-                            } else {
-                              Help.goWhere(
-                                  context,
-                                  PgFileList(widget.item.Id.toString(),
-                                      widget.item.refTable_file));
-                            }
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(
-                                ScreenUtil.getScaleW(context, 10)),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    '附件列表',
-                                    style: Style.text_style_16_black,
-                                  ),
-                                ),
-                                CircleAvatar(
-                                  radius: ScreenUtil.getScaleW(context, 11),
-                                  backgroundColor: Colors.red,
-                                  child: Text(
-                                    mModelFjList == null
-                                        ? '0'
-                                        : mModelFjList.rows.length.toString(),
-                                    style: Style.text_style_13_white,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        visible: mModelFjList != null,
-                      ),
                       Divider(
                         height: 1,
                       ),
@@ -238,10 +214,7 @@ class PgPubViewState extends BaseState<PgPubView> {
               AppBar().preferredSize.height,
           MediaQuery.of(context).size.width,
           MediaQuery.of(context).size.height -
-              (isFinish
-                  ? 0
-                  : ScreenUtil.getScaleW(
-                      context, mModelFjList != null ? 100 : 70))));
+              (isFinish ? 0 : ScreenUtil.getScaleW(context, 50))));
 
       mModelJDInfo.AllowEditControls = widget.statusID == '0'
           ? ""
@@ -277,9 +250,14 @@ class PgPubViewState extends BaseState<PgPubView> {
           "initFormBegin('${json.encode(mModelJDInfo.toJson())}')");
       reLoad();
     } else if (methodName == METHOD_GETATTACHFILES) {
-      mModelFjList = ModelFjList.fromJson(json.decode(res.json));
-      reLoad();
-    } else if (methodName == METHOD_FLOWWIDGET) {
+      ModelFjList mModelFjList = ModelFjList.fromJson(json.decode(res.json));
+      mModelFjList.rows.forEach((f) {
+        f.RefTable = mModelUpload.RefTable;
+      });
+      mModelWenjianUploads.addAll(mModelFjList.rows);
+      goDie();
+    } else if (methodName == METHOD_FLOWWIDGET ||
+        methodName == METHOD_CUSTOMERSAVE) {
       Fluttertoast.showToast(msg: ":处理成功");
       Help.sendMsg('PgFlowList', 0, '');
       Navigator.pop(context);
@@ -457,16 +435,52 @@ class PgPubViewState extends BaseState<PgPubView> {
   void go2Where(String type) {
     try {
       if (type == '001') {
-        FocusScope.of(context).requestFocus(FocusNode());
-        flutterWebViewPlugin?.hide();
-        Help.showMyDialog(context,
-                ItemDialogSub(widget.toString(), title, widget.item, false))
-            .then((v) {
-          flutterWebViewPlugin?.show();
-        });
+        if (title == '保存') {
+          if (widget.item.MenuNameEng == 'CustomerInfo') {
+            loadUrl(METHOD_CUSTOMERSAVE, map_json);
+          } else if (widget.item.MenuNameEng == 'CustomerInfo0') {
+            loadUrl(METHOD_CUSTLINKMANSAVE, map_json);
+          } else if (widget.item.MenuNameEng == 'CustomerInfo1') {
+            loadUrl(METHOD_CUSTLINKSAVE, map_json);
+          }
+        } else if (title == '暂存') {
+        } else {
+          FocusScope.of(context).requestFocus(FocusNode());
+          flutterWebViewPlugin?.hide();
+          Help.showMyDialog(context,
+                  ItemDialogSub(widget.toString(), title, widget.item, false))
+              .then((v) {
+            flutterWebViewPlugin?.show();
+          });
+        }
+      } else if (type == '006') {
+        mModelUpload = ModelUploadFile.fromJson(map_json);
+        if (widget.item.Id != 0 &&
+            !mRefTables.contains(mModelUpload.RefTable)) {
+          loadUrl(METHOD_GETATTACHFILES,
+              {"refID": widget.item.Id, "refTable": mModelUpload.RefTable});
+        } else {
+          goDie();
+        }
+        if (!mRefTables.contains(mModelUpload.RefTable)) {
+          mRefTables.add(mModelUpload.RefTable);
+        }
       }
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  void goDie() {
+    if ((mModelJDInfo != null && mModelJDInfo.StepOrder == 1) ||
+        widget.item.Id == 0) {
+      Help.goWhere(
+          context,
+          PgFileListEdit(widget.item.Id.toString(), mModelUpload.RefTable,
+              widget.toString(), mModelWenjianUploads));
+    } else {
+      Help.goWhere(context,
+          PgFileList(widget.item.Id.toString(), mModelUpload.RefTable));
     }
   }
 
@@ -479,9 +493,6 @@ class PgPubViewState extends BaseState<PgPubView> {
           widget.item.mModelMenuConfig.uploaders.length > 0) {
         widget.item.refTable_file =
             widget.item.mModelMenuConfig.uploaders[0].refTable;
-        loadUrl (METHOD_GETATTACHFILES,
-            {"refID": widget.item.Id, "refTable": widget.item.refTable_file},
-            isShow: false);
       }
     } catch (e) {
       print(e);
@@ -497,7 +508,19 @@ class PgPubViewState extends BaseState<PgPubView> {
     flutterWebViewPlugin.onStateChanged.listen((state) {
       if (state.type == WebViewState.finishLoad) {
         flutterWebViewPlugin?.show();
-        if (widget.item.mModelMenuConfig.flow.processor.isNotEmpty) {
+        if (widget.item.IsSave != null && widget.item.IsSave) {
+          addButton(mRaisedButton_bc);
+          flutterWebViewPlugin.resize(Rect.fromLTRB(
+              0,
+              MediaQueryData.fromWindow(window).padding.top +
+                  AppBar().preferredSize.height,
+              MediaQuery.of(context).size.width,
+              MediaQuery.of(context).size.height -
+                  (ScreenUtil.getScaleW(context, 50))));
+          return;
+        }
+        if (null != widget.item.mModelMenuConfig.flow.processor &&
+            "" != widget.item.mModelMenuConfig.flow.processor) {
           if (widget.item.mModelMenuConfig.flow.isShowSave) {
             addButton(mRaisedButton_zc);
           }
@@ -514,6 +537,13 @@ class PgPubViewState extends BaseState<PgPubView> {
               biaoshi: "getApi");
         } else {
           addButton(mRaisedButton_bc);
+          flutterWebViewPlugin.resize(Rect.fromLTRB(
+              0,
+              MediaQueryData.fromWindow(window).padding.top +
+                  AppBar().preferredSize.height,
+              MediaQuery.of(context).size.width,
+              MediaQuery.of(context).size.height -
+                  (ScreenUtil.getScaleW(context, 50))));
         }
       } else if (state.type == WebViewState.startLoad) {
         flutterWebViewPlugin?.hide();

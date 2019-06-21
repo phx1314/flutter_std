@@ -1,13 +1,13 @@
 class ModelFjList {
   int total;
-  List<RowsListBean> rows;
+  List<DataBean> rows;
 
   ModelFjList({this.total, this.rows});
 
   ModelFjList.fromJson(Map<String, dynamic> json) {
     this.total = json['total'];
     this.rows = (json['rows'] as List) != null
-        ? (json['rows'] as List).map((i) => RowsListBean.fromJson(i)).toList()
+        ? (json['rows'] as List).map((i) => DataBean.fromJson(i)).toList()
         : null;
   }
 
@@ -20,7 +20,7 @@ class ModelFjList {
   }
 }
 
-class RowsListBean {
+class DataBean {
   String Name;
   String LastModifyDate;
   String UploadDate;
@@ -31,10 +31,10 @@ class RowsListBean {
   int ID;
   int Size;
   int Version;
-
+  String RefTable;
   int AttachID;
 
-  RowsListBean(
+  DataBean(
       {this.Name,
       this.LastModifyDate,
       this.UploadDate,
@@ -46,7 +46,7 @@ class RowsListBean {
       this.Size,
       this.Version});
 
-  RowsListBean.fromJson(Map<String, dynamic> json) {
+  DataBean.fromJson(Map<String, dynamic> json) {
     this.Name = json['Name'];
     this.AttachID = json['AttachID'];
     this.LastModifyDate = json['LastModifyDate'];
@@ -57,6 +57,7 @@ class RowsListBean {
     this.ID = json['ID'];
     this.Size = json['Size'];
     this.Version = json['Version'];
+    this.RefTable = json['RefTable'];
   }
 
   Map<String, dynamic> toJson() {
@@ -71,6 +72,7 @@ class RowsListBean {
     data['ID'] = this.ID;
     data['Size'] = this.Size;
     data['Version'] = this.Version;
+    data['RefTable'] = this.RefTable;
     return data;
   }
 }

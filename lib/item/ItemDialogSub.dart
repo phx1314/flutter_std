@@ -280,10 +280,6 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
     reLoad();
   }
 
-  @override
-  void initView() {
-    super.initView();
-  }
 
   @override
   void loadData() {

@@ -16,7 +16,6 @@ class PullListView extends StatefulWidget {
   var biaoShi;
   var head;
   var isFirstLoad;
-  var wantKeepAlive;
   Callback mCallback;
   bool loadMoreEnable;
   bool isLoading = false;
@@ -43,7 +42,6 @@ class PullListView extends StatefulWidget {
       this.other,
       this.rows = 'rows',
       this.haline = true,
-      this.wantKeepAlive = true,
       this.loadMoreEnable = true,
       this.rows_v = 10,
       this.page_v = 1})
@@ -121,8 +119,7 @@ class PullListViewState extends BaseState<PullListView>
   refreash({bool isShow = true}) {
     if (widget.other == null || widget.other.length <= 0) return;
     if (!widget.other.containsKey(widget.page))
-      widget.other
-          .addAll({widget.page: 1, widget.rows: widget.rows_v});
+      widget.other.addAll({widget.page: 1, widget.rows: widget.rows_v});
     widget.page_v = 1;
     widget.other[widget.page] = widget.page_v;
     widget.data.clear();
@@ -172,5 +169,5 @@ class PullListViewState extends BaseState<PullListView>
   }
 
   @override
-  bool get wantKeepAlive => widget.wantKeepAlive;
+  bool get wantKeepAlive => true;
 }

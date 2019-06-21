@@ -105,7 +105,7 @@ class PgSendEmailState extends BaseState<PgSendEmail> {
         Title = "【转发】" + mModelYjDetail.model.MailTitle;
         isChecked = mModelYjDetail.model.MailIsBBC == 0;
         mModelYjDetail.AttachData.forEach((item) {
-          RowsListBean mRowsBean = new RowsListBean();
+          DataBean mRowsBean = new DataBean();
           mRowsBean.IDD = item.FileName;
           mRowsBean.LastModifyDate = item.LastModifiedTime;
           mRowsBean.Size = int.parse(item.Size);

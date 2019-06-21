@@ -8,7 +8,7 @@ import 'package:flutter_std/utils/GSYStyle.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ItemFile extends StatefulWidget {
-  RowsListBean item;
+  DataBean item;
   String refTable;
   bool enabled;
 

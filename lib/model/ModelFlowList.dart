@@ -53,7 +53,7 @@ class RowsListBean {
   double NoFee;
   var rowNumber;
   var Id;
-  var Keyid;
+  var KeyID;
   var FatherID;
   var ConFulfilType;
   var FlowIDD;
@@ -69,7 +69,7 @@ class RowsListBean {
   List<RowsListBean> rows;
   bool IsNew;
   List<Widget> mWidgets_son;
-
+  var IsSave;
   int FlowNodeID;
 
   int FlowMultiSignID;
@@ -102,8 +102,9 @@ class RowsListBean {
       this.SumConFee,
       this.NoFee,
       this.rowNumber,
+      this.IsSave,
       this.Id = 0,
-      this.Keyid,
+      this.KeyID,
       this.FatherID,
       this.ConFulfilType,
       this.FlowIDD,
@@ -119,6 +120,7 @@ class RowsListBean {
     this.ConNumber = json['ConNumber'];
     this.ConName = json['ConName'];
     this.CustName = json['CustName'];
+    this.IsSave = json['IsSave'];
     this.ConDate = json['ConDate'];
     this.ConFulfilTypeName = json['ConFulfilTypeName'];
     this.ConIsFeeFinished = json['ConIsFeeFinished'];
@@ -143,7 +145,7 @@ class RowsListBean {
     this.rowNumber = json['row_number'];
     this.Id ??= json['Id'];
     this.Id ??= json['FlowID'];
-    this.Keyid = json['Keyid'];
+    this.KeyID = json['KeyID'];
     this.FatherID = json['FatherID'];
     this.ConFulfilType = json['ConFulfilType'];
     this.FlowIDD = json['FlowIDD'];
@@ -161,6 +163,7 @@ class RowsListBean {
     data['ConNumber'] = this.ConNumber;
     data['ConName'] = this.ConName;
     data['CustName'] = this.CustName;
+    data['IsSave'] = this.IsSave;
     data['ConDate'] = this.ConDate;
     data['ConFulfilTypeName'] = this.ConFulfilTypeName;
     data['ConIsFeeFinished'] = this.ConIsFeeFinished;
@@ -184,7 +187,7 @@ class RowsListBean {
     data['row_number'] = this.rowNumber;
     data['Id'] = this.Id;
     data['FlowRefID'] = this.Id;
-    data['Keyid'] = this.Keyid;
+    data['KeyID'] = this.KeyID;
     data['FatherID'] = this.FatherID;
     data['ConFulfilType'] = this.ConFulfilType;
     data['FlowIDD'] = this.FlowIDD;

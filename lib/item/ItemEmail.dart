@@ -75,7 +75,7 @@ class ItemEmailState extends BaseState<ItemEmail> {
                               size: ScreenUtil.getScaleW(context, 10),
                             ),
                           ),
-                          visible: !widget.item.MailIsRead,
+                          visible: !(widget.item.MailIsRead??false),
                         ),
                         Expanded(
                           child: Text(

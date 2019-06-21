@@ -16,10 +16,12 @@ class PgNews extends StatefulWidget {
   State<StatefulWidget> createState() => new PgNewsState();
 }
 
-class PgNewsState extends BaseState<PgNews> {
+class PgNewsState extends BaseState<PgNews>
+    with SingleTickerProviderStateMixin {
   List<Tab> tabs = new List();
   List<Widget> widgets = new List();
-  int _tabIndex = 0;
+  TabController mTabController;
+  PageController mPageController = PageController();
 
   @override
   void initState() {
@@ -40,81 +42,94 @@ class PgNewsState extends BaseState<PgNews> {
             .add(PgNewsSon(METHOD_OANEW, _getquary(value.BaseID.toString())));
       }
     });
+
+    mTabController = TabController(length: tabs.length, vsync: this);
   }
 
   @override
   onSuccess(String methodName, res) {}
 
+  @override
+  void dispose() {
+    super.dispose();
+    mTabController.dispose();
+    mPageController.dispose();
+  }
+
 //  "http://via.placeholder.com/288x188"
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: tabs.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "新闻",
-            style: TextStyle(
-              color: Colors.white,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "新闻",
+          style: TextStyle(
+            color: Colors.white,
           ),
-          leading: Builder(
-            builder: (context) => IconButton(
-                  icon: Icon(Icons.crop_free,
-                      size: ScreenUtil.getScaleW(context, 25)),
-                  onPressed: () {
+        ),
+        leading: Builder(
+          builder: (context) => IconButton(
+                icon: Icon(Icons.crop_free,
+                    size: ScreenUtil.getScaleW(context, 25)),
+                onPressed: () {
 //                    print(DefaultTabController.of(context).index.toString());
-                    Help.scan(context);
+                  Help.scan(context);
 //                    widgets[DefaultTabController
 //                        .of(context)
 //                        .index]
 //                        .mPullListViewState
 //                        .setState(() {});
 //                    mBannerSwiper.mBannerSwiperState.setState(() {});
-                  },
-                ),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.search,
-                size: ScreenUtil.getScaleW(context, 25),
+                },
               ),
-              onPressed: () {
-                List<SearchListBean> search = List();
-                SearchListBean s1 = new SearchListBean();
-                s1.type = "text";
-                s1.text = "请输入标题、新闻内容";
-                s1.sqlstring =
-                    '{"isGroup":false,"list":[{"Key":"NewsTitle,NewsContent","Contract":"like","Value":"#{value}"}]}';
-                search.add(s1);
-                Help.goWhere(context, PgSearch('PgNewsSon', search));
-              },
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              size: ScreenUtil.getScaleW(context, 25),
             ),
-          ],
-          centerTitle: true,
-          bottom: TabBar(
-            onTap: (i) => _changeTab(i),
-            tabs: tabs,
-            isScrollable: true,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white,
-            unselectedLabelStyle: new TextStyle(fontSize: 16.0),
-            labelStyle:
-                new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+            onPressed: () {
+              List<SearchListBean> search = List();
+              SearchListBean s1 = new SearchListBean();
+              s1.type = "text";
+              s1.text = "请输入标题、新闻内容";
+              s1.sqlstring =
+                  '{"isGroup":false,"list":[{"Key":"NewsTitle,NewsContent","Contract":"like","Value":"#{value}"}]}';
+              search.add(s1);
+              Help.goWhere(context, PgSearch('PgNewsSon', search));
+            },
           ),
+        ],
+        centerTitle: true,
+        bottom: TabBar(
+          controller: mTabController,
+          onTap: (i) => _changeTab(i),
+          tabs: tabs,
+          isScrollable: true,
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white,
+          unselectedLabelStyle: new TextStyle(fontSize: 16.0),
+          labelStyle:
+              new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
         ),
-        body: IndexedStack(
-          children: widgets,
-          index: _tabIndex,
-        ),
+      ),
+      body: PageView(
+        controller: mPageController,
+        onPageChanged: _changePage,
+        children: widgets,
       ),
     );
   }
 
-  void _changeTab(int index) {
-    _tabIndex = index;
-    reLoad();
+  void _changeTab(int i) {
+    mPageController.animateToPage(i,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
+  }
+
+  void _changePage(int i) {
+    mTabController.animateTo(i,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
   }
 
   _getquary(String id) {

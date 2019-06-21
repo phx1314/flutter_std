@@ -12,7 +12,7 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
 class PgFileDetail extends StatefulWidget {
-  RowsListBean item;
+  DataBean item;
   String refTable;
 
   PgFileDetail(this.item, this.refTable);

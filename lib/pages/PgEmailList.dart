@@ -96,22 +96,13 @@ class PgEmailListState extends BaseState<PgEmailList> {
     reLoad();
   }
 
-  void delEmail(String ids) {
+  void delEmail(String id) {
     if (widget.type == 1) {
-      loadUrl(METHOD_OAMAILDEL, {
-        "ids": ids.contains(",") ? ids.substring(0, ids.length - 1) : ids,
-        "DelType": "false"
-      });
+      loadUrl(METHOD_OAMAILDEL, {"id": id, "DelType": "false"});
     } else if (widget.type == 4) {
-      loadUrl(METHOD_OAMAILDEL, {
-        "ids": ids.contains(",") ? ids.substring(0, ids.length - 1) : ids,
-        "DelType": "true"
-      });
+      loadUrl(METHOD_OAMAILDEL, {"id": id, "DelType": "true"});
     } else {
-      loadUrl(METHOD_OAMAILDELCG, {
-        "ids": ids.contains(",") ? ids.substring(0, ids.length - 1) : ids,
-        "DelType": "false"
-      });
+      loadUrl(METHOD_OAMAILDELCG, {"id": id, "DelType": "false"});
     }
   }
 

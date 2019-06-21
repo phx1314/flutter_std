@@ -44,9 +44,10 @@ class HttpManager {
         options:
             Options(headers: {"cookie": Help.cookie}, connectTimeout: 5000),
       );
+
       print(
           '请求url: $url请求参数:${params != null ? params.toString() : ''}返回参数:${response != null ? response.toString() : ''}');
-      if (isShow && context != null) Navigator.pop(context);
+      if (isShow && context != null ) Navigator.pop(context);
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (!(response.data is Map)) {
           response.data = json.decode(response.toString());

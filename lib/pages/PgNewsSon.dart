@@ -54,7 +54,6 @@ class PgNewsSonState extends BaseState<PgNewsSon> {
 //    loadUrl(METHOD_GetImageNews, null, isShow: false);
     mPullListView = PullListView(
       methodName: widget.methodName,
-      wantKeepAlive: false,
       other: widget.other,
       mCallback: (methodName, res) {
         if (methodName == METHOD_OANEW) {
