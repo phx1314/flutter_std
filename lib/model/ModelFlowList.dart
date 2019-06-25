@@ -144,7 +144,7 @@ class RowsListBean {
     this.NoFee = json['NoFee'];
     this.rowNumber = json['row_number'];
     this.Id ??= json['Id'];
-    this.Id ??= json['FlowID'];
+    this.Id ??= json['FlowRefID'];
     this.KeyID = json['KeyID'];
     this.FatherID = json['FatherID'];
     this.ConFulfilType = json['ConFulfilType'];

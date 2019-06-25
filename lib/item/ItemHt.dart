@@ -2,23 +2,22 @@ import 'dart:convert';
 
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_std/Help.dart';
-import 'package:flutter_std/model/ModelFlowList.dart';
-import 'package:flutter_std/pages/PgGjkh.dart';
-import 'package:flutter_std/pages/PgWebDetail.dart';
+import 'package:flutter_std/model/ModelHt.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
 
-class ItemBase extends StatefulWidget {
+import '../Help.dart';
+
+class ItemHt extends StatefulWidget {
   RowsListBean item;
 
-  ItemBase(this.item);
+  ItemHt(this.item);
 
   @override
-  ItemBaseState createState() => new ItemBaseState();
+  ItemHtState createState() => new ItemHtState();
 }
 
-class ItemBaseState extends BaseState<ItemBase> {
+class ItemHtState extends BaseState<ItemHt> {
   List<Widget> mWidgets = List();
 
   @override
@@ -45,18 +44,8 @@ class ItemBaseState extends BaseState<ItemBase> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (widget.item.MenuNameEng == "CustomerInfo"||widget.item.MenuNameEng == "CustPool") {
-          //跟进客户
-          Help.goWhere(
-              context, PgGjkh(widget.item , widget.item.Id.toString()));
-        } else if (widget.item.mModelMenuConfig != null) {
-          Help.go2PubView(context, widget.item, "");
-        } else {
-          Help.goWhere(
-              context,
-              PgWebDetail(
-                  widget.item.Id, "OaNotice", "oa/oanoticemobile/Query"));
-        }
+        Help.sendMsg("PgPubView", 0, json.encode(widget.item.toJson()));
+        finish();
       },
       child: Container(
         padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),

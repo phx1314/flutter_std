@@ -83,27 +83,27 @@ class PgFlowListState extends BaseState<PgFlowList> {
         appBar: AppBar(
           title: Text(widget.item.text),
           centerTitle: true,
-          actions: <Widget>[
-            Visibility(
-              visible: search != null,
-              child: IconButton(
-                icon: Icon(
-                  Icons.search,
-                  size: ScreenUtil.getScaleW(context, 25),
-                ),
-                onPressed: () {
-//                widget.item.mModelMenuConfig.search =
-//                    (json.decode(search) as List)
-//                        .map((i) => SearchListBean.fromJson(i))
-//                        .toList();
-//                Help.goWhere(
-//                    context,
-//                    PgSearch(widget.toString(),
-//                        widget.item.mModelMenuConfig.search));
-                },
-              ),
-            ),
-          ],
+//          actions: <Widget>[
+//            Visibility(
+//              visible: search != null,
+//              child: IconButton(
+//                icon: Icon(
+//                  Icons.search,
+//                  size: ScreenUtil.getScaleW(context, 25),
+//                ),
+//                onPressed: () {
+////                widget.item.mModelMenuConfig.search =
+////                    (json.decode(search) as List)
+////                        .map((i) => SearchListBean.fromJson(i))
+////                        .toList();
+////                Help.goWhere(
+////                    context,
+////                    PgSearch(widget.toString(),
+////                        widget.item.mModelMenuConfig.search));
+//                },
+//              ),
+//            ),
+//          ],
         ),
         body: mPullListView,
         floatingActionButton: widget.item.mModelMenuConfig.grid.addUrl !=

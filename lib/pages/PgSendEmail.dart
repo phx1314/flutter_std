@@ -28,7 +28,6 @@ class PgSendEmailState extends BaseState<PgSendEmail> {
   List<String> strs = List();
   ModelYjDetail mModelYjDetail;
   ModelFjList mModelFjList = new ModelFjList();
-  List<BaseEmployeeListBean> mCheckeds = new List();
   String ids = '';
   String name = '请选择收件人';
   String Title = '';
@@ -41,27 +40,10 @@ class PgSendEmailState extends BaseState<PgSendEmail> {
   void disMsg(int what, data) {
     switch (what) {
       case 101:
-        mCheckeds = data;
-        name = getNames();
-        ids = getIDs();
+        name = Help.getNames(data);
+        ids = Help.getIDs(data);
         break;
     }
-  }
-
-  String getNames() {
-    String string = '';
-    mCheckeds.forEach((f) {
-      string += f.EmpName.toString() + ',';
-    });
-    return string.isEmpty ? '请选择' : string.substring(0, string.length - 1);
-  }
-
-  String getIDs() {
-    String ids = '';
-    mCheckeds.forEach((f) {
-      ids += f.EmpID.toString() + ',';
-    });
-    return ids.isEmpty ? '' : ids.substring(0, ids.length - 1);
   }
 
   @override
@@ -80,7 +62,7 @@ class PgSendEmailState extends BaseState<PgSendEmail> {
       loadUrl(METHOD_OAMAILDETAIL, {"Id": widget.id, "ReceiveFlag": "0"});
     } else if (widget.id != null) {
       if (widget.type == 3) {
-        loadUrl (METHOD_GETATTACHFILES,
+        loadUrl(METHOD_GETATTACHFILES,
             {"refID": widget.id, "refTable": refTable_OaMail},
             isShow: false);
       }

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_std/Help.dart';
 import 'package:flutter_std/model/ModelFlowList.dart';
 import 'package:flutter_std/model/ModelJDInfo.dart';
+import 'package:flutter_std/model/ModelUser.dart';
+import 'package:flutter_std/pages/PgXzry.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
 
@@ -28,16 +30,23 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
   dynamic s_ry;
   ModelJDInfo mModelJDInfo;
   TextEditingController mController = TextEditingController();
+  bool isHq = false;
+  String hqText = '请选择';
+  String ids = "";
 
   @override
   void disMsg(int what, data) {
     switch (what) {
+      case 101:
+        hqText = Help.getNames(data);
+        ids = Help.getIDs(data);
+        reLoad();
+        break;
       case 889:
         widget.data = data;
         break;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -116,14 +125,29 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
                             padding: EdgeInsets.all(
                                 ScreenUtil.getScaleW(context, 13))),
                         Expanded(
-                          child: DropdownButton(
-                            style: Style.text_style_16_black,
-                            items: _getItems(data_ry),
-                            value: s_ry,
-                            onChanged: (itemValue) {
-                              _onChangedRy(itemValue);
-                            },
-                          ),
+                          child: isHq
+                              ? InkWell(
+                                  onTap: () {
+                                    Help.goWhere(
+                                        context,
+                                        PgXzry(
+                                          widget.toString(),
+                                          ids: ids,
+                                        ));
+                                  },
+                                  child: Text(
+                                    hqText,
+                                    style: Style.text_style_16_black,
+                                  ),
+                                )
+                              : DropdownButton(
+                                  style: Style.text_style_16_black,
+                                  items: _getItems(data_ry),
+                                  value: s_ry,
+                                  onChanged: (itemValue) {
+                                    _onChangedRy(itemValue);
+                                  },
+                                ),
                         ),
                         Padding(
                             padding: EdgeInsets.only(
@@ -138,13 +162,16 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            '意见',
-                            style: Style.text_style_16_black,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.all(
-                                  ScreenUtil.getScaleW(context, 13))),
+//                          Visibility(
+//                            visible: false,
+//                            child: Text(
+//                              '意见',
+//                              style: Style.text_style_16_black,
+//                            ),
+//                          ),
+//                          Padding(
+//                              padding: EdgeInsets.all(
+//                                  ScreenUtil.getScaleW(context, 13))),
                           Expanded(
                             child: TextField(
                               autofocus: true,
@@ -229,16 +256,16 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
     map['_note'] = mController.text;
     if (mModelJDInfo != null && mModelJDInfo.NextSteps.length > 0) {
       map['_nextNodeID'] = s_bz.NodeID;
-//      if (mTextView_2.getVisibility() == View.VISIBLE) {
-//        if (!TextUtils.isEmpty(ids)) {
-//          mModelAddPub._nextEmpIDs = ids;
-//        } else {
-//          Helper.toast("请选择会签人员", context);
-//          return;
-//        }
-//      } else {
-      map['_nextEmpIDs'] = s_bz.Users.length > 0 ? s_ry.ID.toString() : "0";
-//      }
+      if (isHq) {
+        if (ids != '') {
+          map['_nextEmpIDs'] = ids;
+        } else {
+          Help.Toast(context, "请选择会签人员");
+          return;
+        }
+      } else {
+        map['_nextEmpIDs'] = s_bz.Users.length > 0 ? s_ry.ID.toString() : "0";
+      }
     } else {
       map['_nextNodeID'] = 0;
       map['_nextEmpIDs'] = "0";
@@ -299,7 +326,7 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
   }
 
   void addLast() {
-    data_bz.add(widget.title);
+    data_bz.add("流程结束");
     data_ry.add("不需要选择");
     s_bz = data_bz[0];
     s_ry = data_ry[0];
@@ -309,9 +336,9 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
   onSuccess(String methodName, res) {
     if (methodName == METHOD_FLOWWIDGET) {
       mModelJDInfo = ModelJDInfo.fromJson(json.decode(res.json));
+      data_bz.clear();
+      data_ry.clear();
       if (mModelJDInfo.NextSteps.length > 0) {
-        data_bz.clear();
-        data_ry.clear();
         data_bz.addAll(mModelJDInfo.NextSteps);
         s_bz = data_bz[0];
         selectRy(mModelJDInfo.NextSteps[0]);
@@ -324,16 +351,15 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
   }
 
   void selectRy(NextStepsListBean mNextStepsListBean) {
-    if (mNextStepsListBean.NodeType == -1 &&
-        (widget.item.action == "load_next" ||
-            widget.item.action == "load_back")) {
-//    mSpinner_2.setVisibility(View.GONE);
-//    mTextView_2.setVisibility(View.VISIBLE);
-//    if (!TextUtils.isEmpty(mModelJDInfo.NextSteps.get(i).ChoosedUsers)) {
-//      mTextView_2.setText(mModelJDInfo.NextSteps.get(i).ChoosedUserNames);
-//      ids = mModelJDInfo.NextSteps.get(i).ChoosedUsers;
-//    }
+    if (mNextStepsListBean.NodeName.contains("会签")) {
+      isHq = true;
+      if (mNextStepsListBean.ChoosedUsers != null &&
+          mNextStepsListBean.ChoosedUsers != '') {
+        hqText = mNextStepsListBean.ChoosedUserNames;
+        ids = mNextStepsListBean.ChoosedUsers;
+      }
     } else {
+      isHq = false;
       data_ry.clear();
       if (mNextStepsListBean.Users != null &&
           mNextStepsListBean.Users.length > 0) {
@@ -342,9 +368,6 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
         data_ry.add("无可选择人员");
       }
       s_ry = data_ry[0];
-//    mSpinner_2.setVisibility(View.VISIBLE);
-//    mTextView_2.setVisibility(View.GONE);
-
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_std/Help.dart';
+import 'package:flutter_std/model/ModelAA.dart';
 import 'package:flutter_std/model/ModelCount.dart';
 import 'package:flutter_std/model/ModelMenuConfig.dart';
 import 'package:flutter_std/model/ModelVersion.dart';
@@ -40,6 +41,7 @@ class PgHomeState extends BaseState<PgHome> {
   ModelCount mModelCount;
   int _lastClickTime = 0;
   int xxCount = 0;
+  ModelAA mModelAA;
 
   Future<bool> _doubleExit() {
     int nowTime = new DateTime.now().microsecondsSinceEpoch;
@@ -87,6 +89,9 @@ class PgHomeState extends BaseState<PgHome> {
           });
         }
       });
+    } else if (methodName == METHOD_GetAmount) {
+      mModelAA = ModelAA.fromJson(res.data);
+      reLoad();
     }
   }
 
@@ -105,6 +110,7 @@ class PgHomeState extends BaseState<PgHome> {
   void initState() {
     super.initState();
     loadUrl(METHOD_GetWork, null, isShow: false);
+    loadUrl(METHOD_GetAmount, {"app": "1"}, isShow: false);
   }
 
   @override
@@ -120,6 +126,12 @@ class PgHomeState extends BaseState<PgHome> {
       case 2:
         xxCount = data;
         reLoad();
+        break;
+      case 6:
+        loadUrl(METHOD_GetAmount, {"app": "1"}, isShow: false);
+        break;
+      case 222:
+        Help.go2PubView(context, data, "");
         break;
     }
   }
@@ -143,12 +155,26 @@ class PgHomeState extends BaseState<PgHome> {
                 badge: null,
               ),
               BottomTabBarItem(
-                  icon: Icon(Icons.widgets),
-                  title: Text(appBarTitles[1],
-                      style: TextStyle(
-                          fontSize: 15,
-                          color:
-                              _tabIndex == 1 ? Help.mColor : Colors.black45))),
+                icon: Icon(Icons.widgets),
+                title: Text(appBarTitles[1],
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: _tabIndex == 1 ? Help.mColor : Colors.black45)),
+                badge: mModelAA != null &&
+                        mModelAA.OAAmount + mModelAA.ProjectAmount > 0
+                    ? CircleAvatar(
+                        radius: ScreenUtil.getScaleW(context, 9),
+                        backgroundColor: Colors.red,
+                        child: Text(
+                          (mModelAA.OAAmount + mModelAA.ProjectAmount) > 99
+                              ? 99
+                              : (mModelAA.OAAmount + mModelAA.ProjectAmount)
+                                  .toString(),
+                          style: Style.minTextWhite,
+                        ),
+                      )
+                    : null,
+              ),
               BottomTabBarItem(
                 icon: Icon(Icons.chat_bubble),
                 title: Text(appBarTitles[2],
@@ -184,7 +210,7 @@ class PgHomeState extends BaseState<PgHome> {
                         radius: ScreenUtil.getScaleW(context, 9),
                         backgroundColor: Colors.red,
                         child: Text(
-                          mModelCount.Total.toString(),
+                          mModelCount.Total>99?99:mModelCount.Total.toString(),
                           style: Style.minTextWhite,
                         ),
                       )

@@ -64,15 +64,16 @@ class ItemGjkhState extends BaseState<ItemGjkh> {
           ),
         ),
       ),
+      enabled: widget.item.MenuNameEng == "CustomerInfo",
       secondaryActions: <Widget>[
         Visibility(
-          visible: widget.position == 0,
+          visible: widget.position == 0 ,
           child: new IconSlideAction(
             caption: '新增',
             color: Colors.green,
             icon: Icons.add,
             onTap: () {
-              Help.sendMsg('PgGjkh', 1, '');
+              Help.sendMsg('PgGjkh', 1, widget.item.Id.toString());
             },
           ),
         ),
@@ -87,11 +88,13 @@ class ItemGjkhState extends BaseState<ItemGjkh> {
                     : METHOD_CUSTLINKDEL,
                 {
                   'id':
-                      widget.position == 0 ? widget.item.Id : widget.item.KeyID
+                  widget.position == 0 ? widget.item.Id : widget.item.KeyID
                 });
           },
         ),
       ],
+
+
     );
   }
 }

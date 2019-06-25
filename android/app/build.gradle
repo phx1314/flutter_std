@@ -51,6 +51,13 @@ android {
                 JPUSH_APPKEY : "6a30d2dbe744a2281cb285ce", // NOTE: JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
+        //1.解决arm64-v8a引起的闪退，因为没有64位的libflutter.so文件，flutter当前1.0.0版本的问题
+        ndk {
+            abiFilters "armeabi", "x86", "armeabi-v7a"
+        }
+//        ndk {
+//            abiFilters "armeabi-v7a", "x86"
+//        }
     }
 
     signingConfigs {
@@ -70,17 +77,16 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            ndk {
-                //这里要加上，否则debug包会出问题,后面三个为可选，x86建议加上不然部分模拟器回报错  地图
-                abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86"
-            }
+//            ndk {
+//                //这里要加上，否则debug包会出问题,后面三个为可选，x86建议加上不然部分模拟器回报错  地图
+//                abiFilters "armeabi-v7a", "x86"
+//            }
         }
         release {
             signingConfig signingConfigs.release
-//            minifyEnabled false
 //            ndk {
 //                //这里其实我觉可以直接是用"armeabi-v7a"，但国内几个大哥之前使用的都是"armeabi"
-//                abiFilters "armeabi"
+//                abiFilters "armeabi-v7a"
 //            }
         }
     }

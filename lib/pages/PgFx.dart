@@ -17,25 +17,32 @@ class PgFxState extends BaseState<PgFx> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
-          title: TabBar(
-            tabs: [
-              Tab(
-                text: "表单",
-              ),
-              Tab(
-                text: "日程",
-              )
-            ],
-            isScrollable: true,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white,
-            unselectedLabelStyle: new TextStyle(fontSize: 16.0),
-            labelStyle:
-                new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+          title: Text(
+            '发现',
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
+//          TabBar(
+
+//            tabs: [
+//              Tab(
+//                text: "表单",
+//              ),
+//              Tab(
+//                text: "日程",
+//              )
+//            ],
+//            isScrollable: true,
+//            labelColor: Colors.white,
+//            unselectedLabelColor: Colors.white,
+//            unselectedLabelStyle: new TextStyle(fontSize: 16.0),
+//            labelStyle:
+//                new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+//          ),
           leading: Builder(
             builder: (context) => IconButton(
                   icon: Icon(Icons.crop_free,
@@ -66,7 +73,7 @@ class PgFxState extends BaseState<PgFx> {
           centerTitle: true,
         ),
         body: TabBarView(
-          children: [PgBd(), PgRc()],
+          children: [PgBd()],
         ),
       ),
     );

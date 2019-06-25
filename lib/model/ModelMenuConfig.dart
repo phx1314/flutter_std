@@ -3,7 +3,7 @@ import 'ModelDx.dart';
 class ModelMenuConfig {
   FlowBean flow;
   GridBean grid;
-  List<List<SearchListBean>> search;
+  var search;
   List<UploadersListBean> uploaders;
 
   ModelMenuConfig({this.flow, this.grid, this.uploaders, this.search});
@@ -17,11 +17,11 @@ class ModelMenuConfig {
             .toList()
         : null;
 
-    List<dynamic> searchList = json['search'];
-    this.search = new List();
-    this.search.addAll(searchList.map((o) => (o as List) != null
-        ? (o as List).map((i) => SearchListBean.fromJson(i)).toList()
-        : null));
+//    List<dynamic> searchList = json['search'];
+//    this.search = new List();
+//    this.search.addAll(searchList.map((o) => (o as List) != null
+//        ? (o as List).map((i) => SearchListBean.fromJson(i)).toList()
+//        : null));
   }
 
   Map<String, dynamic> toJson() {

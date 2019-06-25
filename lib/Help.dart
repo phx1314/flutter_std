@@ -67,8 +67,8 @@ const List colors = [
 
 /// //////////////////////////////////////常量////////////////////////////////////// ///
 
-const apikey = "848efc235a1f28da65a22edee34bc2a8";
-const appKey = "8a1168a00208d1ec6872da12d9a7aa7f";
+const apikey = "577b7cfb3d94c174f0998202c852b88e";
+const appKey = "a4ef50168290c74a2d6998badceafd68";
 const METHOD_LOGIN = "core/main/checkuserlogin1";
 const METHOD_CUSTOMERSAVE = "bussiness/Customer/save";
 const METHOD_CUSTLINKSAVE = "bussiness/CustLink/save";
@@ -80,6 +80,7 @@ const METHOD_OANEW = "oa/OaNew/json";
 const METHOD_GetMails = "Core/Layout/GetMails";
 const METHOD_GetImageNews = "core/layout/GetImageNews";
 const METHOD_GetWork = "Core/menu/mobilemenujson?level=1&isIcon=true";
+const METHOD_GetAmount = "core/PubFlow/GetAmount";
 const METHOD_OANOTICE = "oa/OaNotice/json";
 const METHOD_GetMessages = "oa/Message/GetMessages";
 const METHOD_GETLIST = "oa/Message/GetList";
@@ -107,6 +108,7 @@ const METHOD_OAMAIL = "oa/oamail/save";
 const METHOD_UPLOAD = "core/ProcessFile/Upload"; //上传文件
 const METHOD_DELETE = "core/ProcessFile/Delete"; //删除文件
 const method_file_upload = "file/upload";
+const method_Contract = "bussiness/Contract/json";
 const method_userchat_add = "userchat/add";
 const METHOD_UPDATE = "https://www.pgyer.com/apiv2/app/check";
 
@@ -173,6 +175,7 @@ class Help {
 //    try {
     mJPush.addEventHandler(onReceiveNotification: (Map<String, dynamic> event) {
       print('addOnreceive>>>>>>$event');
+      Help.sendMsg('PgHome', 6, '');
     }, onOpenNotification: (Map<String, dynamic> event) {
       String data = event['extras']['cn.jpush.android.EXTRA'];
       print('addOpenNoti>>>>>$data');
@@ -197,8 +200,7 @@ class Help {
           break;
         }
       }
-
-      Help.go2PubView(context, item, "");
+      Help.sendMsg("PgHome", 222, item);
     }, onReceiveMessage: (Map<String, dynamic> event) {
       print('addReceiveMsg>>>>>$event'); //无效的
     });
@@ -499,5 +501,21 @@ class Help {
         ret += ch;
     }
     return ret;
+  }
+
+  static String getNames(List<BaseEmployeeListBean> mCheckeds) {
+    String string = '';
+    mCheckeds.forEach((f) {
+      string += f.EmpName.toString() + ',';
+    });
+    return string.isEmpty ? '请选择' : string.substring(0, string.length - 1);
+  }
+
+  static String getIDs(List<BaseEmployeeListBean> mCheckeds) {
+    String ids = '';
+    mCheckeds.forEach((f) {
+      ids += f.EmpID.toString() + ',';
+    });
+    return ids.isEmpty ? '' : ids.substring(0, ids.length - 1);
   }
 }

@@ -29,16 +29,23 @@ class PgGjkhState extends BaseState<PgGjkh>
   int position = 0;
   String addUrl1 = "";
   String addUrl2 = "";
-  String editUrl1 = "";
-  String editUrl2 = "";
 
   @override
   void disMsg(int what, data) {
     switch (what) {
       case 0:
         RowsListBean mRowsListBean = data;
-        mRowsListBean.mModelMenuConfig.grid.editUrl[0] =
-            position == 0 ? editUrl1 : editUrl2;
+        if (widget.item.MenuNameEng == "CustomerInfo") {
+          mRowsListBean.mModelMenuConfig.grid.editUrl[0] = position == 0
+              ? mRowsListBean.mModelMenuConfig.grid.editUrl[1]
+              : mRowsListBean.mModelMenuConfig.grid.editUrl[2];
+        } else {
+          mRowsListBean.mModelMenuConfig.grid.editUrl[0] = position == 0
+              ? "bussiness/CustLinkManmobile/edit?id=" +
+                  mRowsListBean.Id.toString()
+              : "bussiness/CustLinkmobile/edit?id=" +
+                  mRowsListBean.KeyID.toString();
+        }
         mRowsListBean.MenuNameEng = 'CustomerInfo$position';
         Help.go2PubView(context, mRowsListBean, "");
         break;
@@ -47,8 +54,8 @@ class PgGjkhState extends BaseState<PgGjkh>
         mRowsListBean.mModelMenuConfig = widget.item.mModelMenuConfig;
         mRowsListBean.MenuNameEng = widget.item.MenuNameEng;
         mRowsListBean.text = widget.item.text;
-        mRowsListBean.mModelMenuConfig.grid.addUrl[0] =
-            position == 0 ? addUrl1 : addUrl2;
+        addUrl2 = addUrl2.replaceAll("LinkManID=null", "LinkManID=" + data);
+        mRowsListBean.mModelMenuConfig.grid.addUrl[0] = addUrl2;
         mRowsListBean.MenuNameEng = 'CustomerInfo$position';
         Help.go2PubView(context, mRowsListBean, "");
         break;
@@ -60,16 +67,21 @@ class PgGjkhState extends BaseState<PgGjkh>
         mPullListView2.data.remove(data);
         mPullListView2.setState();
         break;
+      case 4:
+        mPullListView1.reLoad();
+        mPullListView2.reLoad();
+        break;
     }
   }
 
   @override
   void initView() {
-    addUrl1 = widget.item.mModelMenuConfig.grid.addUrl[1]
-        .replaceAll("CustID=null", "CustID=" + widget.id);
-    addUrl2 = widget.item.mModelMenuConfig.grid.addUrl[2];
-    editUrl1 = widget.item.mModelMenuConfig.grid.editUrl[1];
-    editUrl2 = widget.item.mModelMenuConfig.grid.editUrl[2];
+    if (widget.item.MenuNameEng == "CustomerInfo") {
+      addUrl1 = widget.item.mModelMenuConfig.grid.addUrl[1]
+          .replaceAll("CustID=null", "CustID=" + widget.id);
+      addUrl2 = widget.item.mModelMenuConfig.grid.addUrl[2];
+    }
+
     mTabController = TabController(length: 2, vsync: this);
     tabs.add(Tab(
       text: "联系人",
@@ -92,7 +104,7 @@ class PgGjkhState extends BaseState<PgGjkh>
           f.MenuMobileConfig = widget.item.MenuMobileConfig;
           f.mModelMenuConfig = ModelMenuConfig.fromJson(json.decode(
               Help.getRightdata(widget.item.MenuMobileConfig, f.toJson())));
-          data.add(ItemGjkh(f, 0 ));
+          data.add(ItemGjkh(f, 0));
         });
         return data;
       },
@@ -111,7 +123,7 @@ class PgGjkhState extends BaseState<PgGjkh>
           f.MenuMobileConfig = widget.item.MenuMobileConfig;
           f.mModelMenuConfig = ModelMenuConfig.fromJson(json.decode(
               Help.getRightdata(widget.item.MenuMobileConfig, f.toJson())));
-          data.add(ItemGjkh(f, 1 ));
+          data.add(ItemGjkh(f, 1));
         });
         return data;
       },
@@ -165,15 +177,14 @@ class PgGjkhState extends BaseState<PgGjkh>
           children: widgets,
         ),
         floatingActionButton: Visibility(
-          visible: position == 0,
+          visible: position == 0 && widget.item.MenuNameEng == "CustomerInfo",
           child: FloatingActionButton(
             onPressed: () {
               RowsListBean mRowsListBean = new RowsListBean();
               mRowsListBean.mModelMenuConfig = widget.item.mModelMenuConfig;
               mRowsListBean.MenuNameEng = widget.item.MenuNameEng;
               mRowsListBean.text = widget.item.text;
-              mRowsListBean.mModelMenuConfig.grid.addUrl[0] =
-                  position == 0 ? addUrl1 : addUrl2;
+              mRowsListBean.mModelMenuConfig.grid.addUrl[0] = addUrl1;
               mRowsListBean.MenuNameEng = 'CustomerInfo$position';
               Help.go2PubView(context, mRowsListBean, "");
             },

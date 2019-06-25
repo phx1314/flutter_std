@@ -57,7 +57,7 @@ class ItemFlow extends StatelessWidget {
                       left: ScreenUtil.getScaleW(context, 12),
                       top: ScreenUtil.getScaleW(context, 5)),
                   child: Text(
-                    item.CreatorEmpName,
+                    item.CreatorEmpName??'',
                     style: Style.text_style_13_gray,
                   ),
                 ),

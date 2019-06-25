@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="掌上金曲10"
+        android:label="掌上金曲"
         android:icon="@mipmap/icon_loading">
         <activity
             android:name=".MainActivity"
@@ -45,8 +45,8 @@
         <activity android:name="com.apptreesoftware.flutterwebview.WebViewActivity">
         </activity>
 
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="71921fa552a5119c74d39fc297f1d2c4" />
+        <!--<meta-data-->
+            <!--android:name="com.amap.api.v2.apikey"-->
+            <!--android:value="71921fa552a5119c74d39fc297f1d2c4" />-->
     </application>
 </manifest>

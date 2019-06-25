@@ -20,6 +20,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'PgFileList.dart';
 import 'PgFileListEdit.dart';
 import 'PgGzjd.dart';
+import 'PgHtList.dart';
 
 //  https://github.com/tiagojencmartins/unicornspeeddial
 class PgPubView extends StatefulWidget {
@@ -34,6 +35,7 @@ class PgPubView extends StatefulWidget {
 
 class PgPubViewState extends BaseState<PgPubView> {
   String title;
+  String url;
   FlutterWebviewPlugin flutterWebViewPlugin = new FlutterWebviewPlugin();
   RaisedButton mRaisedButton_tj;
   RaisedButton mRaisedButton_bc;
@@ -54,10 +56,13 @@ class PgPubViewState extends BaseState<PgPubView> {
   @override
   void disMsg(int what, data) {
     switch (what) {
+      case 0:
+        flutterWebViewPlugin
+            .evalJavascript("${map_json['Method']}('$data')");
+        break;
       case 300:
         Map<String, dynamic> map = data;
         map['_processor'] = widget.item.mModelMenuConfig.flow.processor;
-
         if (mModelWenjianUploads.length > 0) {
           String uploadFile = "&lt;Root&gt;";
           mRefTables.forEach((reftable) {
@@ -130,13 +135,7 @@ class PgPubViewState extends BaseState<PgPubView> {
       withJavascript: true,
       clearCache: true,
       clearCookies: true,
-      url: widget.item.Id != 0
-          ? "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.editUrl[0]}&a=${Uri.encodeComponent(Help.mModelUser.name)}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}"
-          : "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.addUrl[0]}" +
-              (widget.item.mModelMenuConfig.grid.addUrl[0].contains('?')
-                  ? '&a='
-                  : '?a=') +
-              "${Uri.encodeComponent(Help.mModelUser.name)}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}",
+      url: url,
       //      url:"http://192.168.0.7/GoldPM9_hncsxy/oa/OaCarmobile/add?a=%E9%99%88%E9%9C%B2&p=1A1DC91C907325C69271DDF0C944BC72",
       initialChild: Container(
         color: Colors.white,
@@ -180,20 +179,24 @@ class PgPubViewState extends BaseState<PgPubView> {
         title: Text(widget.item.text),
         centerTitle: true,
         actions: <Widget>[
-          InkWell(
-            onTap: () {
-              Help.goWhere(
-                  context,
-                  PgGzjd(widget.item.FlowID == null
-                      ? '0'
-                      : widget.item.FlowID.toString()));
-            },
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(10),
-              child: Text(
-                '查看进度',
-                style: Style.text_style_14_white,
+          Visibility(
+            visible: null != widget.item.mModelMenuConfig.flow.processor &&
+                "" != widget.item.mModelMenuConfig.flow.processor,
+            child: InkWell(
+              onTap: () {
+                Help.goWhere(
+                    context,
+                    PgGzjd(widget.item.FlowID == null
+                        ? '0'
+                        : widget.item.FlowID.toString()));
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  '查看进度',
+                  style: Style.text_style_14_white,
+                ),
               ),
             ),
           )
@@ -206,17 +209,22 @@ class PgPubViewState extends BaseState<PgPubView> {
   onSuccess(String methodName, res) {
     if (methodName == 'getApi') {
       mModelJDInfo = ModelJDInfo.fromJson(json.decode(res.json));
-      if (((mModelJDInfo?.IsFinished || mModelJDInfo?.IsFlowFinished)) ||
-          widget.statusID == '1') {
-        isFinish = true;
+      if (widget.item.mModelMenuConfig.flow.isShowSave &&
+          mModelJDInfo.StepOrder == 1) {
+        addButton(mRaisedButton_zc);
       }
-      flutterWebViewPlugin.resize(Rect.fromLTRB(
-          0,
-          MediaQueryData.fromWindow(window).padding.top +
-              AppBar().preferredSize.height,
-          MediaQuery.of(context).size.width,
-          MediaQuery.of(context).size.height -
-              (isFinish ? 0 : ScreenUtil.getScaleW(context, 50))));
+      if (((mModelJDInfo?.IsFinished || mModelJDInfo?.IsFlowFinished)) ||
+          widget.statusID == '2') {
+        isFinish = true;
+      } else {
+        flutterWebViewPlugin.resize(Rect.fromLTRB(
+            0,
+            MediaQueryData.fromWindow(window).padding.top +
+                AppBar().preferredSize.height,
+            MediaQuery.of(context).size.width,
+            MediaQuery.of(context).size.height -
+                (isFinish ? 0 : ScreenUtil.getScaleW(context, 50))));
+      }
 
       mModelJDInfo.AllowEditControls = widget.statusID == '0'
           ? ""
@@ -259,9 +267,13 @@ class PgPubViewState extends BaseState<PgPubView> {
       mModelWenjianUploads.addAll(mModelFjList.rows);
       goDie();
     } else if (methodName == METHOD_FLOWWIDGET ||
-        methodName == METHOD_CUSTOMERSAVE) {
+        methodName == METHOD_CUSTOMERSAVE ||
+        methodName == METHOD_CUSTLINKMANSAVE ||
+        methodName == METHOD_CUSTLINKSAVE) {
       Fluttertoast.showToast(msg: ":处理成功");
-      Help.sendMsg('PgFlowList', 0, '');
+      Help.sendMsg('PgFlowList,PgBd', 0, '');
+      Help.sendMsg('PgHome', 6, '');
+      Help.sendMsg('PgGjkh', 4, '');
       Navigator.pop(context);
     }
   }
@@ -280,6 +292,14 @@ class PgPubViewState extends BaseState<PgPubView> {
 
   @override
   void initView() {
+    url = widget.item.Id != 0
+        ? "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.editUrl[0]}&a=${Uri.encodeComponent(Help.mModelUser.name)}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}"
+        : "${Help.BASEURL}/${widget.item.mModelMenuConfig.grid.addUrl[0]}" +
+            (widget.item.mModelMenuConfig.grid.addUrl[0].contains('?')
+                ? '&a='
+                : '?a=') +
+            "${Uri.encodeComponent(Help.mModelUser.name)}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}";
+    print(url);
     mRaisedButton_tj = RaisedButton(
       shape: const RoundedRectangleBorder(
           side: BorderSide.none,
@@ -446,6 +466,37 @@ class PgPubViewState extends BaseState<PgPubView> {
             loadUrl(METHOD_CUSTLINKSAVE, map_json);
           }
         } else if (title == '暂存') {
+          Map<String, dynamic> map = new Map();
+          map['_refID'] = widget.item.Id;
+          map['_refTable'] = widget.item.FlowRefTable;
+          map['_flowNodeID'] = widget.item.FlowNodeID;
+          map['_action'] = widget.item.action;
+          map['_flowMultiSignID'] = widget.item.FlowMultiSignID;
+          map['_processor'] = widget.item.mModelMenuConfig.flow.processor;
+          if (mModelWenjianUploads.length > 0) {
+            String uploadFile = "&lt;Root&gt;";
+            mRefTables.forEach((reftable) {
+              uploadFile += "&lt;Files RefTable=\"" + reftable + "\"&gt;";
+              mModelWenjianUploads.forEach((mRowsBean) {
+                if (mRowsBean.RefTable == reftable &&
+                    mRowsBean.IDD != null &&
+                    mRowsBean.IDD != "") {
+                  uploadFile += "&lt;File FileName=\"" +
+                      mRowsBean.Name +
+                      "\" LastModifiedTime=\"" +
+                      Help.getCurrentTime(type: 1) +
+                      "\"&gt;" +
+                      mRowsBean.IDD +
+                      "&lt;/File&gt;";
+                }
+              });
+              uploadFile += "&lt;/Files&gt;";
+              uploadFile += "&lt;/Root&gt;";
+              map["\$uplohad\$_cache_y12\$t1m"] = uploadFile;
+            });
+          }
+          map_json.addAll(map);
+          loadUrl(METHOD_FLOWWIDGET, map_json);
         } else {
           FocusScope.of(context).requestFocus(FocusNode());
           flutterWebViewPlugin?.hide();
@@ -467,6 +518,8 @@ class PgPubViewState extends BaseState<PgPubView> {
         if (!mRefTables.contains(mModelUpload.RefTable)) {
           mRefTables.add(mModelUpload.RefTable);
         }
+      } else if (type == '003') {
+        Help.goWhere(context, PgHtList());
       }
     } catch (e) {
       print(e.toString());
@@ -512,20 +565,17 @@ class PgPubViewState extends BaseState<PgPubView> {
         flutterWebViewPlugin?.show();
         if (widget.item.IsSave != null && widget.item.IsSave) {
           addButton(mRaisedButton_bc);
-          flutterWebViewPlugin.resize(Rect.fromLTRB(
-              0,
-              MediaQueryData.fromWindow(window).padding.top +
-                  AppBar().preferredSize.height,
-              MediaQuery.of(context).size.width,
-              MediaQuery.of(context).size.height -
-                  (ScreenUtil.getScaleW(context, 50))));
+//          flutterWebViewPlugin.resize(Rect.fromLTRB(
+//              0,
+//              MediaQueryData.fromWindow(window).padding.top +
+//                  AppBar().preferredSize.height,
+//              MediaQuery.of(context).size.width,
+//              MediaQuery.of(context).size.height -
+//                  (ScreenUtil.getScaleW(context, 50))));
           return;
         }
         if (null != widget.item.mModelMenuConfig.flow.processor &&
             "" != widget.item.mModelMenuConfig.flow.processor) {
-          if (widget.item.mModelMenuConfig.flow.isShowSave) {
-            addButton(mRaisedButton_zc);
-          }
           loadUrl(
               METHOD_FLOWWIDGET,
               {
@@ -539,13 +589,13 @@ class PgPubViewState extends BaseState<PgPubView> {
               biaoshi: "getApi");
         } else {
           addButton(mRaisedButton_bc);
-          flutterWebViewPlugin.resize(Rect.fromLTRB(
-              0,
-              MediaQueryData.fromWindow(window).padding.top +
-                  AppBar().preferredSize.height,
-              MediaQuery.of(context).size.width,
-              MediaQuery.of(context).size.height -
-                  (ScreenUtil.getScaleW(context, 50))));
+//          flutterWebViewPlugin.resize(Rect.fromLTRB(
+//              0,
+//              MediaQueryData.fromWindow(window).padding.top +
+//                  AppBar().preferredSize.height,
+//              MediaQuery.of(context).size.width,
+//              MediaQuery.of(context).size.height -
+//                  (ScreenUtil.getScaleW(context, 50))));
         }
       } else if (state.type == WebViewState.startLoad) {
         flutterWebViewPlugin?.hide();
