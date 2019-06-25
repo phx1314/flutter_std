@@ -5,6 +5,7 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_std/model/ModelFlowList.dart';
 import 'package:flutter_std/model/ModelMenuConfig.dart';
@@ -172,41 +173,66 @@ class Help {
   }
 
   static addEventHandler(BuildContext context, JPush mJPush) {
-//    try {
-    mJPush.addEventHandler(onReceiveNotification: (Map<String, dynamic> event) {
-      print('addOnreceive>>>>>>$event');
-      Help.sendMsg('PgHome', 6, '');
-    }, onOpenNotification: (Map<String, dynamic> event) {
-      String data = event['extras']['cn.jpush.android.EXTRA'];
-      print('addOpenNoti>>>>>$data');
-      ModelPush mModelPush = ModelPush.fromJson(json.decode(data));
-      if (mModelPush.RefTable == "CreateGroup" ||
-          mModelPush.RefTable == "EidtGroup" ||
-          mModelPush.RefTable == "DelGroup" ||
-          mModelPush.RefTable == "OaMess" ||
-          mModelPush.RefTable == "OaMail") return;
-      RowsListBean item = new RowsListBean();
-      item.Id = int.parse(mModelPush.RefID);
+    try {
+      mJPush.addEventHandler(
+          onReceiveNotification: (Map<String, dynamic> event) {
+        print('addOnreceive>>>>>>$event');
+        Help.sendMsg('PgHome', 6, '');
+      }, onOpenNotification: (Map<String, dynamic> event) {
+        print('addOpenNoti>>>>>${event['extras']['Id']}');
+        if (defaultTargetPlatform == TargetPlatform.android) {
+          String data = event['extras']['cn.jpush.android.EXTRA'];
+          ModelPush mModelPush = ModelPush.fromJson(json.decode(data));
+          if (mModelPush.RefTable == "CreateGroup" ||
+              mModelPush.RefTable == "EidtGroup" ||
+              mModelPush.RefTable == "DelGroup" ||
+              mModelPush.RefTable == "OaMess" ||
+              mModelPush.RefTable == "OaMail") return;
+          RowsListBean item = new RowsListBean();
+          item.Id = int.parse(mModelPush.Id);
 
-      for (int j = 0; j < Help.mModelWorkBeans.length; j++) {
-        if (Help.mModelWorkBeans[j].MenuMobileConfig
-                .contains(mModelPush.RefTable) &&
-            mModelPush.RefTable ==
-                Help.mModelWorkBeans[j].mModelMenuConfig.flow.refTable) {
-          item.text = Help.mModelWorkBeans[j].text;
-          item.mModelMenuConfig = ModelMenuConfig.fromJson(json.decode(
-              Help.getRightdata(Help.mModelWorkBeans[j].MenuMobileConfig,
-                  json.decode(data))));
-          break;
+          for (int j = 0; j < Help.mModelWorkBeans.length; j++) {
+            if (Help.mModelWorkBeans[j].MenuMobileConfig
+                    .contains(mModelPush.RefTable) &&
+                mModelPush.RefTable ==
+                    Help.mModelWorkBeans[j].mModelMenuConfig.flow.refTable) {
+              item.text = Help.mModelWorkBeans[j].text;
+              item.mModelMenuConfig = ModelMenuConfig.fromJson(json.decode(
+                  Help.getRightdata(Help.mModelWorkBeans[j].MenuMobileConfig,
+                      json.decode(data))));
+              break;
+            }
+          }
+          Help.sendMsg("PgHome", 222, item);
+        } else {
+          String RefTable = event['extras']['RefTable'];
+          if (RefTable == "CreateGroup" ||
+              RefTable == "EidtGroup" ||
+              RefTable == "DelGroup" ||
+              RefTable == "OaMess" ||
+              RefTable == "OaMail") return;
+          RowsListBean item = new RowsListBean();
+          item.Id = int.parse(event['extras']['Id']);
+
+          for (int j = 0; j < Help.mModelWorkBeans.length; j++) {
+            if (Help.mModelWorkBeans[j].MenuMobileConfig.contains(RefTable) &&
+                RefTable ==
+                    Help.mModelWorkBeans[j].mModelMenuConfig.flow.refTable) {
+              item.text = Help.mModelWorkBeans[j].text;
+              item.mModelMenuConfig = ModelMenuConfig.fromJson(json.decode(
+                  Help.getRightdata(Help.mModelWorkBeans[j].MenuMobileConfig,
+                      event['extras'])));
+              break;
+            }
+          }
+          Help.sendMsg("PgHome", 222, item);
         }
-      }
-      Help.sendMsg("PgHome", 222, item);
-    }, onReceiveMessage: (Map<String, dynamic> event) {
-      print('addReceiveMsg>>>>>$event'); //无效的
-    });
-//    } catch (e) {
-//      print(e.toString());
-//    }
+      }, onReceiveMessage: (Map<String, dynamic> event) {
+        print('addReceiveMsg>>>>>$event'); //无效的
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   static String getRightdata(String data, Map map) {

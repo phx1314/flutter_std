@@ -1,13 +1,13 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html_textview/flutter_html_textview.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_std/Help.dart';
 import 'package:flutter_std/model/ModelEmail.dart';
 import 'package:flutter_std/pages/PgEmailDetail.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/FontString.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
-import 'package:flutter_html_textview/flutter_html_textview.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lpinyin/lpinyin.dart';
 
 class ItemEmail extends StatefulWidget {
@@ -38,7 +38,7 @@ class ItemEmailState extends BaseState<ItemEmail> {
             context, PgEmailDetail(widget.item.Id.toString(), widget.type));
       },
       child: Slidable(
-        delegate: new SlidableDrawerDelegate(),
+        actionPane: SlidableDrawerActionPane(),
         actionExtentRatio: 0.25,
         child: Container(
           padding: EdgeInsets.all(8),

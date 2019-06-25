@@ -43,7 +43,7 @@ class PullListView extends StatefulWidget {
       this.rows = 'rows',
       this.haline = true,
       this.loadMoreEnable = true,
-      this.rows_v = 10,
+      this.rows_v = 20,
       this.page_v = 1})
       : super(key: key);
 

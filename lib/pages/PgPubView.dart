@@ -565,13 +565,13 @@ class PgPubViewState extends BaseState<PgPubView> {
         flutterWebViewPlugin?.show();
         if (widget.item.IsSave != null && widget.item.IsSave) {
           addButton(mRaisedButton_bc);
-//          flutterWebViewPlugin.resize(Rect.fromLTRB(
-//              0,
-//              MediaQueryData.fromWindow(window).padding.top +
-//                  AppBar().preferredSize.height,
-//              MediaQuery.of(context).size.width,
-//              MediaQuery.of(context).size.height -
-//                  (ScreenUtil.getScaleW(context, 50))));
+          flutterWebViewPlugin.resize(Rect.fromLTRB(
+              0,
+              MediaQueryData.fromWindow(window).padding.top +
+                  AppBar().preferredSize.height,
+              MediaQuery.of(context).size.width,
+              MediaQuery.of(context).size.height -
+                  (ScreenUtil.getScaleW(context, 50))));
           return;
         }
         if (null != widget.item.mModelMenuConfig.flow.processor &&
@@ -589,13 +589,13 @@ class PgPubViewState extends BaseState<PgPubView> {
               biaoshi: "getApi");
         } else {
           addButton(mRaisedButton_bc);
-//          flutterWebViewPlugin.resize(Rect.fromLTRB(
-//              0,
-//              MediaQueryData.fromWindow(window).padding.top +
-//                  AppBar().preferredSize.height,
-//              MediaQuery.of(context).size.width,
-//              MediaQuery.of(context).size.height -
-//                  (ScreenUtil.getScaleW(context, 50))));
+          flutterWebViewPlugin.resize(Rect.fromLTRB(
+              0,
+              MediaQueryData.fromWindow(window).padding.top +
+                  AppBar().preferredSize.height,
+              MediaQuery.of(context).size.width,
+              MediaQuery.of(context).size.height -
+                  (ScreenUtil.getScaleW(context, 50))));
         }
       } else if (state.type == WebViewState.startLoad) {
         flutterWebViewPlugin?.hide();

@@ -23,7 +23,7 @@ class ItemFileState extends BaseState<ItemFile> {
   Widget build(BuildContext context) {
     return Slidable(
       enabled: widget.enabled,
-      delegate: new SlidableDrawerDelegate(),
+      actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
       child: InkWell(
         onTap: () {

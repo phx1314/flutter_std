@@ -49,7 +49,7 @@ class ItemGjkhState extends BaseState<ItemGjkh> {
       print(e);
     }
     return Slidable(
-      delegate: new SlidableDrawerDelegate(),
+      actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
       child: InkWell(
         onTap: () {
@@ -64,7 +64,7 @@ class ItemGjkhState extends BaseState<ItemGjkh> {
           ),
         ),
       ),
-      enabled: widget.item.MenuNameEng == "CustomerInfo",
+      enabled: widget.item.MenuNameEng .contains("CustomerInfo") ,
       secondaryActions: <Widget>[
         Visibility(
           visible: widget.position == 0 ,

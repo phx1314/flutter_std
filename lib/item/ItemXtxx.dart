@@ -41,7 +41,7 @@ class ItemXtxxState extends BaseState<ItemXtxx> {
                 '${Help.BASEURL}/oa/Messagemobile/Display?id=${widget.item.Id.toString()}&a=${Help.mModelUser.name}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}'));
       },
       child: Slidable(
-        delegate: new SlidableDrawerDelegate(),
+        actionPane: SlidableDrawerActionPane(),
         actionExtentRatio: 0.25,
         child: Container(
           padding: EdgeInsets.all(8),

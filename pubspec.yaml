@@ -37,7 +37,7 @@ dependencies:
   url_launcher: ^5.0.2
   cached_network_image: ^0.7.0
   open_file: ^2.0.1+2
-  flutter_slidable: ^0.4.9
+  flutter_slidable: ^0.5.3
   webview_flutter: ^0.3.6
   flutter_html_textview: ^0.2.5
   flutter_sound: ^1.4.0
