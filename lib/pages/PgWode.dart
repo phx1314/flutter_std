@@ -52,7 +52,7 @@ class PgWodeState extends BaseState<PgWode> {
   Widget build(BuildContext context) {
     Widget top = InkWell(
       onTap: () {
-        Help.goWhere(context, PgGrzl(Help.mModelUser.UserInfo.EmpID));
+        Help.goWhere(context, PgGrzl(Help.mModelUser?.UserInfo?.EmpID));
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(
@@ -86,14 +86,14 @@ class PgWodeState extends BaseState<PgWode> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Text(
-                        Help.mModelUser.UserInfo.EmpName,
+                         Help.mModelUser?.UserInfo?.EmpName??'',
                         style: Theme.of(context).textTheme.title,
                       ),
                       Container(
                         width: ScreenUtil.getScaleW(context, 5),
                       ),
                       Text(
-                        Help.mModelUser.UserInfo.EmpJob,
+                        Help.mModelUser?.UserInfo?.EmpJob??'',
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.subtitle,
                       )
@@ -103,7 +103,7 @@ class PgWodeState extends BaseState<PgWode> {
                       padding:
                           EdgeInsets.all(ScreenUtil.getScaleW(context, 10))),
                   Text(
-                    Help.mModelUser.UserInfo.EmpDepName,
+                    Help.mModelUser?.UserInfo?.EmpDepName??'',
                     textAlign: TextAlign.right,
                     style: Theme.of(context).textTheme.subtitle,
                   ),
@@ -111,14 +111,14 @@ class PgWodeState extends BaseState<PgWode> {
                       padding:
                           EdgeInsets.all(ScreenUtil.getScaleW(context, 2))),
                   Text(
-                    Help.mModelUser.UserInfo.EmpTel,
+                    Help.mModelUser?.UserInfo?.EmpTel??'',
                     style: Theme.of(context).textTheme.subtitle,
                   ),
                   Padding(
                       padding:
                           EdgeInsets.all(ScreenUtil.getScaleW(context, 2))),
                   Text(
-                    Help.mModelUser.UserInfo.EmpNote,
+                    Help.mModelUser?.UserInfo?.EmpNote??'',
                     style: Theme.of(context).textTheme.subtitle,
                   ),
                 ],
@@ -128,7 +128,7 @@ class PgWodeState extends BaseState<PgWode> {
               radius: ScreenUtil.getScaleW(context, 27),
               backgroundColor: Colors.transparent,
               backgroundImage: CachedNetworkImageProvider(
-                  Help.ImageUrl + ( Help.mModelUser.UserInfo.EmpHead.isEmpty?'0': Help.mModelUser.UserInfo.EmpHead),
+                  Help.ImageUrl + ( Help.mModelUser?.UserInfo?.EmpHead!=null&&Help.mModelUser?.UserInfo?.EmpHead!=''?Help.mModelUser?.UserInfo?.EmpHead: '0'),
                   cacheManager: Help.mImageCacheManager),
             ),
           ],

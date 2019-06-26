@@ -32,8 +32,6 @@ const PAGE_SIZE = 20;
 const DEBUG = true;
 const USE_NATIVE_WEBVIEW = true;
 const RollupSize_Units = ["GB", "MB", "KB", "B"];
-
-/// //////////////////////////////////////常量////////////////////////////////////// ///
 const TOKEN_KEY = "token";
 const USER_NAME_KEY = "user-name";
 const PW_KEY = "user-pw";
@@ -65,9 +63,6 @@ const List colors = [
 //  Colors.brown,
 //  Colors.blueGrey,
 ];
-
-/// //////////////////////////////////////常量////////////////////////////////////// ///
-
 const apikey = "577b7cfb3d94c174f0998202c852b88e";
 const appKey = "a4ef50168290c74a2d6998badceafd68";
 const METHOD_LOGIN = "core/main/checkuserlogin1";

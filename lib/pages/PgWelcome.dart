@@ -45,8 +45,8 @@ class _PgWelcomeState extends BaseState<PgWelcome> {
         appKey: "6a30d2dbe744a2281cb285ce",
         channel: "developer-default",
         debug: true,
-        production: false);
-    new Future.delayed(const Duration(seconds: 2), () {
+        production: true);
+    new Future.delayed(const Duration(seconds: 1), () {
       Help.init().then((res) {
         if (Help.ISFIRST == null) {
           Help.pushReplacementNamed(context, PgYinDao.sName);
