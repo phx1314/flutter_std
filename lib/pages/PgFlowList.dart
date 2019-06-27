@@ -35,7 +35,17 @@ class PgFlowListState extends BaseState<PgFlowList> {
         break;
       case 888:
         Map<String, dynamic> map = {"queryInfo": data.toString()};
-        map.addAll(widget.item.mModelMenuConfig.grid.queryParams[0]);
+        Map<String, dynamic> dd =
+            widget.item.mModelMenuConfig.grid.queryParams[0];
+        dd.remove("queryInfo");
+        map.addAll(dd);
+        mPullListView.other = map;
+        mPullListView.reLoad();
+        break;
+      case 889:
+        Map<String, dynamic> map =
+            widget.item.mModelMenuConfig.grid.queryParams[0];
+        map.addAll(data);
         mPullListView.other = map;
         mPullListView.reLoad();
         break;
@@ -83,27 +93,27 @@ class PgFlowListState extends BaseState<PgFlowList> {
         appBar: AppBar(
           title: Text(widget.item.text),
           centerTitle: true,
-//          actions: <Widget>[
-//            Visibility(
-//              visible: search != null,
-//              child: IconButton(
-//                icon: Icon(
-//                  Icons.search,
-//                  size: ScreenUtil.getScaleW(context, 25),
-//                ),
-//                onPressed: () {
-////                widget.item.mModelMenuConfig.search =
-////                    (json.decode(search) as List)
-////                        .map((i) => SearchListBean.fromJson(i))
-////                        .toList();
-////                Help.goWhere(
-////                    context,
-////                    PgSearch(widget.toString(),
-////                        widget.item.mModelMenuConfig.search));
-//                },
-//              ),
-//            ),
-//          ],
+          actions: <Widget>[
+            Visibility(
+              visible: search != null,
+              child: IconButton(
+                icon: Icon(
+                  Icons.search,
+                  size: ScreenUtil.getScaleW(context, 25),
+                ),
+                onPressed: () {
+                  widget.item.mModelMenuConfig.search =
+                      (json.decode(search) as List)
+                          .map((i) => SearchListBean.fromJson(i))
+                          .toList();
+                  Help.goWhere(
+                      context,
+                      PgSearch(widget.toString(),
+                          widget.item.mModelMenuConfig.search));
+                },
+              ),
+            ),
+          ],
         ),
         body: mPullListView,
         floatingActionButton: widget.item.mModelMenuConfig.grid.addUrl !=

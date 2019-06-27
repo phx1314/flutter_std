@@ -44,7 +44,7 @@ class PgBdState extends BaseState<PgBd> {
   void initView() {
     mPullListView = PullListView(
       haline: false,
-//      isFirstLoad: false,
+      isFirstLoad: false,
       methodName: METHOD_GetToDoList,
       other: {
         "statusID": statusID,

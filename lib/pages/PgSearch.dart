@@ -68,6 +68,32 @@ class PgSearchState extends BaseState<PgSearch> {
     });
   }
 
+  goBack() async {
+    if (mController.text.isNotEmpty &&
+        !json_history.contains(mController.text)) {
+      json_history.add(mController.text);
+      await Help.save('json_history', json.encode(json_history));
+    }
+    widget.item[0].value = mController.text;
+    List<dynamic> objs = new List();
+    Map<String, dynamic> map = new Map();
+    widget.item.forEach((f) {
+      if (f.value != null && f.value.isNotEmpty) {
+        if (f.sqlstring != null && f.sqlstring != '') {
+          f.sqlstring = f.sqlstring
+              .replaceAll("#{value}", f.type == "basedata" ? f.ids : f.value);
+          objs.add(jsonDecode(f.sqlstring));
+          print(jsonEncode(objs));
+          Help.sendMsg(widget.from, 888, jsonEncode(objs));
+        } else {
+          map.addAll({f.sqlkey: f.type == "basedata" ? f.ids : f.value});
+          Help.sendMsg(widget.from, 889, map);
+        }
+      }
+    });
+    finish();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -160,26 +186,5 @@ class PgSearchState extends BaseState<PgSearch> {
         ],
       ),
     );
-  }
-
-  goBack() async {
-    if (mController.text.isNotEmpty &&
-        !json_history.contains(mController.text)) {
-      json_history.add(mController.text);
-      await Help.save('json_history', json.encode(json_history));
-    }
-    widget.item[0].value = mController.text;
-    List<dynamic> objs = new List();
-
-    widget.item.forEach((f) {
-      if (f.value != null && f.value.isNotEmpty) {
-        f.sqlstring = f.sqlstring
-            .replaceAll("#{value}", f.type == "basedata" ? f.ids : f.value);
-        objs.add(jsonDecode(f.sqlstring));
-      }
-    });
-    print(jsonEncode(objs));
-    Help.sendMsg(widget.from, 888, jsonEncode(objs));
-    finish();
   }
 }

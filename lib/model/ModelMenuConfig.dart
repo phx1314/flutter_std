@@ -3,7 +3,7 @@ import 'ModelDx.dart';
 class ModelMenuConfig {
   FlowBean flow;
   GridBean grid;
-  var search;
+  List<SearchListBean> search;
   List<UploadersListBean> uploaders;
 
   ModelMenuConfig({this.flow, this.grid, this.uploaders, this.search});
@@ -16,12 +16,12 @@ class ModelMenuConfig {
             .map((i) => UploadersListBean.fromJson(i))
             .toList()
         : null;
+    this.search = (json['search'] as List) != null
+        ? (json['search'] as List)
+            .map((i) => SearchListBean.fromJson(i))
+            .toList()
+        : null;
 
-//    List<dynamic> searchList = json['search'];
-//    this.search = new List();
-//    this.search.addAll(searchList.map((o) => (o as List) != null
-//        ? (o as List).map((i) => SearchListBean.fromJson(i)).toList()
-//        : null));
   }
 
   Map<String, dynamic> toJson() {
@@ -31,7 +31,9 @@ class ModelMenuConfig {
     data['uploaders'] = this.uploaders != null
         ? this.uploaders.map((i) => i.toJson()).toList()
         : null;
-    data['search'] = this.search;
+    data['search'] = this.search != null
+        ? this.search.map((i) => i.toJson()).toList()
+        : null;
     return data;
   }
 }
@@ -139,13 +141,14 @@ class SearchListBean {
   String text;
   String multiselect;
   String sqlstring;
+  String sqlkey;
   String value;
 
   String ids;
   List<ModelDx> mModelDxs;
 
   SearchListBean(
-      {this.type, this.baseorder, this.text, this.multiselect, this.sqlstring});
+      {this.type, this.baseorder, this.text, this.multiselect, this.sqlstring, this.sqlkey});
 
   SearchListBean.fromJson(Map<String, dynamic> json) {
     this.type = json['type'];
@@ -153,6 +156,7 @@ class SearchListBean {
     this.text = json['text'];
     this.multiselect = json['multiselect'];
     this.sqlstring = json['sqlstring'];
+    this.sqlkey = json['sqlkey'];
   }
 
   Map<String, dynamic> toJson() {
@@ -162,6 +166,7 @@ class SearchListBean {
     data['text'] = this.text;
     data['multiselect'] = this.multiselect;
     data['sqlstring'] = this.sqlstring;
+    data['sqlkey'] = this.sqlkey;
     return data;
   }
 }

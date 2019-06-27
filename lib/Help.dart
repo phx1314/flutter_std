@@ -174,7 +174,7 @@ class Help {
         print('addOnreceive>>>>>>$event');
         Help.sendMsg('PgHome', 6, '');
       }, onOpenNotification: (Map<String, dynamic> event) {
-        print('addOpenNoti>>>>>${event['extras']['Id']}');
+        print('addOpenNoti>>>>>$event');
         if (defaultTargetPlatform == TargetPlatform.android) {
           String data = event['extras']['cn.jpush.android.EXTRA'];
           ModelPush mModelPush = ModelPush.fromJson(json.decode(data));

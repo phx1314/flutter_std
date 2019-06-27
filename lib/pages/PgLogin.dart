@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,10 @@ import 'package:flutter_std/pages/PgHome.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
+import 'package:udid/udid.dart';
 
 import 'PgChangeIP.dart';
+import 'PgSjbd.dart';
 import 'PgSound.dart';
 
 class PgLogin extends StatefulWidget {
@@ -28,6 +31,13 @@ class PgLoginState extends BaseState<PgLogin> {
 
   //密码的控制器
   TextEditingController passController = TextEditingController();
+  String udid;
+
+  @override
+  void initView() async {
+    udid = await Udid.udid;
+    reLoad();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,6 +199,22 @@ class PgLoginState extends BaseState<PgLogin> {
           Help.mModelUser.SessionID +
           "; " +
           "AgentID=; expires=Fri, 20-May-1983 16:00:00 GMT; path=/";
+      if (Help.mModelUser.UserInfo.EmpMEID == null ||
+          Help.mModelUser.UserInfo.EmpMEID == '') {
+        loadUrl(
+            "Core/user/UpdateEmpMEID?a=" +
+                Help.mModelUser.name +
+                "&p=" +
+                md5.convert(utf8.encode(Help.mModelUser.password)).toString() +
+                "&EmpMEID=" +
+                udid,
+            null);
+      } else {
+        if (Help.mModelUser.UserInfo.EmpMEID != udid){
+          Help.goWhere(context, PgSjbd());
+          return;
+        }
+      }
       await Help.save("mModelUser", json.encode(Help.mModelUser.toJson()));
       setPushTag(JPush());
     }

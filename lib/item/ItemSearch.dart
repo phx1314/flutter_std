@@ -43,7 +43,7 @@ class ItemSearchState extends BaseState<ItemSearch> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  widget.item.value ??  ''  ,
+                  widget.item.value ?? '',
                   textAlign: TextAlign.end,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -63,7 +63,7 @@ class ItemSearchState extends BaseState<ItemSearch> {
       DatePicker.showDatePicker(context,
           onConfirm: (int year, int month, int date) {
         widget.item.value =
-            '$year-${month > 9 ? month : ('0' + month.toString())} -${date > 9 ? date : ('0' + date.toString())}';
+            '$year-${month > 9 ? month : ('0' + month.toString())}-${date > 9 ? date : ('0' + date.toString())}';
         reLoad();
       });
     } else if (widget.item.type == "basedata") {

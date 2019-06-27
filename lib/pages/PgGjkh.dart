@@ -10,6 +10,8 @@ import 'package:flutter_std/model/ModelMenuConfig.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/PullListView.dart';
 
+import 'PgSearch.dart';
+
 class PgGjkh extends StatefulWidget {
   String id;
   RowsListBean item;
@@ -69,6 +71,15 @@ class PgGjkhState extends BaseState<PgGjkh>
         break;
       case 4:
         mPullListView1.reLoad();
+        mPullListView2.reLoad();
+        break;
+      case 888:
+        Map<String, dynamic> map = {"queryInfo": data.toString()};
+        Map<String, dynamic> dd =
+            widget.item.mModelMenuConfig.grid.queryParams[2];
+        dd.remove("queryInfo");
+        map.addAll(dd);
+        mPullListView2.other = map;
         mPullListView2.reLoad();
         break;
     }
@@ -152,7 +163,16 @@ class PgGjkhState extends BaseState<PgGjkh>
                   Icons.search,
                   size: ScreenUtil.getScaleW(context, 25),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  List<SearchListBean> search = List();
+                  SearchListBean s1 = new SearchListBean();
+                  s1.type = "text";
+                  s1.text = "请输入联系内容、客户联系人、操作人";
+                  s1.sqlstring =
+                      '{"isGroup":false,"list":[{"Key":"LinkTitle","Contract":"like","Value":"#{value}"}]}';
+                  search.add(s1);
+                  Help.goWhere(context, PgSearch(widget.toString(), search));
+                },
               ),
             ),
           ],
