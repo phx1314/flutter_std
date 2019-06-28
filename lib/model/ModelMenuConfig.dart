@@ -16,12 +16,15 @@ class ModelMenuConfig {
             .map((i) => UploadersListBean.fromJson(i))
             .toList()
         : null;
-    this.search = (json['search'] as List) != null
-        ? (json['search'] as List)
-            .map((i) => SearchListBean.fromJson(i))
-            .toList()
-        : null;
-
+    try {
+      this.search = (json['search'] as List) != null
+          ? (json['search'] as List)
+              .map((i) => SearchListBean.fromJson(i))
+              .toList()
+          : null;
+    } catch (e) {
+      print(e);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -148,7 +151,12 @@ class SearchListBean {
   List<ModelDx> mModelDxs;
 
   SearchListBean(
-      {this.type, this.baseorder, this.text, this.multiselect, this.sqlstring, this.sqlkey});
+      {this.type,
+      this.baseorder,
+      this.text,
+      this.multiselect,
+      this.sqlstring,
+      this.sqlkey});
 
   SearchListBean.fromJson(Map<String, dynamic> json) {
     this.type = json['type'];
