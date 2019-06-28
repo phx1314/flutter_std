@@ -29,12 +29,12 @@ class PgFileDetailState extends BaseState<PgFileDetail> {
   void initView() async {
     path = await _findLocalPath();
     path = path + '/' + widget.item.Name;
-    File txt = File(path);
-    bool isDownLoad = await txt.exists();
-    if (isDownLoad) {
-      progress = 1;
-      reLoad();
-    }
+//    File txt = File(path);
+//    bool isDownLoad = await txt.exists();
+//    if (isDownLoad) {
+//      progress = 1;
+//      reLoad();
+//    }
   }
 
   @override

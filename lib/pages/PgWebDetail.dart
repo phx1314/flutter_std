@@ -80,7 +80,8 @@ class PgWebDetailState extends BaseState<PgWebDetail> {
             reLoad();
           },
           javascriptMode: JavascriptMode.unrestricted,
-          initialUrl:  "${Help.BASEURL}/${widget.editUrl}?id=${widget.id}&a=${Uri.encodeComponent (Help.mModelUser.name )   }&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}" ),
+          initialUrl:
+              "${Help.BASEURL}/${widget.editUrl}?id=${widget.id}&a=${Uri.encodeComponent(Help.mModelUser.name)}&p=${md5.convert(utf8.encode(Help.mModelUser.password)).toString()}"),
     );
   }
 }

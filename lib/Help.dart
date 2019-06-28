@@ -26,8 +26,6 @@ import 'model/ModelAz.dart';
 typedef MethodPop = void Function(String v);
 typedef MethodAlert = void Function();
 
-const JPush_Alias_BeginWith = "2015001GoldPM9_Default_EmpID_";
-//const JPush_Alias_BeginWith = "jqpm_EmpID_";
 const PAGE_SIZE = 20;
 const DEBUG = true;
 const USE_NATIVE_WEBVIEW = true;
@@ -107,14 +105,17 @@ const method_file_upload = "file/upload";
 const method_Contract = "bussiness/Contract/json";
 const method_userchat_add = "userchat/add";
 const METHOD_UPDATE = "https://www.pgyer.com/apiv2/app/check";
+//const JPush_Alias_BeginWith = "2015001GoldPM9_Default_EmpID_";
+const JPush_Alias_BeginWith = "jqpm_EmpID_";
 
 class Help {
-  static var URL = "http://192.168.0.7";
+//  static var URL = "http://192.168.0.7";
+//  static var BASEURL = "$URL/GoldPM9_jqmis";
+  static var URL = "http://47.94.23.147:8080";
+  static var BASEURL = "$URL/jqmis4";
   static var URL_JAVA = "http://192.168.0.195:8001/api";
   static var URL_JAVA_FILE = "http://192.168.0.195:8001/api/file/download/";
-  static var BASEURL = "$URL/GoldPM9_jqmis";
 
-//  static var BASEURL = "$URL/GoldPM91_std";
   static var ImageUrl = "$BASEURL/core/main/GetHeadUrl?gid=";
   static var IMAGE_STAR = "$BASEURL/GoldFile/";
   static ModelUser mModelUser;

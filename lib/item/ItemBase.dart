@@ -45,18 +45,24 @@ class ItemBaseState extends BaseState<ItemBase> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (widget.item.MenuNameEng == "CustomerInfo"||widget.item.MenuNameEng == "CustPool") {
+        if (widget.item.MenuNameEng == "CustomerInfo" ||
+            widget.item.MenuNameEng == "CustPool") {
           //跟进客户
-          Help.goWhere(
-              context, PgGjkh(widget.item , widget.item.Id.toString()));
-        } else if (widget.item.mModelMenuConfig != null) {
-          Help.go2PubView(context, widget.item, "");
-        } else {
+          Help.goWhere(context, PgGjkh(widget.item, widget.item.Id.toString()));
+        } else if (widget.item.MenuNameEng == "OaNoticeInfo") {
           Help.goWhere(
               context,
               PgWebDetail(
                   widget.item.Id, "OaNotice", "oa/oanoticemobile/Query"));
+        } else if (widget.item.mModelMenuConfig != null) {
+          Help.go2PubView(context, widget.item, "");
         }
+//        else {
+//          Help.goWhere(
+//              context,
+//              PgWebDetail(
+//                  widget.item.Id, "OaNotice", "oa/oanoticemobile/Query"));
+//        }
       },
       child: Container(
         padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),
