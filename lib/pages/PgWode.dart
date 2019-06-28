@@ -140,9 +140,6 @@ class PgWodeState extends BaseState<PgWode> {
         appBar: AppBar(
           title: Text(
             "我的",
-            style: TextStyle(
-              color: Colors.white,
-            ),
           ),
           leading: Builder(
             builder: (context) => IconButton(

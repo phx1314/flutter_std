@@ -91,7 +91,7 @@ const METHOD_MAILRECEIVEJSON1 = "oa/OaMail/mailreceivejson?Read=0";
 const METHOD_MAILRECEIVEJSON2 = "oa/OaMail/mailsendjson";
 const METHOD_MAILRECEIVEJSON3 = "oa/OaMail/mailsendjson?Flag=1";
 const METHOD_MAILRECEIVEJSON4 = "oa/OaMail/mailjunkjson";
-const METHOD_UpdateReadByIds = "/Oa/OaMail/UpdateReadByIds?ids=";
+const METHOD_UpdateReadByIds = "Oa/OaMail/UpdateReadByIds?ids=";
 const METHOD_OAMAILDEL = "oa/OaMailRead/del";
 const METHOD_OAMAILDELCG = "oa/OaMail/del";
 const refTable_OaMail = "OaMail";
@@ -109,10 +109,11 @@ const METHOD_UPDATE = "https://www.pgyer.com/apiv2/app/check";
 const JPush_Alias_BeginWith = "jqpm_EmpID_";
 
 class Help {
-//  static var URL = "http://192.168.0.7";
-//  static var BASEURL = "$URL/GoldPM9_jqmis";
-  static var URL = "http://47.94.23.147:8080";
-  static var BASEURL = "$URL/jqmis4";
+  static var URL = "http://192.168.0.180";
+  static var BASEURL = "$URL/GoldPM9_jqmis";
+
+//  static var URL = "http://47.94.23.147:8080";
+//  static var BASEURL = "$URL/jqmis4";
   static var URL_JAVA = "http://192.168.0.195:8001/api";
   static var URL_JAVA_FILE = "http://192.168.0.195:8001/api/file/download/";
 
@@ -276,9 +277,12 @@ class Help {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  static Future<Null> showMyDialog(BuildContext context, Widget mWidget) {
+  static Future<Null> showMyDialog(BuildContext context, Widget mWidget,
+      {barrierDismissible = true}) {
     return showDialog(
-        context: context, builder: (BuildContext context) => mWidget);
+        barrierDismissible: barrierDismissible,
+        context: context,
+        builder: (BuildContext context) => mWidget);
   }
 
   static Future<Null> showLoadingDialog(BuildContext context) {

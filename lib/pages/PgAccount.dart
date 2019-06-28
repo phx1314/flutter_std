@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +61,6 @@ class PgAccountState extends BaseState<PgAccount> {
             Divider(height: ScreenUtil.getScaleW(context, 2)),
             InkWell(
               onTap: () {
-                print("ggg");
               },
               child: Container(
                 padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),
@@ -95,35 +96,36 @@ class PgAccountState extends BaseState<PgAccount> {
                     style: Style.text_style_16_black,
                   )),
                   Switch(
-                    value: false,
-                    onChanged: (bool val) {
-                      reLoad();
+                    value: Help.mModelUser.UserInfo.isLock,
+                    onChanged: (bool val) async{
+                      Help.mModelUser.UserInfo.isLock=val;
+                      await Help.save("mModelUser", json.encode(Help.mModelUser.toJson()));
                     },
                   ),
                 ],
               ),
             ),
             Divider(height: ScreenUtil.getScaleW(context, 2)),
-            Container(
-              padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),
-              height: ScreenUtil.getScaleH(context, 45),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Text(
-                    '使用应用锁',
-                    style: Style.text_style_16_black,
-                  )),
-                  Switch(
-                    value: false,
-                    onChanged: (bool val) {
-                      reLoad();
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Divider(height: ScreenUtil.getScaleW(context, 2)),
+//            Container(
+//              padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),
+//              height: ScreenUtil.getScaleH(context, 45),
+//              child: Row(
+//                children: [
+//                  Expanded(
+//                      child: Text(
+//                    '使用应用锁',
+//                    style: Style.text_style_16_black,
+//                  )),
+//                  Switch(
+//                    value: false,
+//                    onChanged: (bool val) {
+//                      reLoad();
+//                    },
+//                  ),
+//                ],
+//              ),
+//            ),
+//            Divider(height: ScreenUtil.getScaleW(context, 2)),
             InkWell(
               child: Container(
                 padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),

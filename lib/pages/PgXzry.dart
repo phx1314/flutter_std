@@ -98,8 +98,8 @@ class PgXzryState extends BaseState<PgXzry> {
                   Tab(text: "已选择(${mCheckeds.length})")
                 ],
                 isScrollable: false,
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.white,
+//                labelColor: Colors.white,
+//                unselectedLabelColor: Colors.white,
                 unselectedLabelStyle: new TextStyle(fontSize: 16.0),
                 labelStyle:
                     new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),

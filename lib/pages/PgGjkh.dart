@@ -151,9 +151,6 @@ class PgGjkhState extends BaseState<PgGjkh>
         appBar: AppBar(
           title: Text(
             "跟进客户",
-            style: TextStyle(
-              color: Colors.white,
-            ),
           ),
           actions: <Widget>[
             Visibility(

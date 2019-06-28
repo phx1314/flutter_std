@@ -18,12 +18,12 @@ import 'package:flutter_std/pages/PgWork.dart';
 import 'package:flutter_std/pages/PgXx.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
-import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'PgWebView.dart';
+import 'PageDialogLock.dart';
+
 
 class PgHome extends StatefulWidget {
   static final String sName = "PgHome";
@@ -35,7 +35,7 @@ class PgHome extends StatefulWidget {
   }
 }
 
-class PgHomeState extends BaseState<PgHome> {
+class PgHomeState extends BaseState<PgHome> with WidgetsBindingObserver {
   int _tabIndex = 0;
   var appBarTitles = ['工作', '发现', '消息', '新闻', '我的'];
   ModelCount mModelCount;
@@ -60,17 +60,6 @@ class PgHomeState extends BaseState<PgHome> {
   void _changeTab(int index) {
     _tabIndex = index;
     reLoad();
-  }
-
-  @override
-  void initView() {
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        Help.sendMsg('PgPubView,ItemDialogSub', 889, visible);
-      },
-    );
-    loadUrl(METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey},
-        isShow: false, isFormData: true);
   }
 
   @override
@@ -111,6 +100,40 @@ class PgHomeState extends BaseState<PgHome> {
     super.initState();
     loadUrl(METHOD_GetWork, null, isShow: false);
     loadUrl(METHOD_GetAmount, {"app": "1"}, isShow: false);
+    loadUrl(METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey},
+        isShow: false, isFormData: true);
+    WidgetsBinding.instance.addObserver(this);
+    KeyboardVisibilityNotification().addNewListener(
+      onChange: (bool visible) {
+        Help.sendMsg('PgPubView,ItemDialogSub', 889, visible);
+      },
+    );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("--" + state.toString());
+    switch (state) {
+      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
+        break;
+      case AppLifecycleState.resumed: // 应用程序可见，前台
+        print("前台");
+        if (Help.mModelUser.UserInfo.isLock) {
+          Help.goWhere(context, PageDialogLock());
+        }
+        break;
+      case AppLifecycleState.paused: // 应用程序不可见，后台
+        print("后台");
+        break;
+      case AppLifecycleState.suspending: // 申请将暂时暂停
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -210,7 +233,9 @@ class PgHomeState extends BaseState<PgHome> {
                         radius: ScreenUtil.getScaleW(context, 9),
                         backgroundColor: Colors.red,
                         child: Text(
-                          mModelCount.Total>99?99:mModelCount.Total.toString(),
+                          mModelCount.Total > 99
+                              ? 99
+                              : mModelCount.Total.toString(),
                           style: Style.minTextWhite,
                         ),
                       )

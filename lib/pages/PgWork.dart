@@ -42,9 +42,6 @@ class PgWorkState extends BaseState<PgWork> {
       appBar: AppBar(
         title: Text(
           '工作',
-          style: TextStyle(
-            color: Colors.white,
-          ),
         ),
         leading: Builder(
           builder: (context) => IconButton(

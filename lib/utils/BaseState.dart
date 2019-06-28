@@ -52,4 +52,6 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
     await HttpManager.netFetch(context, url, other, this,
         isFormData: isFormData, isShow: isShow, methodName: biaoshi ?? url);
   }
+
+
 }

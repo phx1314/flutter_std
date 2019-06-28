@@ -1,4 +1,3 @@
-
 import 'package:flutter_std/az/az_common.dart';
 
 class ModelUser {
@@ -74,6 +73,7 @@ class UserInfoBean {
   String EmpMEID;
   int EmpID;
   int EmpDepID;
+  bool isLock = false;
 
   UserInfoBean(
       {this.EmpName,
@@ -84,12 +84,14 @@ class UserInfoBean {
       this.EmpNote,
       this.EmpMEID,
       this.EmpID,
+      this.isLock,
       this.EmpDepID});
 
   UserInfoBean.fromJson(Map<String, dynamic> json) {
     this.EmpName = json['EmpName'];
     this.EmpDepName = json['EmpDepName'];
     this.EmpTel = json['EmpTel'];
+    this.isLock = json['isLock'];
     this.EmpJob = json['EmpJob'];
     this.EmpHead = json['EmpHead'];
     this.EmpNote = json['EmpNote'];
@@ -106,6 +108,7 @@ class UserInfoBean {
     data['EmpJob'] = this.EmpJob;
     data['EmpHead'] = this.EmpHead;
     data['EmpNote'] = this.EmpNote;
+    data['isLock'] = this.isLock;
     data['EmpMEID'] = this.EmpMEID;
     data['EmpID'] = this.EmpID;
     data['EmpDepID'] = this.EmpDepID;
@@ -179,6 +182,7 @@ class BaseEmployeeListBean extends ISuspensionBean {
   int EmpDepID;
   String tagIndex;
   bool isChecked;
+
   BaseEmployeeListBean(
       {this.EmpName,
       this.EmpDepName,

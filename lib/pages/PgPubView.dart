@@ -58,7 +58,7 @@ class PgPubViewState extends BaseState<PgPubView> {
     switch (what) {
       case 0:
         flutterWebViewPlugin
-            .evalJavascript("${map_json['Method']}('$data')");
+            .evalJavascript("${map_json['Method']}('${data.toString().replaceAll('\'', '')}')");
         break;
       case 300:
         Map<String, dynamic> map = data;

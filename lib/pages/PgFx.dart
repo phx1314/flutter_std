@@ -22,9 +22,6 @@ class PgFxState extends BaseState<PgFx> {
         appBar: AppBar(
           title: Text(
             '发现',
-            style: TextStyle(
-              color: Colors.white,
-            ),
           ),
 //          TabBar(
 

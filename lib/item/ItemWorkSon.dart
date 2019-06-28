@@ -67,7 +67,7 @@ class ItemWorkSon extends StatelessWidget {
             ),
             Text(
               item.text,
-              maxLines: 1,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Style.text_style_13_gray,
             )

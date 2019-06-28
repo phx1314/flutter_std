@@ -25,7 +25,7 @@ class ItemEmailState extends BaseState<ItemEmail> {
   void onSuccess(String methodName, res) {
     if (methodName == METHOD_UpdateReadByIds) {
       Help.sendMsg('PgWode', 0, '');
-      widget.item.MailIsRead = true;
+      widget.item.MailFlag = 'fa fa-envelope-o';
       reLoad();
     }
   }
@@ -75,7 +75,7 @@ class ItemEmailState extends BaseState<ItemEmail> {
                               size: ScreenUtil.getScaleW(context, 10),
                             ),
                           ),
-                          visible: !(widget.item.MailIsRead??false),
+                          visible: widget.item.MailFlag=='fa fa-envelope',
                         ),
                         Expanded(
                           child: Text(

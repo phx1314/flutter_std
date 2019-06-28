@@ -28,8 +28,8 @@ class PgXxState extends BaseState<PgXx> {
               )
             ],
             isScrollable: true,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white,
+//            labelColor: Colors.white,
+//            unselectedLabelColor: Colors.white,
             unselectedLabelStyle: new TextStyle(fontSize: 16.0),
             labelStyle:
                 new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),

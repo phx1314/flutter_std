@@ -69,9 +69,6 @@ class PgRzState extends BaseState<PgRz> {
         appBar: AppBar(
           title: Text(
             "日志统计",
-            style: TextStyle(
-              color: Colors.white,
-            ),
           ),
           actions: <Widget>[
             IconButton(

@@ -22,10 +22,13 @@ class PgGywm extends StatefulWidget {
 
 class PgGywmState extends BaseState<PgGywm> {
   String udid;
+  String version;
 
   @override
   void initView() async {
     udid = await Udid.udid;
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    version = '掌上金曲  v${packageInfo.version}';
     reLoad();
   }
 
@@ -61,7 +64,7 @@ class PgGywmState extends BaseState<PgGywm> {
               fit: BoxFit.fitHeight,
             ),
             Padding(padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 10))),
-            Text('掌上金曲  v5.0.0',
+            Text(version ?? '',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,

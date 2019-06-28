@@ -11,6 +11,7 @@ import 'package:flutter_std/pages/PgXxTz.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
+import 'package:package_info/package_info.dart';
 
 class PgSet extends StatefulWidget {
   PgSet();
@@ -21,10 +22,15 @@ class PgSet extends StatefulWidget {
 
 class PgSetState extends BaseState<PgSet> {
   int size = 0;
+  String version;
 
   @override
   void initView() {
     getCache();
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      version = 'v${packageInfo.version}';
+      reLoad();
+    });
   }
 
   void getCache() async {
@@ -190,7 +196,7 @@ class PgSetState extends BaseState<PgSet> {
                       style: Style.text_style_16_black,
                     )),
                     Text(
-                      'v5.0.0',
+                      version ?? '',
                       style: Style.text_style_13_gray,
                     ),
                     Icon(Icons.chevron_right, color: Colors.grey)
