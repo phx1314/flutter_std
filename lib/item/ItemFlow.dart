@@ -68,10 +68,11 @@ class ItemFlow extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                           color: Colors.grey,
-                          offset: Offset(ScreenUtil.getScaleW(context, 3),
-                              ScreenUtil.getScaleW(context, 3)),
-                          blurRadius: ScreenUtil.getScaleW(context, 10),
-                          spreadRadius: ScreenUtil.getScaleW(context, 2)),
+//                          offset: Offset(ScreenUtil.getScaleW(context, 1),
+//                              ScreenUtil.getScaleW(context, 1)),
+                          blurRadius: ScreenUtil.getScaleW(context, 1),
+//                          spreadRadius: ScreenUtil.getScaleW(context, 1)
+                      ),
                     ],
                     borderRadius: BorderRadius.all(
                         Radius.circular(ScreenUtil.getScaleW(context, 4))),

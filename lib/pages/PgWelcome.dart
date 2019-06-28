@@ -88,7 +88,7 @@ class _PgWelcomeState extends BaseState<PgWelcome> {
       return Container(
         child: Image(
           image: AssetImage('static/images/loading.png'),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
       );
     });

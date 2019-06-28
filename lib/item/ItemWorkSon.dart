@@ -28,14 +28,14 @@ class ItemWorkSon extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(ScreenUtil.getScaleW(context, 2),
-                          ScreenUtil.getScaleW(context, 2)),
-                      blurRadius: ScreenUtil.getScaleW(context, 5),
-                      spreadRadius: ScreenUtil.getScaleW(context, 1)),
-                ],
+//                boxShadow: [
+//                  BoxShadow(
+//                      color: Colors.grey,
+//                      offset: Offset(ScreenUtil.getScaleW(context, 2),
+//                          ScreenUtil.getScaleW(context, 2)),
+//                      blurRadius: ScreenUtil.getScaleW(context, 5),
+//                      spreadRadius: ScreenUtil.getScaleW(context, 1)),
+//                ],
                 shape: BoxShape.circle,
               ),
               child: CircleAvatar(

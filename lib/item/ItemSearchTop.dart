@@ -26,10 +26,11 @@ class ItemSearchTopState extends BaseState<ItemSearchTop> {
             boxShadow: [
               BoxShadow(
                   color: Colors.grey,
-                  offset: Offset(ScreenUtil.getScaleW(context, 2),
-                      ScreenUtil.getScaleW(context, 2)),
-                  blurRadius: ScreenUtil.getScaleW(context, 2),
-                  spreadRadius: ScreenUtil.getScaleW(context, 1)),
+//                  offset: Offset(ScreenUtil.getScaleW(context, 1),
+//                      ScreenUtil.getScaleW(context, 1)),
+//                  blurRadius: ScreenUtil.getScaleW(context, 1),
+//                  spreadRadius: ScreenUtil.getScaleW(context, 1)
+              ),
             ],
             color: Color(0xFFBDBDBD),
             borderRadius: BorderRadius.all(
