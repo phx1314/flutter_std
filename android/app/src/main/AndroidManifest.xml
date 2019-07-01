@@ -10,6 +10,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="掌上金曲"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/icon_loading">
         <activity
             android:name=".MainActivity"

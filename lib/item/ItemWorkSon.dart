@@ -89,13 +89,14 @@ class ItemWorkSon extends StatelessWidget {
   }
 
   void go2Where(BuildContext context) {
-    Navigator.pop(context);
     try {
       item.mModelMenuConfig =
           ModelMenuConfig.fromJson(json.decode(item.MenuMobileConfig));
     } catch (e) {
       print(e);
     }
+    if (item.mModelMenuConfig == null) return;
+    Navigator.pop(context);
 
     if (item.MenuNameEng == "MailReceive") {
       Help.goWhere(context, PgEmailList(type: 1));
@@ -123,7 +124,7 @@ class ItemWorkSon extends StatelessWidget {
       Help.goWhere(context, PgRz(0));
     } else if (item.MenuNameEng == "OaScheduler") {
       //工作
-    }  else {
+    } else {
       Help.goWhere(context, PgFlowList(item));
     }
   }

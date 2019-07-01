@@ -1,5 +1,6 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_std/model/ModelVersion.dart';
 import 'package:flutter_std/utils/BaseState.dart';
@@ -93,7 +94,7 @@ class PgGywmState extends BaseState<PgGywm> {
             ),
             InkWell(
               onTap: () {
-                loadUrl(METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey},
+                loadUrl(METHOD_UPDATE, {"_api_key": apikey, "appKey":  defaultTargetPlatform == TargetPlatform.android?appKey:appKeyIos},
                     isShow: false);
               },
               child: Container(

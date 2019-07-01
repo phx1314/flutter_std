@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:bottom_tab_bar/bottom_tab_bar.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_std/Help.dart';
 import 'package:flutter_std/model/ModelAA.dart';
@@ -100,7 +101,7 @@ class PgHomeState extends BaseState<PgHome> with WidgetsBindingObserver {
     super.initState();
     loadUrl(METHOD_GetWork, null, isShow: false);
     loadUrl(METHOD_GetAmount, {"app": "1"}, isShow: false);
-    loadUrl(METHOD_UPDATE, {"_api_key": apikey, "appKey": appKey},
+    loadUrl(METHOD_UPDATE, {"_api_key": apikey, "appKey": defaultTargetPlatform == TargetPlatform.android?appKey:appKeyIos},
         isShow: false, isFormData: true);
     WidgetsBinding.instance.addObserver(this);
     KeyboardVisibilityNotification().addNewListener(

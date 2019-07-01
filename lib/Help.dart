@@ -63,6 +63,7 @@ const List colors = [
 ];
 const apikey = "577b7cfb3d94c174f0998202c852b88e";
 const appKey = "a4ef50168290c74a2d6998badceafd68";
+const appKeyIos = "c366e8496aaabc69a52891a72827032f";
 const METHOD_LOGIN = "core/main/checkuserlogin1";
 const METHOD_CUSTOMERSAVE = "bussiness/Customer/save";
 const METHOD_CUSTLINKSAVE = "bussiness/CustLink/save";
