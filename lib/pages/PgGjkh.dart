@@ -58,7 +58,7 @@ class PgGjkhState extends BaseState<PgGjkh>
         mRowsListBean.text = widget.item.text;
         addUrl2 = addUrl2.replaceAll("LinkManID=null", "LinkManID=" + data);
         mRowsListBean.mModelMenuConfig.grid.addUrl[0] = addUrl2;
-        mRowsListBean.MenuNameEng = 'CustomerInfo$position';
+        mRowsListBean.MenuNameEng = 'CustomerInfo1';
         Help.go2PubView(context, mRowsListBean, "");
         break;
       case 2:

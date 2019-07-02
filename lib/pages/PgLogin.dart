@@ -186,6 +186,8 @@ class PgLoginState extends BaseState<PgLogin> {
     });
   }
 
+
+
   @override
   onSuccess(String methodName, res) async {
     if (methodName == METHOD_LOGIN) {

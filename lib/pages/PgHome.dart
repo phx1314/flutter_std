@@ -25,7 +25,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'PageDialogLock.dart';
 
-
 class PgHome extends StatefulWidget {
   static final String sName = "PgHome";
 
@@ -101,8 +100,16 @@ class PgHomeState extends BaseState<PgHome> with WidgetsBindingObserver {
     super.initState();
     loadUrl(METHOD_GetWork, null, isShow: false);
     loadUrl(METHOD_GetAmount, {"app": "1"}, isShow: false);
-    loadUrl(METHOD_UPDATE, {"_api_key": apikey, "appKey": defaultTargetPlatform == TargetPlatform.android?appKey:appKeyIos},
-        isShow: false, isFormData: true);
+    loadUrl(
+        METHOD_UPDATE,
+        {
+          "_api_key": apikey,
+          "appKey": defaultTargetPlatform == TargetPlatform.android
+              ? appKey
+              : appKeyIos
+        },
+        isShow: false,
+        isFormData: true);
     WidgetsBinding.instance.addObserver(this);
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
@@ -210,7 +217,7 @@ class PgHomeState extends BaseState<PgHome> with WidgetsBindingObserver {
                         radius: ScreenUtil.getScaleW(context, 9),
                         backgroundColor: Colors.red,
                         child: Text(
-                          xxCount.toString(),
+                          xxCount > 99 ? '99' : xxCount.toString(),
                           style: Style.minTextWhite,
                         ),
                       )

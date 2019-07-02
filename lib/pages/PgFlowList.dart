@@ -12,6 +12,7 @@ import 'package:flutter_std/model/ModelMenuConfig.dart';
 import 'package:flutter_std/model/ModelWork.dart';
 import 'package:flutter_std/pages/PgSearch.dart';
 import 'package:flutter_std/utils/BaseState.dart';
+import 'package:flutter_std/utils/GSYStyle.dart';
 import 'package:flutter_std/utils/PullListView.dart';
 
 class PgFlowList extends StatefulWidget {
@@ -94,6 +95,25 @@ class PgFlowListState extends BaseState<PgFlowList> {
           title: Text(widget.item.text),
           centerTitle: true,
           actions: <Widget>[
+            Visibility(
+              visible: widget.item.MenuNameEng == 'OaGoing'||widget.item.MenuNameEng == 'OaLeave',
+              child: InkWell(
+                onTap: () {
+                  Map<String, dynamic> map =
+                      widget.item.mModelMenuConfig.grid.queryParams[0];
+                  map.addAll({"dayNow": Help.getCurrentTime()});
+                  mPullListView.other = map;
+                  mPullListView.reLoad();
+                },
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  alignment: Alignment.center,
+                  child: Text(
+                    '今天',
+                  ),
+                ),
+              ),
+            ),
             Visibility(
               visible: search != null,
               child: IconButton(

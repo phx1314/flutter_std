@@ -218,7 +218,7 @@ class PgSetState extends BaseState<PgSet> {
                 elevation: 5,
                 padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 12)),
                 onPressed: () {
-                  logOut();
+                  Help.logOut(context);
                 },
                 color: Colors.red,
                 child: Text(
@@ -269,15 +269,5 @@ class PgSetState extends BaseState<PgSet> {
             ));
   }
 
-  void logOut() async {
-    JPush mJPush = new JPush();
-    mJPush.cleanTags();
-    mJPush.deleteAlias();
 
-    Help.mModelUser = null;
-    Help.cookie = "";
-    await Help.remove('mModelUser');
-    Navigator.pop(context);
-    Help.pushReplacementNamed(context, PgLogin.sName);
-  }
 }

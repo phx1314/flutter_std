@@ -47,7 +47,7 @@ class HttpManager {
 
       print(
           '请求url: $url请求参数:${params != null ? params.toString() : ''}返回参数:${response != null ? response.toString() : ''}');
-      if (isShow && context != null ) Navigator.pop(context);
+      if (isShow && context != null) Navigator.pop(context);
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (!(response.data is Map)) {
           response.data = json.decode(response.toString());
@@ -57,6 +57,11 @@ class HttpManager {
             response.data["Result"] != null &&
             !response.data["Result"]) {
           Fluttertoast.showToast(msg: response.data["Message"]);
+          mHttpResponseListener.onFailure(
+              methodName,
+              new ResultData(
+                  response.data, response.toString(), true, Code.SUCCESS,
+                  headers: response.headers));
           return;
         }
         if (response.data is Map &&
@@ -64,6 +69,11 @@ class HttpManager {
             response.data["stateMsg"] != null &&
             response.data["stateType"] != 0) {
           Fluttertoast.showToast(msg: response.data["stateMsg"]);
+          mHttpResponseListener.onFailure(
+              methodName,
+              new ResultData(
+                  response.data, response.toString(), true, Code.SUCCESS,
+                  headers: response.headers));
           return;
         }
         mHttpResponseListener.onSuccess(
@@ -73,6 +83,11 @@ class HttpManager {
                 headers: response.headers));
       } else {
         Fluttertoast.showToast(msg: "请求失败");
+        mHttpResponseListener.onFailure(
+            methodName,
+            new ResultData(
+                response.data, response.toString(), true, Code.SUCCESS,
+                headers: response.headers));
       }
     } on DioError catch (e) {
       if (isShow && context != null) Navigator.pop(context);

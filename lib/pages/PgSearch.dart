@@ -124,7 +124,6 @@ class PgSearchState extends BaseState<PgSearch> {
               alignment: Alignment.center,
               child: Text(
                 '搜索',
-                style: Style.text_style_16_white,
               ),
             ),
           )

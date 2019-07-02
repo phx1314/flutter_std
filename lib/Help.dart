@@ -12,6 +12,7 @@ import 'package:flutter_std/model/ModelMenuConfig.dart';
 import 'package:flutter_std/model/ModelPush.dart';
 import 'package:flutter_std/model/ModelUser.dart';
 import 'package:flutter_std/model/ModelWork.dart';
+import 'package:flutter_std/pages/PgLogin.dart';
 import 'package:flutter_std/pages/PgPubView.dart';
 import 'package:flutter_std/utils/ImageCacheManager.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -110,7 +111,7 @@ const METHOD_UPDATE = "https://www.pgyer.com/apiv2/app/check";
 const JPush_Alias_BeginWith = "jqpm_EmpID_";
 
 class Help {
-//  static var URL = "http://192.168.0.180";
+//  static var URL = "http://192.168.0.7";
 //  static var BASEURL = "$URL/GoldPM9_jqmis";
 
   static var URL = "http://47.94.23.147:8080";
@@ -544,5 +545,17 @@ class Help {
       ids += f.EmpID.toString() + ',';
     });
     return ids.isEmpty ? '' : ids.substring(0, ids.length - 1);
+  }
+
+  static void logOut(BuildContext context) async {
+    JPush mJPush = new JPush();
+    mJPush.cleanTags();
+    mJPush.deleteAlias();
+
+    Help.mModelUser = null;
+    Help.cookie = "";
+    await Help.remove('mModelUser');
+    Navigator.pop(context);
+    Help.pushReplacementNamed(context, PgLogin.sName);
   }
 }
