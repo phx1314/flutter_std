@@ -54,6 +54,7 @@ class PgBdState extends BaseState<PgBd> {
         ModelFlowList mModelFlowList = ModelFlowList.fromJson(res.data);
         List data = new List();
         mModelFlowList.rows.forEach((f) {
+          data.add(ItemFlow(f, statusID));
           for (int j = 0; j < Help.mModelWorkBeans.length; j++) {
             if (Help.mModelWorkBeans[j].MenuMobileConfig
                     .contains(f.FlowRefTable) &&
@@ -63,7 +64,6 @@ class PgBdState extends BaseState<PgBd> {
               f.mModelMenuConfig = ModelMenuConfig.fromJson(json.decode(
                   Help.getRightdata(
                       Help.mModelWorkBeans[j].MenuMobileConfig, f.toJson())));
-              data.add(ItemFlow(f, statusID));
               break;
             }
           }

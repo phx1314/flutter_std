@@ -57,7 +57,7 @@ class ItemFlow extends StatelessWidget {
                       left: ScreenUtil.getScaleW(context, 12),
                       top: ScreenUtil.getScaleW(context, 5)),
                   child: Text(
-                    item.CreatorEmpName??'',
+                    item.CreatorEmpName ?? '',
                     style: Style.text_style_13_gray,
                   ),
                 ),
@@ -67,10 +67,10 @@ class ItemFlow extends StatelessWidget {
                     color: Color.fromRGBO(236, 236, 236, 1),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.grey,
+                        color: Colors.grey,
 //                          offset: Offset(ScreenUtil.getScaleW(context, 1),
 //                              ScreenUtil.getScaleW(context, 1)),
-                          blurRadius: ScreenUtil.getScaleW(context, 1),
+                        blurRadius: ScreenUtil.getScaleW(context, 1),
 //                          spreadRadius: ScreenUtil.getScaleW(context, 1)
                       ),
                     ],
@@ -89,7 +89,7 @@ class ItemFlow extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              item.text,
+                              item.text??'',
                               style: Style.text_style_16_black,
                             ),
                             Column(
@@ -139,7 +139,12 @@ class ItemFlow extends StatelessWidget {
                             Expanded(
                               child: InkWell(
                                 onTap: () {
-                                  Help.go2PubView(context, item, statusID);
+                                  if (item.mModelMenuConfig != null){
+                                    Help.go2PubView(context, item, statusID);
+                                  }else{
+                                    Help.Toast(context, '请到PC端操作');
+                                  }
+
                                 },
                                 child: Center(
                                     child: Text(
