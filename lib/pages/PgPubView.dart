@@ -195,7 +195,6 @@ class PgPubViewState extends BaseState<PgPubView> {
                 padding: EdgeInsets.all(10),
                 child: Text(
                   '查看进度',
-                  style: Style.text_style_14_white,
                 ),
               ),
             ),
@@ -269,7 +268,7 @@ class PgPubViewState extends BaseState<PgPubView> {
     } else if (methodName == METHOD_FLOWWIDGET ||
         methodName == METHOD_CUSTOMERSAVE ||
         methodName == METHOD_CUSTLINKMANSAVE ||
-        methodName == METHOD_CUSTLINKSAVE) {
+        methodName == METHOD_CUSTLINKSAVE|| methodName ==METHOD_OANIGHTWORKINGSAVE) {
       Fluttertoast.showToast(msg: ":处理成功");
       Help.sendMsg('PgFlowList,PgBd', 0, '');
       Help.sendMsg('PgHome', 6, '');
@@ -464,6 +463,8 @@ class PgPubViewState extends BaseState<PgPubView> {
             loadUrl(METHOD_CUSTLINKMANSAVE, map_json);
           } else if (widget.item.MenuNameEng == 'CustomerInfo1') {
             loadUrl(METHOD_CUSTLINKSAVE, map_json);
+          } else if (widget.item.MenuNameEng == 'OaNightWorking') {
+            loadUrl(METHOD_OANIGHTWORKINGSAVE, map_json);
           }
         } else if (title == '暂存') {
           Map<String, dynamic> map = new Map();
