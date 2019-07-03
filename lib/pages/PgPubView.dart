@@ -136,43 +136,45 @@ class PgPubViewState extends BaseState<PgPubView> {
       clearCache: true,
       clearCookies: true,
       url: url,
-      //      url:"http://192.168.0.7/GoldPM9_hncsxy/oa/OaCarmobile/add?a=%E9%99%88%E9%9C%B2&p=1A1DC91C907325C69271DDF0C944BC72",
-      initialChild: Container(
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                child: Center(
-                  child: CupertinoActivityIndicator(
-                    animating: true,
+      //      url:"http://192.170.0.7/GoldPM9_hncsxy/oa/OaCarmobile/add?a=%E9%99%88%E9%9C%B2&p=1A1DC91C907325C69271DDF0C944BC72",
+      initialChild: SafeArea(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  child: Center(
+                    child: CupertinoActivityIndicator(
+                      animating: true,
+                    ),
                   ),
                 ),
               ),
-            ),
-            () {
-              if (isFinish) {
-                return Container();
-              } else {
-                return Container(
-                  child: Column(
-                    children: <Widget>[
-                      Divider(
-                        height: 1,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            right: ScreenUtil.getScaleW(context, 7)),
-                        child: Row(
-                          children: children,
+              () {
+                if (isFinish) {
+                  return Container();
+                } else {
+                  return Container(
+                    child: Column(
+                      children: <Widget>[
+                        Divider(
+                          height: 1,
                         ),
-                      )
-                    ],
-                  ),
-                );
-              }
-            }()
-          ],
+                        Padding(
+                          padding: EdgeInsets.only(
+                              right: ScreenUtil.getScaleW(context, 7)),
+                          child: Row(
+                            children: children,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }
+              }()
+            ],
+          ),
         ),
       ),
       appBar: AppBar(
@@ -222,7 +224,7 @@ class PgPubViewState extends BaseState<PgPubView> {
                 AppBar().preferredSize.height,
             MediaQuery.of(context).size.width,
             MediaQuery.of(context).size.height -
-                (isFinish ? 0 : ScreenUtil.getScaleW(context, 50))));
+                (isFinish ? 0 : ScreenUtil.getScaleW(context, 70))));
       }
 
       mModelJDInfo.AllowEditControls = widget.statusID == '0'
@@ -572,7 +574,7 @@ class PgPubViewState extends BaseState<PgPubView> {
                   AppBar().preferredSize.height,
               MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.height -
-                  (ScreenUtil.getScaleW(context, 50))));
+                  (ScreenUtil.getScaleW(context, 70))));
           return;
         }
         if (null != widget.item.mModelMenuConfig.flow.processor &&
@@ -596,7 +598,7 @@ class PgPubViewState extends BaseState<PgPubView> {
                   AppBar().preferredSize.height,
               MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.height -
-                  (ScreenUtil.getScaleW(context, 50))));
+                  (ScreenUtil.getScaleW(context, 70))));
         }
       } else if (state.type == WebViewState.startLoad) {
         flutterWebViewPlugin?.hide();

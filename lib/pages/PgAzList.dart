@@ -1,16 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_std/az/az_common.dart';
 import 'package:flutter_std/az/az_listview.dart';
 import 'package:flutter_std/item/ItemSus.dart';
 import 'package:flutter_std/item/ItemTxl.dart';
 import 'package:flutter_std/model/ModelAz.dart';
-import 'package:flutter_std/model/ModelUser.dart';
 import 'package:flutter_std/utils/BaseState.dart';
-import 'package:lpinyin/lpinyin.dart';
-
-import '../Help.dart';
 
 class PgAzList extends StatefulWidget {
   ModelAz data;
@@ -29,6 +22,7 @@ class PgAzListState extends BaseState<PgAzList> {
 
     return AzListView(
       data: widget.data.data,
+      isUseRealIndex: false,
       itemBuilder: (context, model) => ItemTxl(model, widget.type),
       suspensionWidget: ItemSus(widget.data.suspensionTag),
       itemHeight: 80,

@@ -176,7 +176,7 @@ class _IndexBarState extends State<_IndexBar> {
     _widgetTopChange = true;
     _indexSectionList.clear();
     _indexSectionList.add(0);
-    int tempHeight = 0;
+    int tempHeight = 40;
     widget.data?.forEach((value) {
       tempHeight = tempHeight + widget.itemHeight;
       _indexSectionList.add(tempHeight);
