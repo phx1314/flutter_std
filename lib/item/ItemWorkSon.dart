@@ -8,6 +8,7 @@ import 'package:flutter_std/model/ModelWork.dart';
 import 'package:flutter_std/pages/PgEmailList.dart';
 import 'package:flutter_std/pages/PgFlowList.dart';
 import 'package:flutter_std/pages/PgRz.dart';
+import 'package:flutter_std/pages/PgSendEmail.dart';
 import 'package:flutter_std/utils/FontString.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
 
@@ -95,9 +96,7 @@ class ItemWorkSon extends StatelessWidget {
     } catch (e) {
       print(e);
     }
-    if (item.mModelMenuConfig == null) return;
     Navigator.pop(context);
-
     if (item.MenuNameEng == "MailReceive") {
       Help.goWhere(context, PgEmailList(type: 1));
     } else if (item.MenuNameEng == "OaCheckList") {
@@ -113,6 +112,7 @@ class ItemWorkSon extends StatelessWidget {
       Help.goWhere(context, PgEmailList(type: 4));
     } else if (item.MenuNameEng == "MailWrite") {
       //写邮件
+      Help.goWhere(context, PgSendEmail());
     } else if (item.MenuNameEng == "OaNewsInfo") {
       //新闻管理
       Help.sendMsg("PgHome", 1, 3);
@@ -125,7 +125,8 @@ class ItemWorkSon extends StatelessWidget {
     } else if (item.MenuNameEng == "OaScheduler") {
       //工作
     } else {
-      Help.goWhere(context, PgFlowList(item));
+      if (item.mModelMenuConfig != null)
+        Help.goWhere(context, PgFlowList(item));
     }
   }
 
