@@ -8,28 +8,29 @@ import 'package:flutter_std/model/ModelFjList.dart';
 import 'package:flutter_std/model/ModelFlowList.dart';
 import 'package:flutter_std/model/ModelHt.dart';
 import 'package:flutter_std/model/ModelMenuConfig.dart';
+import 'package:flutter_std/model/ModelXm.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/PullListView.dart';
 
 import 'PgSearch.dart';
 
-class PgHtList extends StatefulWidget {
-
-  PgHtList();
+class PgXmList extends StatefulWidget {
+  PgXmList();
 
   @override
-  PgHtListState createState() => new PgHtListState();
+  PgXmListState createState() => new PgXmListState();
 }
 
-class PgHtListState extends BaseState<PgHtList> {
+class PgXmListState extends BaseState<PgXmList> {
   PullListView mPullListView;
 
   @override
   void initView() {
     mPullListView = PullListView(
-      methodName: method_Contract,
+      methodName: METHOD_JSONCHOOSEPROJECT,
+      rows_v: 500,
       mCallback: (methodName, res) {
-        ModelHt mModelFlowList = ModelHt.fromJson(res.data);
+        ModelXm mModelFlowList = ModelXm.fromJson(res.data);
         List data = new List();
         mModelFlowList.rows.forEach((f) {
           data.add(ItemHt(f));
@@ -54,7 +55,7 @@ class PgHtListState extends BaseState<PgHtList> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('合同列表'),
+        title: new Text('项目列表'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -66,7 +67,7 @@ class PgHtListState extends BaseState<PgHtList> {
               List<SearchListBean> search = List();
               SearchListBean s1 = new SearchListBean();
               s1.type = "text";
-              s1.text = "请输入客户名称";
+              s1.text = "请输入项目名称";
               s1.sqlstring =
                   '{"isGroup":false,"list":[{"Key":"txtLike","Contract":"like","Value":"#{value}"}]}';
               search.add(s1);

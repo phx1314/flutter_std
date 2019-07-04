@@ -9,7 +9,7 @@ import 'package:flutter_std/utils/GSYStyle.dart';
 import '../Help.dart';
 
 class ItemHt extends StatefulWidget {
-  RowsListBean item;
+  var item;
 
   ItemHt(this.item);
 

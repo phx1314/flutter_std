@@ -21,6 +21,7 @@ import 'PgFileList.dart';
 import 'PgFileListEdit.dart';
 import 'PgGzjd.dart';
 import 'PgHtList.dart';
+import 'PgXmList.dart';
 
 //  https://github.com/tiagojencmartins/unicornspeeddial
 class PgPubView extends StatefulWidget {
@@ -57,8 +58,8 @@ class PgPubViewState extends BaseState<PgPubView> {
   void disMsg(int what, data) {
     switch (what) {
       case 0:
-        flutterWebViewPlugin
-            .evalJavascript("${map_json['Method']}('${data.toString().replaceAll('\'', '')}')");
+        flutterWebViewPlugin.evalJavascript(
+            "${map_json['Method']}('${data.toString().replaceAll('\'', '')}')");
         break;
       case 300:
         Map<String, dynamic> map = data;
@@ -224,7 +225,13 @@ class PgPubViewState extends BaseState<PgPubView> {
                 AppBar().preferredSize.height,
             MediaQuery.of(context).size.width,
             MediaQuery.of(context).size.height -
-                (isFinish ? 0 : ScreenUtil.getScaleW(context, 70))));
+                (isFinish
+                    ? 0
+                    : ScreenUtil.getScaleW(
+                        context,
+                        defaultTargetPlatform == TargetPlatform.android
+                            ? 50
+                            : 80))));
       }
 
       mModelJDInfo.AllowEditControls = widget.statusID == '0'
@@ -270,7 +277,8 @@ class PgPubViewState extends BaseState<PgPubView> {
     } else if (methodName == METHOD_FLOWWIDGET ||
         methodName == METHOD_CUSTOMERSAVE ||
         methodName == METHOD_CUSTLINKMANSAVE ||
-        methodName == METHOD_CUSTLINKSAVE|| methodName ==METHOD_OANIGHTWORKINGSAVE) {
+        methodName == METHOD_CUSTLINKSAVE ||
+        methodName == METHOD_OANIGHTWORKINGSAVE||methodName == METHOD_OAWORKINGHOURSSAVE) {
       Fluttertoast.showToast(msg: ":处理成功");
       Help.sendMsg('PgFlowList,PgBd', 0, '');
       Help.sendMsg('PgHome', 6, '');
@@ -467,6 +475,8 @@ class PgPubViewState extends BaseState<PgPubView> {
             loadUrl(METHOD_CUSTLINKSAVE, map_json);
           } else if (widget.item.MenuNameEng == 'OaNightWorking') {
             loadUrl(METHOD_OANIGHTWORKINGSAVE, map_json);
+          } else if (widget.item.MenuNameEng == 'WorkingHours') {
+            loadUrl(METHOD_OAWORKINGHOURSSAVE, map_json);
           }
         } else if (title == '暂存') {
           Map<String, dynamic> map = new Map();
@@ -522,7 +532,11 @@ class PgPubViewState extends BaseState<PgPubView> {
           mRefTables.add(mModelUpload.RefTable);
         }
       } else if (type == '003') {
-        Help.goWhere(context, PgHtList());
+        Help.goWhere(
+            context,
+            widget.item.MenuNameEng == 'proj_mission_cust'
+                ? PgHtList()
+                : PgXmList());
       }
     } catch (e) {
       print(e.toString());
@@ -574,7 +588,11 @@ class PgPubViewState extends BaseState<PgPubView> {
                   AppBar().preferredSize.height,
               MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.height -
-                  (ScreenUtil.getScaleW(context, 70))));
+                  (ScreenUtil.getScaleW(
+                      context,
+                      defaultTargetPlatform == TargetPlatform.android
+                          ? 50
+                          : 80))));
           return;
         }
         if (null != widget.item.mModelMenuConfig.flow.processor &&
@@ -598,7 +616,11 @@ class PgPubViewState extends BaseState<PgPubView> {
                   AppBar().preferredSize.height,
               MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.height -
-                  (ScreenUtil.getScaleW(context, 70))));
+                  (ScreenUtil.getScaleW(
+                      context,
+                      defaultTargetPlatform == TargetPlatform.android
+                          ? 50
+                          : 80))));
         }
       } else if (state.type == WebViewState.startLoad) {
         flutterWebViewPlugin?.hide();
