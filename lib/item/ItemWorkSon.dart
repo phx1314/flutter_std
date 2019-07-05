@@ -96,37 +96,46 @@ class ItemWorkSon extends StatelessWidget {
     } catch (e) {
       print(e);
     }
-    Navigator.pop(context);
-    if (item.MenuNameEng == "MailReceive") {
+
+    if (item.MenuNameEng == "MailReceive") {Navigator.pop(context);
       Help.goWhere(context, PgEmailList(type: 1));
-    } else if (item.MenuNameEng == "OaCheckList") {
+    } else if (item.MenuNameEng == "OaCheckList") {Navigator.pop(context);
       return;
     } else if (item.MenuNameEng == "MailSend") {
       //发件箱
+      Navigator.pop(context);
       Help.goWhere(context, PgEmailList(type: 2));
     } else if (item.MenuNameEng == "MailDraft") {
       //草稿箱
+      Navigator.pop(context);
       Help.goWhere(context, PgEmailList(type: 3));
     } else if (item.MenuNameEng == "MailJunk") {
       //垃圾箱
+      Navigator.pop(context);
       Help.goWhere(context, PgEmailList(type: 4));
     } else if (item.MenuNameEng == "MailWrite") {
       //写邮件
+      Navigator.pop(context);
       Help.goWhere(context, PgSendEmail());
     } else if (item.MenuNameEng == "OaNewsInfo") {
       //新闻管理
+      Navigator.pop(context);
       Help.sendMsg("PgHome", 1, 3);
     } else if (item.MenuNameEng == "LoginLog") {
       //审计
+      Navigator.pop(context);
       Help.goWhere(context, PgRz(1));
     } else if (item.MenuNameEng == "BUSSLog") {
       //业务
+      Navigator.pop(context);
       Help.goWhere(context, PgRz(0));
     } else if (item.MenuNameEng == "OaScheduler") {
       //工作
     } else {
-      if (item.mModelMenuConfig != null)
-        Help.goWhere(context, PgFlowList(item));
+      if (item.mModelMenuConfig != null){
+        Navigator.pop(context); Help.goWhere(context, PgFlowList(item));
+      }
+
     }
   }
 
