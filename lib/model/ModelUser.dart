@@ -84,14 +84,14 @@ class UserInfoBean {
       this.EmpNote,
       this.EmpMEID,
       this.EmpID,
-      this.isLock,
+      this.isLock=false,
       this.EmpDepID});
 
   UserInfoBean.fromJson(Map<String, dynamic> json) {
     this.EmpName = json['EmpName'];
     this.EmpDepName = json['EmpDepName'];
     this.EmpTel = json['EmpTel'];
-    this.isLock = json['isLock'];
+    this.isLock = json['isLock']??false;
     this.EmpJob = json['EmpJob'];
     this.EmpHead = json['EmpHead'];
     this.EmpNote = json['EmpNote'];

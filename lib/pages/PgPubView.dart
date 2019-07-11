@@ -114,11 +114,8 @@ class PgPubViewState extends BaseState<PgPubView> {
               MediaQueryData.fromWindow(window).padding.top +
                   AppBar().preferredSize.height,
               MediaQuery.of(context).size.width,
-              data
-                  ? MediaQuery.of(context).size.height -
-                      ScreenUtil.getScaleW(context, 270)
-                  : MediaQuery.of(context).size.height -
-                      ScreenUtil.getScaleW(context, 50)));
+              MediaQuery.of(context).size.height -
+                  ScreenUtil.getScaleW(context, data ? 270 : 50)));
         break;
     }
   }
@@ -278,7 +275,8 @@ class PgPubViewState extends BaseState<PgPubView> {
         methodName == METHOD_CUSTOMERSAVE ||
         methodName == METHOD_CUSTLINKMANSAVE ||
         methodName == METHOD_CUSTLINKSAVE ||
-        methodName == METHOD_OANIGHTWORKINGSAVE||methodName == METHOD_OAWORKINGHOURSSAVE) {
+        methodName == METHOD_OANIGHTWORKINGSAVE ||
+        methodName == METHOD_OAWORKINGHOURSSAVE) {
       Fluttertoast.showToast(msg: ":处理成功");
       Help.sendMsg('PgFlowList,PgBd', 0, '');
       Help.sendMsg('PgHome', 6, '');
