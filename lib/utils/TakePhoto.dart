@@ -134,7 +134,7 @@ class TakePhotoState extends BaseState<TakePhoto> {
         imageFile.absolute.path,
         imageFile.absolute.path,
         quality: 88,
-        rotate: 90,
+        rotate: -90,
       );
     }
     File croppedFile = await ImageCropper.cropImage(
