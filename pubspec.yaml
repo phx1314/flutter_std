@@ -50,6 +50,7 @@ dependencies:
   table_calendar: ^1.2.1
   flutter_luban: ^0.1.7+1
   image_cropper: ^1.0.2
+  flutter_image_compress: ^0.6.3
 #  geolocator: ^5.0.0
 #  fluttery_audio: ^0.0.4
 dev_dependencies:

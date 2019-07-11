@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_luban/flutter_luban.dart';
 import 'package:flutter_std/Help.dart';
 import 'package:flutter_std/utils/BaseState.dart';
@@ -127,8 +129,14 @@ class TakePhotoState extends BaseState<TakePhoto> {
   }
 
   Future<Null> _cropImage(File imageFile) async {
-//    int size1 = await imageFile.length();
-//    print(Help.getRollupSize(size1));
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      await FlutterImageCompress.compressAndGetFile(
+        imageFile.absolute.path,
+        imageFile.absolute.path,
+        quality: 88,
+        rotate: 90,
+      );
+    }
     File croppedFile = await ImageCropper.cropImage(
       sourcePath: imageFile.path,
       ratioX: 1.0,
@@ -136,6 +144,7 @@ class TakePhotoState extends BaseState<TakePhoto> {
       maxWidth: 512,
       maxHeight: 512,
     );
+
     widget.mMethodCallBack(croppedFile);
   }
 

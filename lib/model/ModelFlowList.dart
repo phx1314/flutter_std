@@ -28,13 +28,7 @@ class RowsListBean {
   String text;
   String MenuNameEng;
   ModelMenuConfig mModelMenuConfig;
-  String ConNumber;
-  String ConName;
   String refTable_file;
-  String CustName;
-  String ConDate;
-  String ConFulfilTypeName;
-  String ConIsFeeFinished;
   String FlowName;
   String FlowStatusName;
   String FlowTurnedEmpIDs;
@@ -51,7 +45,6 @@ class RowsListBean {
   double ConBalanceFee;
   double SumConFee;
   double NoFee;
-  var rowNumber;
   var Id;
   var KeyID;
   var FatherID;
@@ -79,13 +72,8 @@ class RowsListBean {
   String MenuMobileConfig;
 
   RowsListBean(
-      {this.ConNumber,
+      {
       this.FlowSummary,
-      this.ConName,
-      this.CustName,
-      this.ConDate,
-      this.ConFulfilTypeName,
-      this.ConIsFeeFinished,
       this.FlowName,
       this.FlowStatusName,
       this.FlowTurnedEmpIDs,
@@ -101,7 +89,6 @@ class RowsListBean {
       this.ConBalanceFee,
       this.SumConFee,
       this.NoFee,
-      this.rowNumber,
       this.IsSave,
       this.Id = 0,
       this.KeyID,
@@ -117,13 +104,7 @@ class RowsListBean {
       this.CreatorEmpId});
 
   RowsListBean.fromJson(Map<String, dynamic> json) {
-    this.ConNumber = json['ConNumber'];
-    this.ConName = json['ConName'];
-    this.CustName = json['CustName'];
     this.IsSave = json['IsSave'];
-    this.ConDate = json['ConDate'];
-    this.ConFulfilTypeName = json['ConFulfilTypeName'];
-    this.ConIsFeeFinished = json['ConIsFeeFinished'];
     this.FlowName = json['FlowName'];
     this.FlowStatusName = json['FlowStatusName'];
     this.FlowTurnedEmpIDs = json['FlowTurnedEmpIDs'];
@@ -142,7 +123,6 @@ class RowsListBean {
     this.ConBalanceFee = json['ConBalanceFee'];
     this.SumConFee = json['SumConFee'];
     this.NoFee = json['NoFee'];
-    this.rowNumber = json['row_number'];
     this.Id ??= json['Id'];
     this.Id ??= json['FlowRefID'];
     this.KeyID = json['KeyID'];
@@ -160,13 +140,7 @@ class RowsListBean {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ConNumber'] = this.ConNumber;
-    data['ConName'] = this.ConName;
-    data['CustName'] = this.CustName;
     data['IsSave'] = this.IsSave;
-    data['ConDate'] = this.ConDate;
-    data['ConFulfilTypeName'] = this.ConFulfilTypeName;
-    data['ConIsFeeFinished'] = this.ConIsFeeFinished;
     data['FlowName'] = this.FlowName;
     data['FlowStatusName'] = this.FlowStatusName;
     data['FlowTurnedEmpIDs'] = this.FlowTurnedEmpIDs;
@@ -184,7 +158,6 @@ class RowsListBean {
     data['SumConFee'] = this.SumConFee;
     data['Title'] = this.Title;
     data['NoFee'] = this.NoFee;
-    data['row_number'] = this.rowNumber;
     data['Id'] = this.Id;
     data['FlowRefID'] = this.Id;
     data['KeyID'] = this.KeyID;
