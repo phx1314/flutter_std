@@ -178,8 +178,9 @@ class PgGjkhState extends BaseState<PgGjkh>
             tabs: tabs,
             controller: mTabController,
             isScrollable: false,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white,
+//            labelColor: Colors.white,
+//            unselectedLabelColor: Colors.white,
+            indicatorColor: Theme.of(context).accentColorBrightness==Brightness.dark?Colors.white:Colors.black,
             unselectedLabelStyle: new TextStyle(fontSize: 16.0),
             labelStyle:
                 new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),

@@ -31,7 +31,6 @@ class PgChangeIPState extends BaseState<PgChangeIP> {
               alignment: Alignment.center,
               child: Text(
                 '确定',
-                style: Style.text_style_16_white,
               ),
             ),
           )

@@ -103,14 +103,22 @@ class PgSearchState extends BaseState<PgSearch> {
             Expanded(
               child: TextField(
                 controller: mController,
-                style: Style.text_style_13_white,
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).accentColorBrightness==Brightness.dark?Colors.white:Colors.black,
+                    fontSize: 13,
+                    decoration: TextDecoration.none),
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.all(ScreenUtil.getScaleW(context, 5)),
                     hintText: widget.item[0].text,
                     border: InputBorder.none,
-                    hintStyle: Style.text_style_13_white),
+                    hintStyle:TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(context).accentColorBrightness==Brightness.dark?Colors.white:Colors.black,
+                        fontSize: 13,
+                        decoration: TextDecoration.none)),
                 autofocus: false,
               ),
             ),

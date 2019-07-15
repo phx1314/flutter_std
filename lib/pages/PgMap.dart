@@ -53,7 +53,6 @@ class PgMapState extends BaseState<PgMap> {
               alignment: Alignment.center,
               child: Text(
                 '完成',
-                style: Style.text_style_16_white,
               ),
             ),
           )

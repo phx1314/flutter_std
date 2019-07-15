@@ -47,7 +47,6 @@ class PgDuoXuanState extends BaseState<PgDuoXuan> {
               alignment: Alignment.center,
               child: Text(
                 '确定',
-                style: Style.text_style_16_white,
               ),
             ),
           )

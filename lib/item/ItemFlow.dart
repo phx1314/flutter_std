@@ -19,16 +19,16 @@ class ItemFlow extends StatelessWidget {
     try {
       mWidgets.clear();
       List responseJson = json.decode(item.FlowSummary);
-      responseJson.forEach((f) {
-        mWidgets.add(Padding(
-          padding: EdgeInsets.only(top: ScreenUtil.getScaleW(context, 5)),
-          child: Text(
-            '${f['Key']}  :  ${f['Value']}',
-            style: Style.text_style_13_gray,
-            softWrap: true,
-          ),
-        ));
-      });
+      for(int i=0;i<responseJson.length;i++){
+          mWidgets.add(Padding(
+            padding: EdgeInsets.only(top: ScreenUtil.getScaleW(context, 6)),
+            child: Text(
+             '${responseJson[i]['Key']}  :  ${responseJson[i]['Value']}',
+              style:i==0? Style.text_style_16_black : Style.text_style_13_gray,
+              softWrap: true,
+            ),
+          ));
+      }
     } catch (e) {
       print(e);
     }
@@ -83,15 +83,15 @@ class ItemFlow extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         padding:
-                            EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),
+                            EdgeInsets.fromLTRB(ScreenUtil.getScaleW(context, 10),0,ScreenUtil.getScaleW(context, 10),ScreenUtil.getScaleW(context, 10)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              item.text??'',
-                              style: Style.text_style_16_black,
-                            ),
+//                            Text(
+//                              item.text ?? '',
+//                              style: Style.text_style_16_black,
+//                            ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,39 +112,46 @@ class ItemFlow extends StatelessWidget {
                         height: ScreenUtil.getScaleW(context, 40),
                         child: Row(
                           children: <Widget>[
-                            Expanded(
-                                child: InkWell(
-                              onTap: () {
-                                Help.goWhere(
-                                    context,
-                                    PgGzjd(item.FlowID == null
-                                        ? '0'
-                                        : item.FlowID.toString()));
-                              },
-                              child: Center(
-                                child: Text(
-                                  '查看进度',
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 16,
+                            Visibility(
+                              visible: item.mModelMenuConfig.grid.listPage ==
+                                  'FlowList',
+                              child: Expanded(
+                                  child: InkWell(
+                                onTap: () {
+                                  Help.goWhere(
+                                      context,
+                                      PgGzjd(item.FlowID == null
+                                          ? '0'
+                                          : item.FlowID.toString()));
+                                },
+                                child: Center(
+                                  child: Text(
+                                    '查看进度',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
+                              )),
+                            ),
+                            Visibility(
+                              visible: item.mModelMenuConfig.grid.listPage ==
+                                  'FlowList',
+                              child: Container(
+                                width: 1,
+                                height: double.infinity,
+                                color: Color.fromRGBO(236, 236, 236, 1),
                               ),
-                            )),
-                            Container(
-                              width: 1,
-                              height: double.infinity,
-                              color: Color.fromRGBO(236, 236, 236, 1),
                             ),
                             Expanded(
                               child: InkWell(
                                 onTap: () {
-                                  if (item.mModelMenuConfig != null){
+                                  if (item.mModelMenuConfig != null) {
                                     Help.go2PubView(context, item, statusID);
-                                  }else{
+                                  } else {
                                     Help.Toast(context, '请到PC端操作');
                                   }
-
                                 },
                                 child: Center(
                                     child: Text(

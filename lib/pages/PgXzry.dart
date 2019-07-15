@@ -85,7 +85,6 @@ class PgXzryState extends BaseState<PgXzry> {
                     alignment: Alignment.center,
                     child: Text(
                       '确认',
-                      style: Style.text_style_16_white,
                     ),
                   ),
                 )
@@ -98,8 +97,7 @@ class PgXzryState extends BaseState<PgXzry> {
                   Tab(text: "已选择(${mCheckeds.length})")
                 ],
                 isScrollable: false,
-//                labelColor: Colors.white,
-//                unselectedLabelColor: Colors.white,
+                indicatorColor: Theme.of(context).accentColorBrightness==Brightness.dark?Colors.white:Colors.black,
                 unselectedLabelStyle: new TextStyle(fontSize: 16.0),
                 labelStyle:
                     new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),

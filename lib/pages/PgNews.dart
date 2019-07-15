@@ -104,8 +104,9 @@ class PgNewsState extends BaseState<PgNews>
           onTap: (i) => _changeTab(i),
           tabs: tabs,
           isScrollable: true,
-//          labelColor: Colors.white,
+//          labelColor: Colors.red,
 //          unselectedLabelColor: Colors.white,
+        indicatorColor: Theme.of(context).accentColorBrightness==Brightness.dark?Colors.white:Colors.black,
           unselectedLabelStyle: new TextStyle(fontSize: 16.0),
           labelStyle:
               new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),

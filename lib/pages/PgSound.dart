@@ -44,7 +44,6 @@ class PgSoundState extends BaseState<PgSound> {
                     alignment: Alignment.center,
                     child: Text(
                       '保存',
-                      style: Style.text_style_16_white,
                     ),
                   ),
                 )

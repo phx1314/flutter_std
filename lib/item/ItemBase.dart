@@ -26,16 +26,40 @@ class ItemBaseState extends BaseState<ItemBase> {
     try {
       mWidgets.clear();
       List responseJson = json.decode(widget.item.FlowSummary);
-      responseJson.forEach((f) {
+      for (int i = 0; i < responseJson.length; i++) {
         mWidgets.add(Padding(
           padding: EdgeInsets.only(top: 5),
-          child: Text(
-            '${f['Key']}  :  ${f['Value']}',
-            style: Style.text_style_13_black,
-            softWrap: true,
-          ),
+          child: i == responseJson.length - 1
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      '${responseJson[i]['Key']}  :  ${responseJson[i]['Value']}',
+                      style: Style.text_style_13_gray,
+                      softWrap: true,
+                    ),
+                    Expanded(
+                        child: Text(
+                      widget.item.CreationTime,
+                      textAlign: TextAlign.end,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Style.text_style_13_gray,
+                      softWrap: true,
+                    ))
+                  ],
+                )
+              : Text(
+                  i == 0
+                      ? '${responseJson[i]['Value']}'
+                      : '${responseJson[i]['Key']}  :  ${responseJson[i]['Value']}',
+                  style: i == 0
+                      ? Style.text_style_16_black
+                      : Style.text_style_13_gray,
+                  softWrap: true,
+                ),
         ));
-      });
+      }
     } catch (e) {
       print(e);
     }
@@ -59,7 +83,8 @@ class ItemBaseState extends BaseState<ItemBase> {
         }
       },
       child: Container(
-        padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 10)),
+        padding: EdgeInsets.fromLTRB(ScreenUtil.getScaleW(context, 8), 0,
+            ScreenUtil.getScaleW(context, 8), ScreenUtil.getScaleW(context, 8)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

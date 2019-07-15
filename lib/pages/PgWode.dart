@@ -62,17 +62,17 @@ class PgWodeState extends BaseState<PgWode> {
             ScreenUtil.getScaleW(context, 12)),
         margin: EdgeInsets.all(ScreenUtil.getScaleW(context, 12)),
         decoration: BoxDecoration(
-//          border:
-//              Border.all(width:1, color: Colors.grey),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey,
-                offset: Offset(ScreenUtil.getScaleW(context, 2),
-                    ScreenUtil.getScaleW(context, 2)),
-                blurRadius: ScreenUtil.getScaleW(context, 5),
-                spreadRadius: 1),
-          ],
+          border:
+              Border.all(width:0.3, color: Colors.grey),
+//          color: Colors.white,
+//          boxShadow: [
+//            BoxShadow(
+//                color: Colors.grey,
+//                offset: Offset(ScreenUtil.getScaleW(context, 2),
+//                    ScreenUtil.getScaleW(context, 2)),
+//                blurRadius: ScreenUtil.getScaleW(context, 5),
+//                spreadRadius: 1),
+//          ],
           borderRadius: BorderRadius.all(
               Radius.circular(ScreenUtil.getScaleW(context, 4))),
         ),

@@ -74,7 +74,7 @@ class PgFlowListState extends BaseState<PgFlowList> {
           f.MenuMobileConfig = widget.item.MenuMobileConfig;
           f.mModelMenuConfig = ModelMenuConfig.fromJson(json.decode(
               Help.getRightdata(widget.item.MenuMobileConfig, f.toJson())));
-          if (widget.item.mModelMenuConfig.grid.listPage == "FlowList") {
+          if (widget.item.mModelMenuConfig.grid.listPage == "FlowList"|| widget.item.mModelMenuConfig.grid.listPage== "OaList" ) {
             data.add(ItemFlow(f, ''));
           } else if (widget.item.mModelMenuConfig.grid.listPage ==
               "ProjectList") {

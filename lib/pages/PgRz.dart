@@ -33,12 +33,12 @@ class PgRzState extends BaseState<PgRz> {
       text: "审计日志",
     ));
     mPullListView1 = PullListView(
-      methodName:  METHOD_BASELOG,
+      methodName: METHOD_BASELOG,
       other: _getquary(1),
       mCallback: _callBack,
     );
     mPullListView2 = PullListView(
-      methodName:  METHOD_BASELOG,
+      methodName: METHOD_BASELOG,
       other: _getquary(0),
       mCallback: _callBack,
     );
@@ -74,7 +74,7 @@ class PgRzState extends BaseState<PgRz> {
             IconButton(
               icon: Icon(
                 Icons.search,
-                size: ScreenUtil.getScaleW(context,25),
+                size: ScreenUtil.getScaleW(context, 25),
               ),
               onPressed: () {},
             ),
@@ -83,8 +83,10 @@ class PgRzState extends BaseState<PgRz> {
           bottom: TabBar(
             tabs: tabs,
             isScrollable: false,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white,
+            indicatorColor:
+                Theme.of(context).accentColorBrightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
             unselectedLabelStyle: new TextStyle(fontSize: 16.0),
             labelStyle:
                 new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
