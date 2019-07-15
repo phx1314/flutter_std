@@ -24,6 +24,7 @@ class ItemBaseState extends BaseState<ItemBase> {
   @override
   void loadData() {
     try {
+
       mWidgets.clear();
       List responseJson = json.decode(widget.item.FlowSummary);
       for (int i = 0; i < responseJson.length; i++) {
