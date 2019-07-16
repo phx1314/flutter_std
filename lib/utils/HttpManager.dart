@@ -24,8 +24,8 @@ class HttpManager {
   ///[ params] 请求参数
   ///[ header] 外加头
   ///[ option] 配置
-  static void netFetch(BuildContext context, url, params,
-      HttpResponseListener mHttpResponseListener,
+  static void netFetch(
+      context, url, params, HttpResponseListener mHttpResponseListener,
       {isFormData, isShow, methodName}) async {
     try {
       var connectivityResult = await (new Connectivity().checkConnectivity());
@@ -114,7 +114,7 @@ class HttpManager {
     }
   }
 
-  static void downLoad(BuildContext context, url, savePath, bool isShow,
+  static void downLoad(context, url, savePath, bool isShow,
       ProgressCallback onReceiveProgress) async {
     try {
       var connectivityResult = await (new Connectivity().checkConnectivity());

@@ -11,7 +11,6 @@ import 'package:flutter_std/model/ModelSearchGk.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
 import 'package:flutter_std/utils/PullListView.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class PgBd extends StatefulWidget {
   @override
@@ -20,7 +19,7 @@ class PgBd extends StatefulWidget {
 
 class PgBdState extends BaseState<PgBd> {
   String statusID = "1";
-  String modular = "2";
+  String modular = "0";
   PullListView mPullListView;
 
   @override
@@ -154,12 +153,8 @@ class PgBdState extends BaseState<PgBd> {
             0,
             0),
         items: <PopupMenuEntry<String>>[
-//          PopupMenuItem<String>(
-//            value: "0",
-//            child: Container(
-//                width: ScreenUtil.getScaleW(context, 100), child: Text('全部')),
-//          ),
-//          PopupMenuDivider(height: 1.0),
+          PopupMenuItem<String>(value: "0", child: Text('全部')),
+          PopupMenuDivider(height: 1.0),
           PopupMenuItem<String>(value: "1", child: Text('项目表单')),
           PopupMenuDivider(height: 1.0),
           PopupMenuItem<String>(value: "2", child: Text('办公表单')),

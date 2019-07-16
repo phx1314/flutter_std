@@ -113,8 +113,7 @@ class ItemFlow extends StatelessWidget {
                         child: Row(
                           children: <Widget>[
                             Visibility(
-                              visible: item.mModelMenuConfig.grid.listPage ==
-                                  'FlowList',
+                              visible:true,
                               child: Expanded(
                                   child: InkWell(
                                 onTap: () {
@@ -135,14 +134,10 @@ class ItemFlow extends StatelessWidget {
                                 ),
                               )),
                             ),
-                            Visibility(
-                              visible: item.mModelMenuConfig.grid.listPage ==
-                                  'FlowList',
-                              child: Container(
-                                width: 1,
-                                height: double.infinity,
-                                color: Color.fromRGBO(236, 236, 236, 1),
-                              ),
+                            Container(
+                              width: 1,
+                              height: double.infinity,
+                              color: Color.fromRGBO(236, 236, 236, 1),
                             ),
                             Expanded(
                               child: InkWell(
