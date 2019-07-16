@@ -16,6 +16,13 @@ class PgAzList extends StatefulWidget {
 }
 
 class PgAzListState extends BaseState<PgAzList> {
+  String suspensionTag;
+
+  @override
+  void initView() {
+    suspensionTag = widget.data.suspensionTag;
+  }
+
   @override
   Widget build(BuildContext context) {
     print('走了没');
@@ -24,7 +31,7 @@ class PgAzListState extends BaseState<PgAzList> {
       data: widget.data.data,
       isUseRealIndex: false,
       itemBuilder: (context, model) => ItemTxl(model, widget.type),
-      suspensionWidget: ItemSus(widget.data.suspensionTag),
+      suspensionWidget: ItemSus(suspensionTag),
       itemHeight: 80,
       suspensionHeight: 40,
       onSusTagChanged: _onSusTagChanged,
@@ -33,7 +40,7 @@ class PgAzListState extends BaseState<PgAzList> {
   }
 
   void _onSusTagChanged(String tag) {
-    widget.data.suspensionTag = tag;
+    suspensionTag= tag;
     reLoad();
   }
 }

@@ -12,7 +12,7 @@ class ItemTxl extends StatefulWidget {
   BaseEmployeeListBean model;
   int type;
 
-  ItemTxl(this.model, this.type );
+  ItemTxl(this.model, this.type);
 
   @override
   ItemTxlState createState() => new ItemTxlState();
@@ -21,12 +21,11 @@ class ItemTxl extends StatefulWidget {
 class ItemTxlState extends BaseState<ItemTxl> {
   @override
   Widget build(BuildContext context) {
-    String susTag = widget.model.getSuspensionTag();
     return Column(
       children: <Widget>[
         Offstage(
           offstage: widget.model.isShowSuspension != true,
-          child: ItemSus(susTag),
+          child: ItemSus(widget.model.getSuspensionTag()),
         ),
         Container(
           alignment: Alignment.centerLeft,
