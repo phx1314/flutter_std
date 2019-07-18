@@ -99,23 +99,37 @@ class PgNewsState extends BaseState<PgNews>
           ),
         ],
         centerTitle: true,
-        bottom: TabBar(
-          controller: mTabController,
-          onTap: (i) => _changeTab(i),
-          tabs: tabs,
-          isScrollable: true,
-//          labelColor: Colors.red,
-//          unselectedLabelColor: Colors.white,
-        indicatorColor: Theme.of(context).accentColorBrightness==Brightness.dark?Colors.white:Colors.black,
-          unselectedLabelStyle: new TextStyle(fontSize: 16.0),
-          labelStyle:
-              new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
-        ),
       ),
-      body: PageView(
-        controller: mPageController,
-        onPageChanged: _changePage,
-        children: widgets,
+      body: Column(
+        children: <Widget>[
+          Container(
+            alignment: Alignment.center,
+            width: double.infinity,
+            color: Colors.white,
+            child: TabBar(
+              controller: mTabController,
+              onTap: (i) => _changeTab(i),
+              tabs: tabs,
+              isScrollable: true,
+              labelColor: Colors.black,
+              indicatorColor:
+                  Theme.of(context).accentColorBrightness == Brightness.dark
+                      ? Colors.black
+                      : Colors.black,
+              unselectedLabelStyle: new TextStyle(fontSize: 16.0),
+              labelStyle:
+                  new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Divider(height: 1),
+          Expanded(
+            child: PageView(
+              controller: mPageController,
+              onPageChanged: _changePage,
+              children: widgets,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -126,7 +126,7 @@ class PgHomeState extends BaseState<PgHome> with WidgetsBindingObserver {
         break;
       case AppLifecycleState.resumed: // 应用程序可见，前台
         print("前台");
-        if (Help.mModelUser.UserInfo.isLock) {
+        if (Help.mModelUser.UserInfo.isLock!=null&&Help.mModelUser.UserInfo.isLock) {
           Help.goWhere(context, PageDialogLock());
         }
         break;
