@@ -49,9 +49,10 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
 
   loadUrl(String url, Map<String, dynamic> other,
       {isFormData = true, isShow = true, biaoshi}) async {
-    await HttpManager.netFetch(context, url, other, this,
-        isFormData: isFormData, isShow: isShow, methodName: biaoshi ?? url);
+    await HttpManager.netFetch(url, other, this,
+        context: context,
+        isFormData: isFormData,
+        isShow: isShow,
+        methodName: biaoshi ?? url);
   }
-
-
 }

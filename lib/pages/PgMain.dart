@@ -12,12 +12,15 @@ import '../Help.dart';
 import 'PgYinDao.dart';
 
 class PgMain extends StatefulWidget {
+  int type;
+
+  PgMain(this.type);
+
   @override
   PgMainState createState() => new PgMainState();
 }
 
-class PgMainState extends BaseState<PgMain>{
-
+class PgMainState extends BaseState<PgMain> {
   @override
   void disMsg(int what, data) {
     switch (what) {
@@ -26,8 +29,6 @@ class PgMainState extends BaseState<PgMain>{
         break;
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,9 @@ class PgMainState extends BaseState<PgMain>{
             );
           },
         },
-        home: PgWelcome());
+        home: widget.type == 0
+            ? PgYinDao()
+            : widget.type == 1 ? PgLogin() : PgHome());
   }
 }
 

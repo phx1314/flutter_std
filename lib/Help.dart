@@ -174,7 +174,7 @@ class Help {
     }
   }
 
-  static addEventHandler(BuildContext context, JPush mJPush) {
+  static addEventHandler(JPush mJPush) {
     try {
       mJPush.addEventHandler(
           onReceiveNotification: (Map<String, dynamic> event) {
@@ -195,7 +195,7 @@ class Help {
 
           for (int j = 0; j < Help.mModelWorkBeans.length; j++) {
             if (Help.mModelWorkBeans[j].MenuMobileConfig
-                .contains(mModelPush.RefTable) &&
+                    .contains(mModelPush.RefTable) &&
                 mModelPush.RefTable ==
                     Help.mModelWorkBeans[j].mModelMenuConfig.flow.refTable) {
               item.text = Help.mModelWorkBeans[j].text;

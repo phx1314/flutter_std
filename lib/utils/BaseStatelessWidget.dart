@@ -16,9 +16,9 @@ abstract class BaseStatelessWidget extends StatelessWidget
     return null;
   }
 
-  loadUrl(BuildContext context, String url, Map<String, dynamic> other,
+  loadUrl(String url, Map<String, dynamic> other,
       {isFormData = true, isShow = true, biaoshi}) async {
-    await HttpManager.netFetch(context, url, other, this,
+    await HttpManager.netFetch(url, other, this,
         isFormData: isFormData, isShow: isShow, methodName: biaoshi ?? url);
   }
 }

@@ -52,7 +52,7 @@ class _PgWelcomeState extends BaseState<PgWelcome> {
   @override
   void initState() {
     super.initState();
-    Help.addEventHandler(context, JPush());
+    Help.addEventHandler(  JPush());
     jPush.applyPushAuthority(
         new NotificationSettingsIOS(sound: true, alert: true, badge: true));
     jPush.setup(
@@ -66,10 +66,13 @@ class _PgWelcomeState extends BaseState<PgWelcome> {
           Help.pushReplacementNamed(context, PgYinDao.sName);
         } else {
           if (res != null) {
-            loadUrl(METHOD_LOGIN, {
-              "userName": Help.mModelUser.name,
-              "passWord": Help.mModelUser.password
-            },isShow: false);
+            loadUrl(
+                METHOD_LOGIN,
+                {
+                  "userName": Help.mModelUser.name,
+                  "passWord": Help.mModelUser.password
+                },
+                isShow: false);
           } else {
             Help.pushReplacementNamed(context, PgLogin.sName);
           }
@@ -100,8 +103,9 @@ class _PgWelcomeState extends BaseState<PgWelcome> {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return Container(
-        child: Image(
-          image: AssetImage('static/images/loading.png'),
+        color: Colors.white,
+        child: Image.asset(
+          "static/images/loading.png",
           fit: BoxFit.cover,
         ),
       );

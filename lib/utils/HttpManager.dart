@@ -24,9 +24,8 @@ class HttpManager {
   ///[ params] 请求参数
   ///[ header] 外加头
   ///[ option] 配置
-  static void netFetch(
-      context, url, params, HttpResponseListener mHttpResponseListener,
-      {isFormData, isShow, methodName}) async {
+  static void netFetch(url, params, HttpResponseListener mHttpResponseListener,
+      {isFormData, isShow, methodName, context}) async {
     try {
       var connectivityResult = await (new Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.none) {
