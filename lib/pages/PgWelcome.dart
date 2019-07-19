@@ -25,78 +25,22 @@ import 'PgYinDao.dart';
 
 class PgWelcome extends StatefulWidget {
   static final String sName = "WelcomePage";
+  int type;
 
   @override
   _PgWelcomeState createState() => _PgWelcomeState();
 }
 
 class _PgWelcomeState extends BaseState<PgWelcome> {
-  JPush jPush = new JPush();
-  String registerId = null;
-  String myMsg;
-
   @override
-  void onFailure(String methodName, res) {
-    if (methodName == METHOD_LOGIN) {
-      Help.logOut(context);
-    }
-  }
-
-  @override
-  void onSuccess(String methodName, res) {
-    if (methodName == METHOD_LOGIN) {
-      setPushTag(jPush);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Help.addEventHandler(  JPush());
-    jPush.applyPushAuthority(
-        new NotificationSettingsIOS(sound: true, alert: true, badge: true));
-    jPush.setup(
-        appKey: "6a30d2dbe744a2281cb285ce",
-        channel: "developer-default",
-        debug: true,
-        production: true);
+  void initView() async {
     new Future.delayed(const Duration(seconds: 1), () {
-      Help.init().then((res) {
-        if (Help.ISFIRST == null) {
-          Help.pushReplacementNamed(context, PgYinDao.sName);
-        } else {
-          if (res != null) {
-            loadUrl(
-                METHOD_LOGIN,
-                {
-                  "userName": Help.mModelUser.name,
-                  "passWord": Help.mModelUser.password
-                },
-                isShow: false);
-          } else {
-            Help.pushReplacementNamed(context, PgLogin.sName);
-          }
-        }
-      });
+      Help.pushReplacementNamed(
+          context,
+          widget.type == 0
+              ? PgYinDao.sName
+              : widget.type == 1 ? PgLogin.sName : PgHome.sName);
     });
-  }
-
-  setPushTag(JPush mJPush) {
-//    mJPush.getRegistrationID().then((rid) {
-//      Help.pushReplacementNamed(context, PgHome.sName);
-    mJPush
-        .setAlias(
-            JPush_Alias_BeginWith + Help.mModelUser.UserInfo.EmpID.toString())
-        .then((v) {
-      print(v.toString());
-      List<String> tags = List<String>();
-      tags.add(JPush_Alias_BeginWith);
-      mJPush.setTags(tags).then((v) {
-        print(v.toString());
-        Help.pushReplacementNamed(context, PgHome.sName);
-      });
-    });
-//    });
   }
 
   @override
