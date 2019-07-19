@@ -10,7 +10,6 @@ import 'package:flutter_std/model/ModelFjList.dart';
 import 'package:flutter_std/pages/PgFileList.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PgWebDetail extends StatefulWidget {

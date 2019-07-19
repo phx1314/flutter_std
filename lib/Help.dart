@@ -362,7 +362,7 @@ class Help {
 
   static go2PubView(
       BuildContext context, RowsListBean mRowsListBean, String statusID) {
-    goWhere(context, PgPubView(mRowsListBean, statusID));
+//    goWhere(context, PgPubView(mRowsListBean, statusID));
   }
 
   static goWhere(BuildContext context, Widget widget) {

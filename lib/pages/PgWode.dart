@@ -9,9 +9,6 @@ import 'package:flutter_std/pages/PgSet.dart';
 import 'package:flutter_std/pages/PgWebView.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/GSYStyle.dart';
-import 'package:flutter_std/utils/ImageCacheManager.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class PgWode extends StatefulWidget {
   @override
@@ -20,7 +17,6 @@ class PgWode extends StatefulWidget {
 
 class PgWodeState extends BaseState<PgWode> {
   ModelCount mModelCount;
-  FlutterWebviewPlugin flutterWebViewPlugin = new FlutterWebviewPlugin();
   @override
   void initState() {
     super.initState();
