@@ -253,8 +253,6 @@ class PgHomeState extends BaseState<PgHome> with WidgetsBindingObserver {
             type: BottomTabBarType.fixed,
             currentIndex: _tabIndex,
             fixedColor: Help.mColor,
-            isAnimation: false,
-            isInkResponse: false,
             //点击事件
             onTap: (int a) => _changeTab(a),
           )),

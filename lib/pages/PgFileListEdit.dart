@@ -139,7 +139,6 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
     });
   }
 
-
   @override
   void onSuccess(String methodName, res) async {
     if (methodName == METHOD_UPLOAD) {
@@ -157,6 +156,7 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
           mModelWenjianUpload.UploadDate = Help.getCurrentTime(type: 1);
       int length = await file.length();
       mModelWenjianUpload.Size = length;
+      mModelWenjianUpload.RefTable = widget.refTable;
       widget.mModelWenjianUploads.add(mModelWenjianUpload);
       reFreashData();
       reLoad();

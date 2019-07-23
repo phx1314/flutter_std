@@ -9,6 +9,7 @@ import 'package:flutter_std/utils/Code.dart';
 import 'package:flutter_std/utils/HttpResponseListener.dart';
 import 'package:flutter_std/utils/ResultData.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 ///http请求
 class HttpManager {
@@ -27,6 +28,11 @@ class HttpManager {
   static void netFetch(url, params, HttpResponseListener mHttpResponseListener,
       {isFormData, isShow, methodName, context}) async {
     try {
+      Map<PermissionGroup, PermissionStatus> map = await PermissionHandler()
+          .requestPermissions([PermissionGroup.storage]);
+      if (map[PermissionGroup.storage].value != 2) {
+        return;
+      }
       var connectivityResult = await (new Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.none) {
         Fluttertoast.showToast(msg: "网络错误");

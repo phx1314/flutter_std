@@ -67,18 +67,13 @@ class PgPubViewState extends BaseState<PgPubView> {
         if (mModelWenjianUploads.length > 0) {
           String uploadFile = "&lt;Root&gt;";
           mRefTables.forEach((reftable) {
-            uploadFile += "&lt;Files RefTable=\"" + reftable + "\"&gt;";
+            uploadFile += "&lt;Files RefTable=\"$reftable\"&gt;";
             mModelWenjianUploads.forEach((mRowsBean) {
               if (mRowsBean.RefTable == reftable &&
                   mRowsBean.IDD != null &&
                   mRowsBean.IDD != "") {
-                uploadFile += "&lt;File FileName=\"" +
-                    mRowsBean.Name +
-                    "\" LastModifiedTime=\"" +
-                    Help.getCurrentTime(type: 1) +
-                    "\"&gt;" +
-                    mRowsBean.IDD +
-                    "&lt;/File&gt;";
+                uploadFile +=
+                    "&lt;File FileName=\"${mRowsBean.Name}\" LastModifiedTime=\"${Help.getCurrentTime(type: 1)}\"&gt;${mRowsBean.IDD}&lt;/File&gt;";
               }
             });
             uploadFile += "&lt;/Files&gt;";
@@ -487,18 +482,13 @@ class PgPubViewState extends BaseState<PgPubView> {
           if (mModelWenjianUploads.length > 0) {
             String uploadFile = "&lt;Root&gt;";
             mRefTables.forEach((reftable) {
-              uploadFile += "&lt;Files RefTable=\"" + reftable + "\"&gt;";
+              uploadFile += "&lt;Files RefTable=\"$reftable\"&gt;";
               mModelWenjianUploads.forEach((mRowsBean) {
                 if (mRowsBean.RefTable == reftable &&
                     mRowsBean.IDD != null &&
                     mRowsBean.IDD != "") {
-                  uploadFile += "&lt;File FileName=\"" +
-                      mRowsBean.Name +
-                      "\" LastModifiedTime=\"" +
-                      Help.getCurrentTime(type: 1) +
-                      "\"&gt;" +
-                      mRowsBean.IDD +
-                      "&lt;/File&gt;";
+                  uploadFile +=
+                      "&lt;File FileName=\"${mRowsBean.Name}\" LastModifiedTime=\"${Help.getCurrentTime(type: 1)}\"&gt;${mRowsBean.IDD}&lt;/File&gt;";
                 }
               });
               uploadFile += "&lt;/Files&gt;";
@@ -542,15 +532,14 @@ class PgPubViewState extends BaseState<PgPubView> {
   }
 
   void goDie() {
-    if ((mModelJDInfo != null && mModelJDInfo.StepOrder == 1) ||
-        widget.item.Id == 0) {
+    if ((mModelJDInfo != null && mModelJDInfo.StepOrder != 1)) {
+      Help.goWhere(context,
+          PgFileList(widget.item.Id.toString(), mModelUpload.RefTable));
+    } else {
       Help.goWhere(
           context,
           PgFileListEdit(widget.item.Id.toString(), mModelUpload.RefTable,
               widget.toString(), mModelWenjianUploads));
-    } else {
-      Help.goWhere(context,
-          PgFileList(widget.item.Id.toString(), mModelUpload.RefTable));
     }
   }
 

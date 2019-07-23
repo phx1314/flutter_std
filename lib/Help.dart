@@ -41,7 +41,7 @@ const LANGUAGE_SELECT_NAME = "language-select-name";
 const REFRESH_LANGUAGE = "refreshLanguageApp";
 const THEME_COLOR = "theme-color";
 const LOCALE = "locale";
-const FILE_DATA = <String>['音频文件', '当前位置', '图片拍照'];
+const FILE_DATA = <String>['音频文件',  '图片拍照'];
 const List colors = [
   Colors.red,
   Colors.pink,
