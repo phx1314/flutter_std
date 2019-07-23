@@ -23,7 +23,7 @@ class PgLogin extends StatefulWidget {
   State createState() => new PgLoginState();
 }
 
-class PgLoginState extends BaseState<PgLogin> {
+class PgLoginState extends BaseState<PgLogin> with TickerProviderStateMixin {
   bool obscureText = true;
 
   //手机号的控制器
@@ -32,6 +32,8 @@ class PgLoginState extends BaseState<PgLogin> {
   //密码的控制器
   TextEditingController passController = TextEditingController();
   String udid;
+  AnimationController _controller;
+  Animation _animation;
 
   @override
   void initView() async {
@@ -40,7 +42,22 @@ class PgLoginState extends BaseState<PgLogin> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    _animation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_controller);
+    _controller.forward();
     return Scaffold(
       body: ListView(
         children: <Widget>[
@@ -49,10 +66,13 @@ class PgLoginState extends BaseState<PgLogin> {
             onLongPress: () {
               Help.goWhere(context, PgChangeIP());
             },
-            child: Image.asset(
-              'static/images/logo2.png',
-              height: ScreenUtil.getScaleW(context, 75),
-              fit: BoxFit.fitHeight,
+            child: FadeTransition(
+              opacity: _animation,
+              child: Image.asset(
+                'static/images/logo2.png',
+                height: ScreenUtil.getScaleW(context, 75),
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
           Padding(padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 5))),
@@ -185,8 +205,6 @@ class PgLoginState extends BaseState<PgLogin> {
       });
     });
   }
-
-
 
   @override
   onSuccess(String methodName, res) async {
