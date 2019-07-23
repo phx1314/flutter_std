@@ -28,11 +28,6 @@ class HttpManager {
   static void netFetch(url, params, HttpResponseListener mHttpResponseListener,
       {isFormData, isShow, methodName, context}) async {
     try {
-      Map<PermissionGroup, PermissionStatus> map = await PermissionHandler()
-          .requestPermissions([PermissionGroup.storage]);
-      if (map[PermissionGroup.storage].value != 2) {
-        return;
-      }
       var connectivityResult = await (new Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.none) {
         Fluttertoast.showToast(msg: "网络错误");
@@ -122,6 +117,8 @@ class HttpManager {
   static void downLoad(context, url, savePath, bool isShow,
       ProgressCallback onReceiveProgress) async {
     try {
+      Map<PermissionGroup, PermissionStatus> map = await PermissionHandler()
+          .requestPermissions([PermissionGroup.storage]);
       var connectivityResult = await (new Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.none) {
         Fluttertoast.showToast(msg: "网络错误");
