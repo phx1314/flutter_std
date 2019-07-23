@@ -42,6 +42,18 @@ class PgLoginState extends BaseState<PgLogin> with TickerProviderStateMixin {
   }
 
   @override
+  void loadData() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    _animation = Tween(
+      begin: 0.5,
+      end: 1.0,
+    ).animate(_controller);
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -49,14 +61,6 @@ class PgLoginState extends BaseState<PgLogin> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 1),
-    );
-    _animation = Tween(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(_controller);
     _controller.forward();
     return Scaffold(
       body: ListView(
