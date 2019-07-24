@@ -31,79 +31,75 @@ class ItemDialogRzState extends BaseState<ItemDialogRz> {
                   child: InkWell(
                 onTap: () => finish(),
               )),
-              Visibility(
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: <Widget>[
-                      Material(
-                        color: Colors.white,
-                        child: InkWell(
-                          onTap: () {
-                            ClipboardData data = new ClipboardData(
-                                text: widget.item.BaseLogRefHTML);
-                            Clipboard.setData(data);
-                            finish();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(ScreenUtil.getScaleW(context,15)),
-                            width: double.infinity,
-                            child: Text(
-                              '复制内容',
-                              style: Style.text_style_16_black,
-                              textAlign: TextAlign.center,
-                            ),
+              Container(
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Material(
+                      color: Colors.white,
+                      child: InkWell(
+                        onTap: () {
+                          ClipboardData data = new ClipboardData(
+                              text: widget.item.BaseLogRefHTML);
+                          Clipboard.setData(data);
+                          finish();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(
+                              ScreenUtil.getScaleW(context, 15)),
+                          width: double.infinity,
+                          child: Text(
+                            '复制内容',
+                            style: Style.text_style_16_black,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      widget.type == 0
-                          ? Divider()
-                          : Divider(
-                              height: 1,
-                            ),
-                      Material(
-                        color: Colors.white,
-                        child: InkWell(
-                          onTap: () {
-                            ClipboardData data =
-                                new ClipboardData(text: widget.item.BaseLogIP);
-                            Clipboard.setData(data);
-                            finish();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(ScreenUtil.getScaleW(context,15)),
-                            width: double.infinity,
-                            child: Text(
-                              '复制IP',
-                              style: Style.text_style_16_black,
-                              textAlign: TextAlign.center,
-                            ),
+                    ),
+                    Divider(),
+                    Material(
+                      color: Colors.white,
+                      child: InkWell(
+                        onTap: () {
+                          ClipboardData data =
+                              new ClipboardData(text: widget.item.BaseLogIP);
+                          Clipboard.setData(data);
+                          finish();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(
+                              ScreenUtil.getScaleW(context, 15)),
+                          width: double.infinity,
+                          child: Text(
+                            '复制IP',
+                            style: Style.text_style_16_black,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      Container(
-                        color: Color(0x66000000),
-                        height: ScreenUtil.getScaleW(context,7),
-                      ),
-                      Material(
-                        color: Colors.white,
-                        child: InkWell(
-                          onTap: () => finish(),
-                          child: Container(
-                            padding: EdgeInsets.all(ScreenUtil.getScaleW(context,15)),
-                            width: double.infinity,
-                            child: Text(
-                              '取消',
-                              textAlign: TextAlign.center,
-                              style: Style.text_style_16_black,
-                            ),
+                    ),
+                    Container(
+                      color: Color(0x66000000),
+                      height: ScreenUtil.getScaleW(context, 7),
+                    ),
+                    Material(
+                      color: Colors.white,
+                      child: InkWell(
+                        onTap: () => finish(),
+                        child: Container(
+                          padding: EdgeInsets.all(
+                              ScreenUtil.getScaleW(context, 15)),
+                          width: double.infinity,
+                          child: Text(
+                            '取消',
+                            textAlign: TextAlign.center,
+                            style: Style.text_style_16_black,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                visible: widget.type != 0,
               )
             ],
           ),

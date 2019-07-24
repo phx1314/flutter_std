@@ -41,22 +41,31 @@ class ItemWorkSon extends StatelessWidget {
               ),
               child: CircleAvatar(
                 radius: ScreenUtil.getScaleW(context, 30),
-                backgroundColor: FontString.data[item.iconCls
+                backgroundColor: () {
+                  try {
+                    return FontString.data[item.iconCls
+                                .split(" ")[1]
+                                .replaceAll("-", "_")
+                                .split("_")[1]
+                                .substring(0, 1)] ==
+                            null
+                        ? Colors.blue
+                        : FontString.data[item.iconCls
                             .split(" ")[1]
                             .replaceAll("-", "_")
                             .split("_")[1]
-                            .substring(0, 1)] ==
-                        null
-                    ? Colors.blue
-                    : FontString.data[item.iconCls
-                        .split(" ")[1]
-                        .replaceAll("-", "_")
-                        .split("_")[1]
-                        .substring(0, 1)],
+                            .substring(0, 1)];
+                  } catch (e) {
+                    return Colors.blue;
+                  }
+                }(),
                 child: Icon(
                   IconData(
-                      FontString.data[
-                          item.iconCls.split(" ")[1].replaceAll("-", "_")],
+                      FontString.data.containsKey(
+                              item.iconCls.split(" ")[1].replaceAll("-", "_"))
+                          ? FontString.data[
+                              item.iconCls.split(" ")[1].replaceAll("-", "_")]
+                          : FontString.data['fa_android'],
                       fontFamily: FontString.fontFamily),
                   size: ScreenUtil.getScaleW(context, 27),
                   color: Colors.white,
@@ -97,9 +106,11 @@ class ItemWorkSon extends StatelessWidget {
       print(e);
     }
 
-    if (item.MenuNameEng == "MailReceive") {Navigator.pop(context);
+    if (item.MenuNameEng == "MailReceive") {
+      Navigator.pop(context);
       Help.goWhere(context, PgEmailList(type: 1));
-    } else if (item.MenuNameEng == "OaCheckList") {Navigator.pop(context);
+    } else if (item.MenuNameEng == "OaCheckList") {
+      Navigator.pop(context);
       return;
     } else if (item.MenuNameEng == "MailSend") {
       //发件箱
@@ -132,10 +143,10 @@ class ItemWorkSon extends StatelessWidget {
     } else if (item.MenuNameEng == "OaScheduler") {
       //工作
     } else {
-      if (item.mModelMenuConfig != null){
-        Navigator.pop(context); Help.goWhere(context, PgFlowList(item));
+      if (item.mModelMenuConfig != null) {
+        Navigator.pop(context);
+        Help.goWhere(context, PgFlowList(item));
       }
-
     }
   }
 

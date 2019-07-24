@@ -4,7 +4,7 @@ class ModelGzjd {
 
   ModelGzjd({this.total, this.rows});
 
-  ModelGzjd.fromJson(Map<String, dynamic> json) {    
+  ModelGzjd.fromJson(Map<String, dynamic> json) {
     this.total = json['total'];
     this.rows = (json['rows'] as List)!=null?(json['rows'] as List).map((i) => RowsListBean.fromJson(i)).toList():null;
   }
@@ -36,7 +36,7 @@ class RowsListBean {
 
   RowsListBean({this.ExeActionDate, this.ExeNote, this.ExeEmpName, this.ExeArgEmpName, this.NewExeActionDate, this.ActionName, this.FlowNodeName, this.Id, this.FlowID, this.FlowNodeID, this.ExeActionID, this.ExeArgEmpId, this.ExeEmpId, this.rowNumber});
 
-  RowsListBean.fromJson(Map<String, dynamic> json) {    
+  RowsListBean.fromJson(Map<String, dynamic> json) {
     this.ExeActionDate = json['ExeActionDate'];
     this.ExeNote = json['ExeNote'];
     this.ExeEmpName = json['ExeEmpName'];

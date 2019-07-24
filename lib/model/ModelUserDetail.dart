@@ -6,7 +6,7 @@ class ModelUserDetail {
 
   ModelUserDetail({this.IDs, this.permission, this.EmpHead, this.model});
 
-  ModelUserDetail.fromJson(Map<String, dynamic> json) {    
+  ModelUserDetail.fromJson(Map<String, dynamic> json) {
     this.IDs = json['IDs'];
     this.permission = json['permission'];
     this.EmpHead = json['EmpHead'];
@@ -67,7 +67,7 @@ class ModelBean {
 
   ModelBean({this.EmpGUId, this.EmpName, this.EmpLogin, this.EmpPassword, this.SalaryPassword, this.EmpDepName, this.EmpBirthDate, this.EmpTitle, this.EmpTel, this.EmpComputer, this.EmpIPAddress, this.EmpDisk, this.EmpThemesName, this.EmpMenuType, this.EmpSignUrl, this.EmpMacAddress, this.EmpTelNX, this.EmpTelWX, this.EmpFJNum, this.EmpOaMail, this.EmpComMail, this.EmpZWAddress, this.EmpWGAddress, this.EmpNote, this.EmpPort, this.EmpHead, this.EmpMEID, this.WxAppOpenId, this.EmpIsDeleted, this.EmpIsAgent, this.EmpIsBind, this.PayManageCoeff, this.PaySkillCoeff, this.EmpID, this.EmpDepID, this.DepOrder, this.EmpOrder, this.EmpPageSize, this.EmpIsSub});
 
-  ModelBean.fromJson(Map<String, dynamic> json) {    
+  ModelBean.fromJson(Map<String, dynamic> json) {
     this.EmpGUId = json['EmpGUId'];
     this.EmpName = json['EmpName'];
     this.EmpLogin = json['EmpLogin'];

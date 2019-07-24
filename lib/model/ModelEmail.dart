@@ -4,7 +4,7 @@ class ModelEmail {
 
   ModelEmail({this.total, this.rows});
 
-  ModelEmail.fromJson(Map<String, dynamic> json) {    
+  ModelEmail.fromJson(Map<String, dynamic> json) {
     this.total = json['total'];
     this.rows = (json['rows'] as List)!=null?(json['rows'] as List).map((i) => RowsListBean.fromJson(i)).toList():null;
   }
@@ -32,7 +32,7 @@ class RowsListBean {
 
   RowsListBean({this.MailFlag, this.MailDate, this.MailTitle, this.MailNote, this.MailEmpName, this.MailEmpId, this.MailIsRead, this.Id, this.MailID, this.HasAttachs});
 
-  RowsListBean.fromJson(Map<String, dynamic> json) {    
+  RowsListBean.fromJson(Map<String, dynamic> json) {
     this.MailFlag = json['MailFlag'];
     this.MailDate = json['MailDate'];
     this.MailTitle = json['MailTitle'];

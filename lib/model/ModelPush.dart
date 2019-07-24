@@ -9,7 +9,7 @@ class ModelPush {
 
   ModelPush({this.Content, this.Id, this.RefID, this.RefTable, this.Title, this.flowMultiSignID, this.flowNodeId});
 
-  ModelPush.fromJson(Map<String, dynamic> json) {    
+  ModelPush.fromJson(Map<String, dynamic> json) {
     this.Content = json['Content'];
     this.Id = json['Id'];
     this.RefID = json['RefID'];

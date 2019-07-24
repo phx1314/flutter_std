@@ -37,7 +37,7 @@ class ModelJDInfo {
 
   ModelJDInfo({this.Message, this.NodeName, this.AllowEditControls, this.SignControls, this.UserName, this.DepartmentName, this.ActionUrl, this.ProgressUrl, this.DefaultNote, this.FlowName, this.FlowRefID, this.Date, this.LastNote, this.SignDatas, this.AgentEmpName, this.Result, this.IsFlowFinished, this.IsFinished, this.IsLastStep, this.IsNoteRequired, this.IsNew, this.IsAllowUndo, this.UserID, this.DepartmentID, this.NextAction, this.ChangeAction, this.BackAction, this.FinishAction, this.RejectAction, this.StepOrder, this.DefaultChoosedStep, this.FlowID, this.FlowNodeID, this.FlowMultiSignID, this.NextSteps});
 
-  ModelJDInfo.fromJson(Map<String, dynamic> json) {    
+  ModelJDInfo.fromJson(Map<String, dynamic> json) {
     this.Message = json['Message'];
     this.NodeName = json['NodeName'];
     this.AllowEditControls = json['AllowEditControls'];
@@ -130,7 +130,7 @@ class NextStepsListBean {
 
   NextStepsListBean({this.NodeName, this.Roles, this.ChoosedUsers, this.ChoosedUserNames, this.NodeID, this.NodeType, this.Order, this.DefaultChoosedUser, this.Users});
 
-  NextStepsListBean.fromJson(Map<String, dynamic> json) {    
+  NextStepsListBean.fromJson(Map<String, dynamic> json) {
     this.NodeName = json['NodeName'];
     this.Roles = json['Roles'];
     this.ChoosedUsers = json['ChoosedUsers'];
@@ -165,7 +165,7 @@ class UsersListBean {
 
   UsersListBean({this.DepName, this.Name, this.Order, this.ID});
 
-  UsersListBean.fromJson(Map<String, dynamic> json) {    
+  UsersListBean.fromJson(Map<String, dynamic> json) {
     this.DepName = json['DepName'];
     this.Name = json['Name'];
     this.Order = json['Order'];

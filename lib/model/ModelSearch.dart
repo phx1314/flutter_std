@@ -15,7 +15,7 @@ class ModelSearch {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['isGroup'] = this.isGroup;
     data['list'] =
-        this.list != null ? this.list.map((i) => i.toJson()).toList() : null;
+    this.list != null ? this.list.map((i) => i.toJson()).toList() : null;
     return data;
   }
 }

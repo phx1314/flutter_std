@@ -4,7 +4,7 @@ class ModelBanner {
 
   ModelBanner({this.total, this.rows});
 
-  ModelBanner.fromJson(Map<String, dynamic> json) {    
+  ModelBanner.fromJson(Map<String, dynamic> json) {
     this.total = json['total'];
     this.rows = (json['rows'] as List)!=null?(json['rows'] as List).map((i) => RowsListBean.fromJson(i)).toList():null;
   }
@@ -28,7 +28,7 @@ class RowsListBean {
 
   RowsListBean({this.NewsTitle, this.CreationTime, this.CreatorEmpName, this.NewsImage, this.Id, this.CreatorEmpId});
 
-  RowsListBean.fromJson(Map<String, dynamic> json) {    
+  RowsListBean.fromJson(Map<String, dynamic> json) {
     this.NewsTitle = json['NewsTitle'];
     this.CreationTime = json['CreationTime'];
     this.CreatorEmpName = json['CreatorEmpName'];

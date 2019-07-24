@@ -11,8 +11,8 @@ class ModelYjDetail {
     this.SendEmpID = json['SendEmpID'];
     this.AttachData = (json['AttachData'] as List) != null
         ? (json['AttachData'] as List)
-            .map((i) => AttachDataListBean.fromJson(i))
-            .toList()
+        .map((i) => AttachDataListBean.fromJson(i))
+        .toList()
         : null;
   }
 
@@ -41,12 +41,12 @@ class AttachDataListBean {
 
   AttachDataListBean(
       {this.FileName,
-      this.RealName,
-      this.Size,
-      this.LastModifiedTime,
-      this.UploadTime,
-      this.EmpID,
-      this.EmpName});
+        this.RealName,
+        this.Size,
+        this.LastModifiedTime,
+        this.UploadTime,
+        this.EmpID,
+        this.EmpName});
 
   AttachDataListBean.fromJson(Map<String, dynamic> json) {
     this.FileName = json['FileName'];
@@ -98,26 +98,26 @@ class ModelBean {
 
   ModelBean(
       {this.MailDate,
-      this.MailTitle,
-      this.MailNote,
-      this.DeletionTime,
-      this.LastModificationTime,
-      this.LastModifierEmpName,
-      this.CreationTime,
-      this.CreatorEmpName,
-      this.AgenEmpName,
-      this.CreatorDepName,
-      this.DeleterEmpName,
-      this.MailIsDelete,
-      this.Id,
-      this.MailFlag,
-      this.MailIsBBC,
-      this.LastModifierEmpId,
-      this.CreatorEmpId,
-      this.AgenEmpId,
-      this.CreatorDepId,
-      this.DeleterEmpId,
-      this.HasAttachs});
+        this.MailTitle,
+        this.MailNote,
+        this.DeletionTime,
+        this.LastModificationTime,
+        this.LastModifierEmpName,
+        this.CreationTime,
+        this.CreatorEmpName,
+        this.AgenEmpName,
+        this.CreatorDepName,
+        this.DeleterEmpName,
+        this.MailIsDelete,
+        this.Id,
+        this.MailFlag,
+        this.MailIsBBC,
+        this.LastModifierEmpId,
+        this.CreatorEmpId,
+        this.AgenEmpId,
+        this.CreatorDepId,
+        this.DeleterEmpId,
+        this.HasAttachs});
 
   ModelBean.fromJson(Map<String, dynamic> json) {
     this.MailDate = json['MailDate'];

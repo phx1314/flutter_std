@@ -54,7 +54,7 @@ class ItemRz extends StatelessWidget {
                   ),
                   Padding(padding: EdgeInsets.all(6)),
                   Text(
-                    item.BaseLogDate,
+                    item.BaseLogDate.replaceAll('T', ' ')+"  "+item.BaseLogIP,
                     style: Style.text_style_14_gray,
                   ),
                   Padding(padding: EdgeInsets.all(6)),

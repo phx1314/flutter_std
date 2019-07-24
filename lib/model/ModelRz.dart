@@ -32,7 +32,7 @@ class RowsListBean {
 
   RowsListBean({this.EmpName, this.BaseLogDate, this.BaseLogIP, this.BaseLogRefTable, this.BaseLogRefHTML, this.BaseLogID, this.BaseLogEmpID, this.BaseLogTypeID, this.BaseLogRefID, this.LogGrade});
 
-  RowsListBean.fromJson(Map<String, dynamic> json) {    
+  RowsListBean.fromJson(Map<String, dynamic> json) {
     this.EmpName = json['EmpName'];
     this.BaseLogDate = json['BaseLogDate'];
     this.BaseLogIP = json['BaseLogIP'];

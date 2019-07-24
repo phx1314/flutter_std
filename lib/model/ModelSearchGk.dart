@@ -1,12 +1,12 @@
 class ModelSearchGk {
   bool isGroup;
-  List<ListListBean> list;
+  List<ListBean> list;
 
   ModelSearchGk({this.isGroup, this.list});
 
   ModelSearchGk.fromJson(Map<String, dynamic> json) {    
     this.isGroup = json['isGroup'];
-    this.list = (json['list'] as List)!=null?(json['list'] as List).map((i) => ListListBean.fromJson(i)).toList():null;
+    this.list = (json['list'] as List)!=null?(json['list'] as List).map((i) => ListBean.fromJson(i)).toList():null;
   }
 
   Map<String, dynamic> toJson() {
@@ -18,14 +18,14 @@ class ModelSearchGk {
 
 }
 
-class ListListBean {
+class ListBean {
   String Key;
   String Contract;
   String Value;
 
-  ListListBean({this.Key, this.Contract, this.Value});
+  ListBean({this.Key, this.Contract, this.Value});
 
-  ListListBean.fromJson(Map<String, dynamic> json) {    
+  ListBean.fromJson(Map<String, dynamic> json) {
     this.Key = json['Key'];
     this.Contract = json['Contract'];
     this.Value = json['Value'];
