@@ -221,9 +221,7 @@ class PgPubViewState extends BaseState<PgPubView> {
                     ? 0
                     : ScreenUtil.getScaleW(
                         context,
-                        defaultTargetPlatform == TargetPlatform.android
-                            ? 50
-                            : 80))));
+                    50 + MediaQuery.of(context).padding.bottom))));
       }
 
       mModelJDInfo.AllowEditControls = widget.statusID == '0'
@@ -272,7 +270,7 @@ class PgPubViewState extends BaseState<PgPubView> {
         methodName == METHOD_CUSTLINKSAVE ||
         methodName == METHOD_OANIGHTWORKINGSAVE ||
         methodName == METHOD_OAWORKINGHOURSSAVE) {
-      Fluttertoast.showToast(msg: ":处理成功");
+      Fluttertoast.showToast(msg: "处理成功");
       Help.sendMsg('PgFlowList,PgBd', 0, '');
       Help.sendMsg('PgHome', 6, '');
       Help.sendMsg('PgGjkh', 4, '');
@@ -502,7 +500,7 @@ class PgPubViewState extends BaseState<PgPubView> {
           FocusScope.of(context).requestFocus(FocusNode());
           flutterWebViewPlugin?.hide();
           Help.showMyDialog(context,
-                  ItemDialogSub(widget.toString(), title, widget.item, false))
+                  ItemDialogSub(widget.toString(), title, widget.item,  widget.item.action == 'load_reject'|| widget.item.action == 'load_finish'))
               .then((v) {
             flutterWebViewPlugin?.show();
           });
@@ -577,9 +575,7 @@ class PgPubViewState extends BaseState<PgPubView> {
               MediaQuery.of(context).size.height -
                   (ScreenUtil.getScaleW(
                       context,
-                      defaultTargetPlatform == TargetPlatform.android
-                          ? 50
-                          : 80))));
+                      50 + MediaQuery.of(context).padding.bottom))));
           return;
         }
         if (null != widget.item.mModelMenuConfig.flow.processor &&
@@ -605,9 +601,7 @@ class PgPubViewState extends BaseState<PgPubView> {
               MediaQuery.of(context).size.height -
                   (ScreenUtil.getScaleW(
                       context,
-                      defaultTargetPlatform == TargetPlatform.android
-                          ? 50
-                          : 80))));
+                      50 + MediaQuery.of(context).padding.bottom))));
         }
       } else if (state.type == WebViewState.startLoad) {
         flutterWebViewPlugin?.hide();

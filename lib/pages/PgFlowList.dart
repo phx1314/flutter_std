@@ -35,12 +35,14 @@ class PgFlowListState extends BaseState<PgFlowList> {
         mPullListView.reLoad();
         break;
       case 888:
-        Map<String, dynamic> map = {"queryInfo": data.toString()};
-        Map<String, dynamic> dd =
-            widget.item.mModelMenuConfig.grid.queryParams[0];
-        dd.remove("queryInfo");
-        map.addAll(dd);
-        mPullListView.other = map;
+//        Map<String, dynamic> map = {"queryInfo": data.toString()};
+//        Map<String, dynamic> dd =
+//            widget.item.mModelMenuConfig.grid.queryParams[0];
+//        dd.remove("queryInfo");
+//        map.addAll(dd);
+//        mPullListView.other = map;
+//        mPullListView.reLoad();
+        mPullListView.other.addAll({"queryInfo": data.toString()});
         mPullListView.reLoad();
         break;
       case 889:

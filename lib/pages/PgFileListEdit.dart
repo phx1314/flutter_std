@@ -6,6 +6,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_std/Help.dart';
 import 'package:flutter_std/item/ItemFile.dart';
+import 'package:flutter_std/model/ModelFileNum.dart';
 import 'package:flutter_std/model/ModelFjList.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/TakePhoto.dart';
@@ -161,9 +162,30 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
       reFreashData();
       reLoad();
       Help.Toast(context, "文件上传成功");
+      int fileNumber = 0;
+      widget.mModelWenjianUploads.forEach((mRowsBean) {
+        if (mRowsBean.RefTable == widget.refTable) {
+          fileNumber++;
+        }
+      });
+      Help.sendMsg(
+          widget.form,
+          0,
+          jsonEncode(
+              ModelFileNum(refTable: widget.refTable, fileNumber: fileNumber)));
     } else if (methodName == METHOD_DELETE) {
       Help.Toast(context, '删除成功');
-      Help.sendMsg(widget.form, 103, '');
+      int fileNumber = 0;
+      widget.mModelWenjianUploads.forEach((mRowsBean) {
+        if (mRowsBean.RefTable == widget.refTable) {
+          fileNumber++;
+        }
+      });
+      Help.sendMsg(
+          widget.form,
+          0,
+          jsonEncode(
+              ModelFileNum(refTable: widget.refTable, fileNumber: fileNumber)));
     }
   }
 
@@ -204,13 +226,10 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
           ]),
       body: ListView.separated(
         itemCount: data.length,
-        itemBuilder: (context, index) => InkWell(
-              onTap: () {},
-              child: new ItemFile(
-                data[index],
-                widget.refTable,
-                enabled: true,
-              ),
+        itemBuilder: (context, index) => ItemFile(
+              data[index],
+              widget.refTable,
+              enabled: true,
             ),
         separatorBuilder: (context, index) => Divider(
               height: 1,
