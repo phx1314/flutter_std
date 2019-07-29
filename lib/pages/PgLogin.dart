@@ -194,21 +194,6 @@ class PgLoginState extends BaseState<PgLogin> with TickerProviderStateMixin {
     );
   }
 
-  setPushTag(JPush mJPush) {
-//    Help.pushReplacementNamed(context, PgHome.sName);
-    mJPush
-        .setAlias(
-            JPush_Alias_BeginWith + Help.mModelUser.UserInfo.EmpID.toString())
-        .then((v) {
-      print(v.toString());
-      List<String> tags = List<String>();
-      tags.add(JPush_Alias_BeginWith);
-      mJPush.setTags(tags).then((v) {
-        print(v.toString());
-        Help.pushReplacementNamed(context, PgHome.sName);
-      });
-    });
-  }
 
   @override
   onSuccess(String methodName, res) async {
@@ -244,7 +229,7 @@ class PgLoginState extends BaseState<PgLogin> with TickerProviderStateMixin {
         }
       }
       await Help.save("mModelUser", json.encode(Help.mModelUser.toJson()));
-      setPushTag(JPush());
+      Help.pushReplacementNamed(context, PgHome.sName);
     }
   }
 }

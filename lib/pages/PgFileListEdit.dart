@@ -39,6 +39,17 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
         widget.mModelWenjianUploads.remove(mRowsListBean);
         reFreashData();
         reLoad();
+        int fileNumber = 0;
+        widget.mModelWenjianUploads.forEach((mRowsBean) {
+          if (mRowsBean.RefTable == widget.refTable) {
+            fileNumber++;
+          }
+        });
+        Help.sendMsg(
+            widget.form,
+            0,
+            jsonEncode(
+                ModelFileNum(refTable: widget.refTable, fileNumber: fileNumber)));
         break;
       case 1:
         file = data;
@@ -175,17 +186,6 @@ class PgFileListEditState extends BaseState<PgFileListEdit> {
               ModelFileNum(refTable: widget.refTable, fileNumber: fileNumber)));
     } else if (methodName == METHOD_DELETE) {
       Help.Toast(context, '删除成功');
-      int fileNumber = 0;
-      widget.mModelWenjianUploads.forEach((mRowsBean) {
-        if (mRowsBean.RefTable == widget.refTable) {
-          fileNumber++;
-        }
-      });
-      Help.sendMsg(
-          widget.form,
-          0,
-          jsonEncode(
-              ModelFileNum(refTable: widget.refTable, fileNumber: fileNumber)));
     }
   }
 

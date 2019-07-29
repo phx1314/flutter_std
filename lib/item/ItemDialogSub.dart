@@ -367,7 +367,17 @@ class ItemDialogSubState extends BaseState<ItemDialogSub> {
       } else {
         data_ry.add("无可选择人员");
       }
-      s_ry = data_ry[0];
+      int position = 0;
+      if (mNextStepsListBean.DefaultChoosedUser != null) {
+        for (int i = 0; i < data_ry.length; i++) {
+          if (mNextStepsListBean.DefaultChoosedUser == data_ry[i].ID) {
+            position = i;
+            break;
+          }
+        }
+      }
+
+      s_ry = data_ry[position];
     }
   }
 }
