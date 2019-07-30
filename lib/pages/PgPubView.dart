@@ -117,17 +117,20 @@ class PgPubViewState extends BaseState<PgPubView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (TargetPlatform.iOS == defaultTargetPlatform)
-      Future.delayed(Duration(seconds: 1), () {
-        if (ModalRoute.of(context).isCurrent) {
-          flutterWebViewPlugin?.show();
-          print("显示a" + ModalRoute.of(context).toString());
-        } else {
-          flutterWebViewPlugin?.hide();
-          print("隐藏a" + ModalRoute.of(context).toString());
-        }
-      });
+    try {
+      if (TargetPlatform.iOS == defaultTargetPlatform)
+        Future.delayed(Duration(seconds: 1), () {
+          if (ModalRoute.of(context).isCurrent) {
+            flutterWebViewPlugin?.show();
+            print("显示a" + ModalRoute.of(context).toString());
+          } else {
+            flutterWebViewPlugin?.hide();
+            print("隐藏a" + ModalRoute.of(context).toString());
+          }
+        });
+    } catch (e) {}
   }
+
   @override
   Widget build(BuildContext context) {
     if (ModalRoute.of(context).isCurrent) {
