@@ -20,8 +20,9 @@ class ItemXmxxdj extends StatefulWidget {
 class ItemXmxxdjState extends BaseState<ItemXmxxdj> {
   List<Widget> mWidgets = List();
 
+
   @override
-  void loadData() {
+  Widget build(BuildContext context) {
     try {
       mWidgets.clear();
       List responseJson = json.decode(widget.item.FlowSummary);
@@ -38,10 +39,6 @@ class ItemXmxxdjState extends BaseState<ItemXmxxdj> {
     } catch (e) {
       print(e);
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         ExpansionTile(
@@ -75,8 +72,7 @@ class ItemXmxxdjState extends BaseState<ItemXmxxdj> {
               reLoad();
 //              _changeOpacity(bool);
             },
-            children:
-                widget.item.mWidgets_son ??<Widget>[] ),
+            children: widget.item.mWidgets_son ?? <Widget>[]),
       ],
     );
   }
@@ -108,7 +104,7 @@ class ItemXmxxdjState extends BaseState<ItemXmxxdj> {
       );
       responseJson.forEach((f) {
         mWidgets.add(Container(
-          padding: EdgeInsets.only(top: ScreenUtil.getScaleW(context,5)),
+          padding: EdgeInsets.only(top: ScreenUtil.getScaleW(context, 5)),
           child: Text(
             '${f['Key']}  :  ${f['Value']}',
             style: Style.text_style_13_gray,

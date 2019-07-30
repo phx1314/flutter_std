@@ -21,10 +21,8 @@ class ItemBase extends StatefulWidget {
 class ItemBaseState extends BaseState<ItemBase> {
   List<Widget> mWidgets = List();
 
-  @override
-  void loadData() {
+  initData() {
     try {
-
       mWidgets.clear();
       List responseJson = json.decode(widget.item.FlowSummary);
       for (int i = 0; i < responseJson.length; i++) {
@@ -68,6 +66,7 @@ class ItemBaseState extends BaseState<ItemBase> {
 
   @override
   Widget build(BuildContext context) {
+    initData();
     return InkWell(
       onTap: () {
         if (widget.item.MenuNameEng == "CustomerInfo" ||

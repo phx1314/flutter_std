@@ -77,9 +77,9 @@ class PgPubViewState extends BaseState<PgPubView> {
               }
             });
             uploadFile += "&lt;/Files&gt;";
-            uploadFile += "&lt;/Root&gt;";
-            map["\$uplohad\$_cache_y12\$t1m"] = uploadFile;
           });
+          uploadFile += "&lt;/Root&gt;";
+          map["\$uplohad\$_cache_y12\$t1m"] = uploadFile;
         }
 
 //        if (mModelFjList.rows.length > 0) {
@@ -114,7 +114,20 @@ class PgPubViewState extends BaseState<PgPubView> {
         break;
     }
   }
-
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (TargetPlatform.iOS == defaultTargetPlatform)
+      Future.delayed(Duration(seconds: 1), () {
+        if (ModalRoute.of(context).isCurrent) {
+          flutterWebViewPlugin?.show();
+          print("显示a" + ModalRoute.of(context).toString());
+        } else {
+          flutterWebViewPlugin?.hide();
+          print("隐藏a" + ModalRoute.of(context).toString());
+        }
+      });
+  }
   @override
   Widget build(BuildContext context) {
     if (ModalRoute.of(context).isCurrent) {
@@ -220,8 +233,7 @@ class PgPubViewState extends BaseState<PgPubView> {
                 (isFinish
                     ? 0
                     : ScreenUtil.getScaleW(
-                        context,
-                    50 + MediaQuery.of(context).padding.bottom))));
+                        context, 50 + MediaQuery.of(context).padding.bottom))));
       }
 
       mModelJDInfo.AllowEditControls = widget.statusID == '0'
@@ -490,17 +502,23 @@ class PgPubViewState extends BaseState<PgPubView> {
                 }
               });
               uploadFile += "&lt;/Files&gt;";
-              uploadFile += "&lt;/Root&gt;";
-              map["\$uplohad\$_cache_y12\$t1m"] = uploadFile;
             });
+            uploadFile += "&lt;/Root&gt;";
+            map["\$uplohad\$_cache_y12\$t1m"] = uploadFile;
           }
           map_json.addAll(map);
           loadUrl(METHOD_FLOWWIDGET, map_json);
         } else {
           FocusScope.of(context).requestFocus(FocusNode());
           flutterWebViewPlugin?.hide();
-          Help.showMyDialog(context,
-                  ItemDialogSub(widget.toString(), title, widget.item,  widget.item.action == 'load_reject'|| widget.item.action == 'load_finish'))
+          Help.showMyDialog(
+                  context,
+                  ItemDialogSub(
+                      widget.toString(),
+                      title,
+                      widget.item,
+                      widget.item.action == 'load_reject' ||
+                          widget.item.action == 'load_finish'))
               .then((v) {
             flutterWebViewPlugin?.show();
           });
@@ -574,8 +592,7 @@ class PgPubViewState extends BaseState<PgPubView> {
               MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.height -
                   (ScreenUtil.getScaleW(
-                      context,
-                      50 + MediaQuery.of(context).padding.bottom))));
+                      context, 50 + MediaQuery.of(context).padding.bottom))));
           return;
         }
         if (null != widget.item.mModelMenuConfig.flow.processor &&
@@ -600,8 +617,7 @@ class PgPubViewState extends BaseState<PgPubView> {
               MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.height -
                   (ScreenUtil.getScaleW(
-                      context,
-                      50 + MediaQuery.of(context).padding.bottom))));
+                      context, 50 + MediaQuery.of(context).padding.bottom))));
         }
       } else if (state.type == WebViewState.startLoad) {
         flutterWebViewPlugin?.hide();
