@@ -250,7 +250,7 @@ class PgHomeState extends BaseState<PgHome> with WidgetsBindingObserver {
                         backgroundColor: Colors.red,
                         child: Text(
                           mModelCount.Total > 99
-                              ? 99
+                              ? '99'
                               : mModelCount.Total.toString(),
                           style: Style.minTextWhite,
                         ),
