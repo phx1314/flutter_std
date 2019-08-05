@@ -206,7 +206,7 @@ class PgHomeState extends BaseState<PgHome> with WidgetsBindingObserver {
                         backgroundColor: Colors.red,
                         child: Text(
                           (mModelAA.OAAmount + mModelAA.ProjectAmount) > 99
-                              ? 99
+                              ? '99'
                               : (mModelAA.OAAmount + mModelAA.ProjectAmount)
                                   .toString(),
                           style: Style.minTextWhite,
