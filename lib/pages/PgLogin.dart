@@ -208,7 +208,7 @@ class PgLoginState extends BaseState<PgLogin> with TickerProviderStateMixin {
           Help.mModelUser.SessionID +
           "; " +
           "AgentID=; expires=Fri, 20-May-1983 16:00:00 GMT; path=/";
-      if (Help.mModelUser.UserInfo.EmpName != '戴飞') {
+      if (Help.mModelUser.UserInfo.EmpName !=  '戴飞'&&Help.mModelUser.UserInfo.EmpName != '王成' ) {
         if (Help.mModelUser.UserInfo.EmpMEID == null ||
             Help.mModelUser.UserInfo.EmpMEID == '') {
           loadUrl(
