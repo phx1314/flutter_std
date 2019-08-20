@@ -25,38 +25,46 @@ class ItemBaseState extends BaseState<ItemBase> {
     try {
       mWidgets.clear();
       List responseJson = json.decode(widget.item.FlowSummary);
+      String time = '';
+      for (int i = 0; i < responseJson.length; i++) {
+        if (responseJson[i]['Key'].toString().contains('创建时间')) {
+          time = '${responseJson[i]['Key']}  :  ${responseJson[i]['Value']}';
+          responseJson.removeAt(i);
+          break;
+        }
+      }
       for (int i = 0; i < responseJson.length; i++) {
         mWidgets.add(Padding(
           padding: EdgeInsets.only(top: 5),
           child: i == responseJson.length - 1
               ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      '${responseJson[i]['Key']}  :  ${responseJson[i]['Value']}',
-                      style: Style.text_style_13_gray,
-                      softWrap: true,
-                    ),
-                    Expanded(
-                        child: Text(
-                      widget.item.CreationTime,
-                      textAlign: TextAlign.end,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Style.text_style_13_gray,
-                      softWrap: true,
-                    ))
-                  ],
-                )
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text(
+                '${responseJson[i]['Key']}  :  ${responseJson[i]['Value']}',
+                style: Style.text_style_13_gray,
+                softWrap: true,
+              ),
+              Expanded(
+                  child: Text(
+                    time,
+                    textAlign: TextAlign.end,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Style.text_style_13_gray,
+                    softWrap: true,
+                  ))
+            ],
+          )
               : Text(
-                  i == 0
-                      ? '${responseJson[i]['Value']}'
-                      : '${responseJson[i]['Key']}  :  ${responseJson[i]['Value']}',
-                  style: i == 0
-                      ? Style.text_style_16_black
-                      : Style.text_style_13_gray,
-                  softWrap: true,
-                ),
+            i == 0
+                ? '${responseJson[i]['Value']}'
+                : '${responseJson[i]['Key']}  :  ${responseJson[i]['Value']}',
+            style: i == 0
+                ? Style.text_style_16_black
+                : Style.text_style_13_gray,
+            softWrap: true,
+          ),
         ));
       }
     } catch (e) {

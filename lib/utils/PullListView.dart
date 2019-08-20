@@ -155,10 +155,11 @@ class PullListViewState extends BaseState<PullListView>
 
   @override
   onSuccess(String methodName, res) {
-    if (widget.mCallback(widget.methodName, res).length > 0) {
+    List dd = widget.mCallback(widget.methodName, res);
+    if (dd.length > 0) {
       widget.page_v++;
       widget.other[widget.page] = widget.page_v;
-      widget.data.addAll(widget.mCallback(widget.methodName, res));
+      widget.data.addAll(dd);
     } else {
       if (widget.data.length > 0) {
         Fluttertoast.showToast(msg: "暂无更多数据");

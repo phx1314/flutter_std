@@ -50,6 +50,7 @@ class PgBdState extends BaseState<PgBd> {
         "modular": modular,
       },
       mCallback: (methodName, res) {
+        Help.sendMsg("PgHome", 6, '');
         ModelFlowList mModelFlowList = ModelFlowList.fromJson(res.data);
         List data = new List();
         mModelFlowList.rows.forEach((f) {
