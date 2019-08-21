@@ -23,6 +23,7 @@ class PgXtxxState extends BaseState<PgXtxx> {
   void disMsg(int what, data) {
     switch (what) {
       case 0:
+        Help.sendMsg("PgXxson", 0, '');
         mPullListView.reLoad();
         break;
     }
@@ -32,7 +33,8 @@ class PgXtxxState extends BaseState<PgXtxx> {
   void initView() {
     mPullListView = PullListView(
       methodName: METHOD_GETLIST,
-      other: {"status": "0"},
+      rows_v: 100,
+      other: {"status": "0" },
       mCallback: (methodName, res) {
         ModelSystemList mModelSystemList = ModelSystemList.fromJson(res.data);
         List data = new List();

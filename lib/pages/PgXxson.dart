@@ -25,12 +25,9 @@ class PgXxsonState extends BaseState<PgXxson>
 
   @override
   void loadData() {
-    loadUrl (METHOD_OANOTICE, null,
-        isShow: false);
-    loadUrl (METHOD_GetMessages, null,
-        isShow: false);
-    loadUrl (METHOD_GETLIST, {"status": "0"},
-        isShow: false);
+    loadUrl(METHOD_OANOTICE, null, isShow: false);
+    loadUrl(METHOD_GetMessages, null, isShow: false);
+    loadUrl(METHOD_GETLIST, {"status": "0"}, isShow: false);
   }
 
   @override
@@ -44,6 +41,15 @@ class PgXxsonState extends BaseState<PgXxson>
       mModelSystemList = ModelSystemList.fromJson(res.data);
     }
     reLoad();
+  }
+
+  @override
+  void disMsg(int what, data) {
+    switch (what) {
+      case 0:
+        loadUrl(METHOD_GetMessages, null, isShow: false);
+        break;
+    }
   }
 
   @override
@@ -111,7 +117,7 @@ class PgXxsonState extends BaseState<PgXxson>
             child: Divider(height: 1),
           ),
           InkWell(
-            onTap: (){
+            onTap: () {
               Help.goWhere(context, PgXtxx());
             },
             child: Padding(
@@ -131,7 +137,8 @@ class PgXxsonState extends BaseState<PgXxson>
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.all(ScreenUtil.getScaleW(context, 7))),
+                      padding:
+                          EdgeInsets.all(ScreenUtil.getScaleW(context, 7))),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,8 +148,8 @@ class PgXxsonState extends BaseState<PgXxson>
                           style: Style.text_style_16_black,
                         ),
                         Padding(
-                            padding:
-                                EdgeInsets.all(ScreenUtil.getScaleW(context, 4))),
+                            padding: EdgeInsets.all(
+                                ScreenUtil.getScaleW(context, 4))),
                         Text(
                           mModelSystemList != null &&
                                   mModelSystemList.rows.length > 0

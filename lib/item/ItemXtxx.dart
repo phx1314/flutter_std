@@ -17,7 +17,7 @@ import 'package:lpinyin/lpinyin.dart';
 class ItemXtxx extends StatefulWidget {
   RowsListBean item;
 
-  ItemXtxx(this.item );
+  ItemXtxx(this.item);
 
   @override
   ItemXtxxState createState() => new ItemXtxxState();
@@ -35,6 +35,8 @@ class ItemXtxxState extends BaseState<ItemXtxx> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        loadUrl(METHOD_SetReadStatus,
+            {"idSet": widget.item.Id.toString(), "status": 1});
         Help.goWhere(
             context,
             PgWebView(
@@ -78,9 +80,8 @@ class ItemXtxxState extends BaseState<ItemXtxx> {
                           ),
                         ),
                         Text(
-                          widget.item.MessDate.contains('T')
-                              ? widget.item.MessDate.split('T')[0]
-                              : widget.item.MessDate,
+                            widget.item.MessDate .contains('Date(') ? Help.matchDate(widget.item.MessDate) :widget.item.MessDate
+                          ,
                           style: Style.text_style_13_gray,
                         ),
                       ],

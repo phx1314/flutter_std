@@ -412,7 +412,7 @@ class Help {
       RegExp mRegExp = new RegExp("/Date\\((.*)\\)/");
       Iterable<Match> mmRegExps = mRegExp.allMatches(date);
       for (Match m in mmRegExps) {
-        DateTime d = DateTime.fromMicrosecondsSinceEpoch(
+        DateTime d = DateTime.fromMillisecondsSinceEpoch(
             int.parse(m.group(1).toString()));
         print("${d.year}-${d.month}-${d.day}");
         return "${d.year}-${d.month < 10 ? '0' + d.month.toString() : d.month}-${d.day < 10 ? '0' + d.day.toString() : d.day}";
