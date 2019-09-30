@@ -114,6 +114,7 @@ class PgPubViewState extends BaseState<PgPubView> {
         break;
     }
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

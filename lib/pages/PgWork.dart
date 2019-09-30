@@ -10,6 +10,7 @@ import 'package:flutter_std/model/ModelWork.dart';
 import 'package:flutter_std/utils/BaseState.dart';
 import 'package:flutter_std/utils/FontString.dart';
 import 'package:flutter_std/utils/PullListView.dart';
+import 'package:share/share.dart';
 
 class PgWork extends StatefulWidget {
   @override
@@ -49,6 +50,7 @@ class PgWorkState extends BaseState<PgWork> {
                     size: ScreenUtil.getScaleW(context, 25)),
                 onPressed: () {
                   Help.scan(context);
+//                  Share.share('check out my website https://example.com');
 //                  Help.goWhere(context, ChatScreen([ModelChat(true, null, 'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202', 'ddd'),ModelChat(false, null, 'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202', 'ddd')],sheName: '小明',shePortrait: 'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202',myPortrait: 'https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1488861817,1113726833&fm=202',));
                 },
               ),

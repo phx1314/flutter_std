@@ -400,6 +400,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.4"
+  share:
+    dependency: "direct main"
+    description:
+      name: share
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.2"
   shared_preferences:
     dependency: transitive
     description:
@@ -530,7 +537,7 @@ packages:
       name: webview_flutter
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.10+3"
+    version: "0.3.13"
   xml:
     dependency: transitive
     description:
